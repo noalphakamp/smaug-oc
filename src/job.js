@@ -114,7 +114,8 @@ async function invokeClaudeCode(config, bookmarkCount) {
     const proc = spawn('claude', args, {
       cwd: config.projectRoot || process.cwd(),
       env: process.env,
-      stdio: ['inherit', 'pipe', 'pipe']
+      stdio: ['inherit', 'pipe', 'pipe'],
+      shell: true  // Use shell to inherit PATH for finding 'claude' binary
     });
 
     let stdout = '';
