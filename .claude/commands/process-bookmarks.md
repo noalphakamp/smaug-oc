@@ -4,20 +4,32 @@ Process prepared Twitter bookmarks into a markdown archive with rich analysis an
 
 ## Before You Start
 
-### Multi-Step Protocol (CRITICAL)
+### Multi-Step Parallel Protocol (CRITICAL)
 
-**Create todo list BEFORE starting.** This ensures final steps never get skipped.
+**Create todo list IMMEDIATELY after reading bookmark count.** This ensures final steps never get skipped.
 
+**For 1-2 bookmarks (sequential):**
 ```javascript
-TodoWrite({
-  todos: [
-    {content: "Read pending bookmarks", status: "pending", activeForm: "Reading pending bookmarks"},
-    {content: "Process and file bookmarks", status: "pending", activeForm: "Processing bookmarks"},
-    {content: "Clean up pending file", status: "pending", activeForm: "Cleaning up pending file"},
-    {content: "Commit and push changes", status: "pending", activeForm: "Committing changes"},
-    {content: "Return summary", status: "pending", activeForm: "Returning summary"}
-  ]
-})
+TodoWrite({ todos: [
+  {content: "Read pending bookmarks", status: "pending", activeForm: "Reading pending bookmarks"},
+  {content: "Process bookmark 1", status: "pending", activeForm: "Processing bookmark 1"},
+  {content: "Process bookmark 2", status: "pending", activeForm: "Processing bookmark 2"},
+  {content: "Clean up pending file", status: "pending", activeForm: "Cleaning up pending file"},
+  {content: "Commit and push changes", status: "pending", activeForm: "Committing changes"},
+  {content: "Return summary", status: "pending", activeForm: "Returning summary"}
+]})
+```
+
+**For 3+ bookmarks (MUST use parallel subagents):**
+```javascript
+TodoWrite({ todos: [
+  {content: "Read pending bookmarks", status: "pending", activeForm: "Reading pending bookmarks"},
+  {content: "Spawn subagents for N bookmarks", status: "pending", activeForm: "Spawning subagents"},
+  {content: "Wait for subagent results", status: "pending", activeForm: "Waiting for subagents"},
+  {content: "Clean up pending file", status: "pending", activeForm: "Cleaning up pending file"},
+  {content: "Commit and push changes", status: "pending", activeForm: "Committing changes"},
+  {content: "Return summary", status: "pending", activeForm: "Returning summary"}
+]})
 ```
 
 **Execution rules:**
@@ -25,6 +37,20 @@ TodoWrite({
 - Mark `completed` immediately after finishing (no batching)
 - Only ONE task `in_progress` at a time
 - Never skip final steps (commit, summary)
+
+**CRITICAL for 3+ bookmarks:** Spawn ALL subagents in ONE message:
+```javascript
+// Send ONE message with multiple Task calls - they run in parallel
+Task(subagent_type="general-purpose", prompt="Process bookmark 1: {json}")
+Task(subagent_type="general-purpose", prompt="Process bookmark 2: {json}")
+Task(subagent_type="general-purpose", prompt="Process bookmark 3: {json}")
+// ... all bookmarks in the SAME message
+```
+
+**DO NOT:**
+- Process 3+ bookmarks sequentially (one at a time)
+- Send Task calls in separate messages (defeats parallelism)
+- Skip parallel processing because "it seems simpler"
 
 ### Setup
 
