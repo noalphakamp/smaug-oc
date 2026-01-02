@@ -4,6 +4,30 @@ Process prepared Twitter bookmarks into a markdown archive with rich analysis an
 
 ## Before You Start
 
+### Multi-Step Protocol (CRITICAL)
+
+**Create todo list BEFORE starting.** This ensures final steps never get skipped.
+
+```javascript
+TodoWrite({
+  todos: [
+    {content: "Read pending bookmarks", status: "pending", activeForm: "Reading pending bookmarks"},
+    {content: "Process and file bookmarks", status: "pending", activeForm: "Processing bookmarks"},
+    {content: "Clean up pending file", status: "pending", activeForm: "Cleaning up pending file"},
+    {content: "Commit and push changes", status: "pending", activeForm: "Committing changes"},
+    {content: "Return summary", status: "pending", activeForm: "Returning summary"}
+  ]
+})
+```
+
+**Execution rules:**
+- Mark each step `in_progress` before starting
+- Mark `completed` immediately after finishing (no batching)
+- Only ONE task `in_progress` at a time
+- Never skip final steps (commit, summary)
+
+### Setup
+
 **Get today's date (friendly format):**
 ```bash
 date +"%A, %B %-d, %Y"
@@ -161,13 +185,40 @@ pending.count = remaining.length;
 fs.writeFileSync('./.state/pending-bookmarks.json', JSON.stringify(pending, null, 2));
 ```
 
-### 4. Return Summary
+### 4. Commit and Push Changes
+
+After all bookmarks are processed and filed, commit the changes:
+
+```bash
+# Get today's date for commit message
+DATE=$(date +"%b %-d")
+
+# Stage all bookmark-related changes
+git add bookmarks.md
+git add knowledge/
+
+# Commit with descriptive message
+git commit -m "Process N Twitter bookmarks from $DATE
+
+🤖 Generated with [Claude Code](https://claude.com/claude-code)
+
+Co-Authored-By: Claude Opus 4.5 <noreply@anthropic.com>"
+
+# Push immediately
+git push
+```
+
+Replace "N" with actual count. If any knowledge files were created, mention them in the commit message body.
+
+### 5. Return Summary
 
 ```
 Processed N bookmarks:
 - @author1: Tool Name → filed to knowledge/tools/tool-name.md
 - @author2: Article Title → filed to knowledge/articles/article-slug.md
 - @author3: Plain tweet → captured only
+
+Committed and pushed.
 ```
 
 ## Frontmatter Templates
