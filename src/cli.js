@@ -44,16 +44,36 @@ async function setup() {
 This will set up Smaug to automatically archive your Twitter bookmarks.
 `);
 
-  // Step 1: Check for bird CLI
+  // Step 1: Check for bird CLI with bookmarks support (v0.5.0+)
   console.log('Step 1: Checking for bird CLI...');
   try {
-    execSync('bird --version', { stdio: 'pipe' });
-    console.log('  ✓ bird CLI found\n');
+    const versionOutput = execSync('bird --version', { stdio: 'pipe', encoding: 'utf8' });
+    const versionMatch = versionOutput.match(/(\d+)\.(\d+)\.(\d+)/);
+
+    if (versionMatch) {
+      const [, major, minor] = versionMatch.map(Number);
+      if (major === 0 && minor < 5) {
+        console.log(`  ✗ bird CLI v${versionMatch[0]} found, but v0.5.0+ required for bookmarks support
+
+  Update it:
+    npm install -g @steipete/bird@latest
+
+  Or with Homebrew:
+    brew upgrade steipete/tap/bird
+
+  Then run this setup again.
+`);
+        process.exit(1);
+      }
+      console.log(`  ✓ bird CLI v${versionMatch[0]} found (bookmarks supported)\n`);
+    } else {
+      console.log('  ✓ bird CLI found\n');
+    }
   } catch {
     console.log(`  ✗ bird CLI not found
 
-  Install it first:
-    npm install -g @steipete/bird
+  Install it:
+    npm install -g @steipete/bird@latest
 
   Or with Homebrew:
     brew install steipete/tap/bird
