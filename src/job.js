@@ -72,6 +72,29 @@ async function invokeClaudeCode(config, bookmarkCount) {
   // Task is needed for parallel subagent processing
   const allowedTools = config.allowedTools || 'Read,Write,Edit,Glob,Grep,Bash,Task,TodoWrite';
 
+  // Find claude binary - check common locations
+  let claudePath = 'claude';
+  const possiblePaths = [
+    '/usr/local/bin/claude',
+    '/opt/homebrew/bin/claude',
+    path.join(process.env.HOME || '', '.local/bin/claude'),
+    path.join(process.env.HOME || '', 'Library/Application Support/Herd/config/nvm/versions/node/v20.19.4/bin/claude'),
+  ];
+  for (const p of possiblePaths) {
+    if (fs.existsSync(p)) {
+      claudePath = p;
+      break;
+    }
+  }
+  // Also check via which if we haven't found it
+  if (claudePath === 'claude') {
+    try {
+      claudePath = execSync('which claude', { encoding: 'utf8' }).trim() || 'claude';
+    } catch {
+      // which failed, stick with 'claude'
+    }
+  }
+
   // Dramatic dragon reveal with fire animation
   const showDragonReveal = async (totalBookmarks) => {
     // Fire animation for 1.5 seconds
@@ -111,11 +134,10 @@ async function invokeClaudeCode(config, bookmarkCount) {
       `Process the ${bookmarkCount} bookmark(s) in ./.state/pending-bookmarks.json following the instructions in ./.claude/commands/process-bookmarks.md. Read that file first, then process each bookmark.`
     ];
 
-    const proc = spawn('claude', args, {
+    const proc = spawn(claudePath, args, {
       cwd: config.projectRoot || process.cwd(),
       env: process.env,
-      stdio: ['inherit', 'pipe', 'pipe'],
-      shell: true  // Use shell to inherit PATH for finding 'claude' binary
+      stdio: ['inherit', 'pipe', 'pipe']
     });
 
     let stdout = '';
