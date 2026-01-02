@@ -1,6 +1,6 @@
 # Smaug 🐉
 
-Archive your Twitter/X bookmarks and likes to markdown. Automatically.
+Archive your Twitter/X bookmarks (and/or optionally, likes) to markdown. Automatically.
 
 *Like a dragon hoarding treasure, Smaug collects the valuable things you bookmark and like.*
 
