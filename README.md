@@ -76,7 +76,7 @@ If you don't want to use the wizard to make it easy, you can manually put your s
 
 ## What Smaug Actually Does
 
-1. **Fetches bookmarks and/or likes** from Twitter/X using the bird CLI
+1. **Fetches bookmarks** from Twitter/X using the bird CLI (can also fetch likes, or both)
 2. **Expands t.co links** to reveal actual URLs
 3. **Extracts content** from linked pages (GitHub repos, articles, quote tweets)
 4. **Invokes Claude Code** to analyze and categorize each tweet
@@ -263,7 +263,7 @@ Create `smaug.config.json`:
 
 | Option | Default | Description |
 |--------|---------|-------------|
-| `source` | `bookmarks` | What to fetch: `bookmarks`, `likes`, or `both` |
+| `source` | `bookmarks` | What to fetch: `bookmarks` (default), `likes`, or `both` |
 | `archiveFile` | `./bookmarks.md` | Main archive file |
 | `timezone` | `America/New_York` | For date formatting |
 | `autoInvokeClaude` | `true` | Auto-run Claude Code for analysis |
