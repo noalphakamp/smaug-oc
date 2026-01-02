@@ -41,9 +41,10 @@ TodoWrite({ todos: [
 **CRITICAL for 3+ bookmarks:** Spawn ALL subagents in ONE message:
 ```javascript
 // Send ONE message with multiple Task calls - they run in parallel
-Task(subagent_type="general-purpose", prompt="Process bookmark 1: {json}")
-Task(subagent_type="general-purpose", prompt="Process bookmark 2: {json}")
-Task(subagent_type="general-purpose", prompt="Process bookmark 3: {json}")
+// Use model="haiku" for cost-efficient parallel processing
+Task(subagent_type="general-purpose", model="haiku", prompt="Process bookmark 1: {json}")
+Task(subagent_type="general-purpose", model="haiku", prompt="Process bookmark 2: {json}")
+Task(subagent_type="general-purpose", model="haiku", prompt="Process bookmark 3: {json}")
 // ... all bookmarks in the SAME message
 ```
 
@@ -371,13 +372,14 @@ status: needs_transcript
 Example for 20 bookmarks - send ONE message containing 4 Task tool calls:
 
 ```
-Task 1: "Process bookmarks 1-5" with prompt containing bookmarks 1-5 JSON
-Task 2: "Process bookmarks 6-10" with prompt containing bookmarks 6-10 JSON
-Task 3: "Process bookmarks 11-15" with prompt containing bookmarks 11-15 JSON
-Task 4: "Process bookmarks 16-20" with prompt containing bookmarks 16-20 JSON
+Task 1: model="haiku", "Process bookmarks 1-5" with prompt containing bookmarks 1-5 JSON
+Task 2: model="haiku", "Process bookmarks 6-10" with prompt containing bookmarks 6-10 JSON
+Task 3: model="haiku", "Process bookmarks 11-15" with prompt containing bookmarks 11-15 JSON
+Task 4: model="haiku", "Process bookmarks 16-20" with prompt containing bookmarks 16-20 JSON
 ```
 
 Each subagent receives the full batch data and processes independently. They run in parallel.
+Using Haiku for subagents reduces cost ~10x while maintaining quality for categorization tasks.
 
 **DO NOT:**
 - Process bookmarks one at a time sequentially
