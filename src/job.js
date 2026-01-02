@@ -134,9 +134,19 @@ async function invokeClaudeCode(config, bookmarkCount) {
       `Process the ${bookmarkCount} bookmark(s) in ./.state/pending-bookmarks.json following the instructions in ./.claude/commands/process-bookmarks.md. Read that file first, then process each bookmark.`
     ];
 
+    // Ensure PATH includes common node locations for the claude shebang
+    const nodePaths = [
+      '/usr/local/bin',
+      '/opt/homebrew/bin',
+      path.join(process.env.HOME || '', 'Library/Application Support/Herd/config/nvm/versions/node/v20.19.4/bin'),
+      path.join(process.env.HOME || '', '.local/bin'),
+      path.join(process.env.HOME || '', '.bun/bin'),
+    ];
+    const enhancedPath = [...nodePaths, process.env.PATH || ''].join(':');
+
     const proc = spawn(claudePath, args, {
       cwd: config.projectRoot || process.cwd(),
-      env: process.env,
+      env: { ...process.env, PATH: enhancedPath },
       stdio: ['inherit', 'pipe', 'pipe']
     });
 
