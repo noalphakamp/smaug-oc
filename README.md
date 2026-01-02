@@ -308,7 +308,7 @@ Smaug uses Claude Code for intelligent bookmark processing. The `.claude/command
 - Filing articles to `knowledge/articles/`
 - Handling quote tweets with full context
 - Processing reply threads with parent context
-- Parallel processing for 3+ bookmarks
+- Parallel processing for 3+ bookmarks (using Haiku subagents for cost efficiency)
 
 You can also run processing manually:
 
@@ -316,6 +316,46 @@ You can also run processing manually:
 claude
 > Run /process-bookmarks
 ```
+
+### Token Usage Tracking
+
+Track your API costs with the `-t` flag:
+
+```bash
+npx smaug run -t
+# or
+npx smaug run --track-tokens
+```
+
+This displays a breakdown at the end of each run:
+
+```
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+📊 TOKEN USAGE
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Main (sonnet):
+  Input:               85 tokens  <$0.01
+  Output:           5,327 tokens  $0.08
+  Cache Read:     724,991 tokens  $0.22
+  Cache Write:     62,233 tokens  $0.23
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+💰 TOTAL COST: $0.53
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+```
+
+### Cost Optimization: Haiku Subagents
+
+For batches of 3+ bookmarks, Smaug spawns parallel subagents. By default, these use Haiku instead of Sonnet, which cuts costs nearly in half:
+
+| Configuration | 20 Bookmarks | Time |
+|---------------|--------------|------|
+| Sonnet subagents | $1.00 | 4m 12s |
+| **Haiku subagents** | **$0.53** | 4m 18s |
+
+Same speed, ~50% cheaper. The categorization and filing tasks don't require Sonnet-level reasoning, so Haiku handles them well.
+
+This is configured in `.claude/commands/process-bookmarks.md` with `model="haiku"` in the Task calls.
 
 ## Troubleshooting
 
