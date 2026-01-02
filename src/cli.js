@@ -207,9 +207,10 @@ async function main() {
     case 'run': {
       // Run the full job (same as node src/job.js)
       const jobPath = path.join(path.dirname(fileURLToPath(import.meta.url)), 'job.js');
+      const trackTokens = args.includes('--track-tokens') || args.includes('-t');
       try {
         const jobModule = await import(pathToFileURL(jobPath).href);
-        const result = await jobModule.default.run();
+        const result = await jobModule.default.run({ trackTokens });
         process.exit(result.success ? 0 : 1);
       } catch (err) {
         console.error('Failed to run job:', err.message);
@@ -322,6 +323,7 @@ async function main() {
 Commands:
   setup          Interactive setup wizard (start here!)
   run            Run the full job (fetch + process with Claude)
+  run -t         Run with token usage tracking (--track-tokens)
   fetch [n]      Fetch n tweets (default: 20)
   fetch --force  Re-fetch even if already archived
   fetch --source <source>  Fetch from: bookmarks, likes, or both

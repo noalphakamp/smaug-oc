@@ -65,9 +65,10 @@ function releaseLock() {
 // Claude Code Invocation
 // ============================================================================
 
-async function invokeClaudeCode(config, bookmarkCount) {
+async function invokeClaudeCode(config, bookmarkCount, options = {}) {
   const timeout = config.claudeTimeout || 900000; // 15 minutes default
   const model = config.claudeModel || 'sonnet'; // or 'haiku' for faster/cheaper
+  const trackTokens = options.trackTokens || false;
 
   // Specific tool permissions instead of full YOLO mode
   // Task is needed for parallel subagent processing
@@ -171,6 +172,18 @@ async function invokeClaudeCode(config, bookmarkCount) {
     const parallelTasks = new Map(); // taskId -> { description, startTime, status }
     let tasksSpawned = 0;
     let tasksCompleted = 0;
+
+    // Token usage tracking
+    const tokenUsage = {
+      input: 0,
+      output: 0,
+      cacheRead: 0,
+      cacheWrite: 0,
+      subagentInput: 0,
+      subagentOutput: 0,
+      model: model,
+      subagentModel: null
+    };
 
     // Helper to format time elapsed
     const startTime = Date.now();
@@ -395,6 +408,35 @@ async function invokeClaudeCode(config, bookmarkCount) {
             }
           }
 
+          // Track token usage from result event
+          if (event.type === 'result' && event.usage) {
+            tokenUsage.input = event.usage.input_tokens || 0;
+            tokenUsage.output = event.usage.output_tokens || 0;
+            tokenUsage.cacheRead = event.usage.cache_read_input_tokens || 0;
+            tokenUsage.cacheWrite = event.usage.cache_creation_input_tokens || 0;
+          }
+
+          // Track subagent token usage from Task results
+          if (event.type === 'user' && event.message?.content) {
+            for (const block of event.message.content) {
+              if (block.type === 'tool_result' && block.content) {
+                // Try to parse subagent usage from result
+                const content = typeof block.content === 'string' ? block.content : JSON.stringify(block.content);
+                const usageMatch = content.match(/usage.*?input.*?(\d+).*?output.*?(\d+)/i);
+                if (usageMatch) {
+                  tokenUsage.subagentInput += parseInt(usageMatch[1], 10);
+                  tokenUsage.subagentOutput += parseInt(usageMatch[2], 10);
+                }
+                // Detect subagent model from content
+                if (!tokenUsage.subagentModel && content.includes('haiku')) {
+                  tokenUsage.subagentModel = 'haiku';
+                } else if (!tokenUsage.subagentModel && content.includes('sonnet')) {
+                  tokenUsage.subagentModel = 'sonnet';
+                }
+              }
+            }
+          }
+
           // Show result summary
           if (event.type === 'result') {
             stopSpinner();
@@ -428,6 +470,52 @@ async function invokeClaudeCode(config, bookmarkCount) {
             const descriptions = hoardDescriptions[tier];
             const hoardStatus = descriptions[Math.floor(Math.random() * descriptions.length)];
 
+            // Build token usage display if tracking enabled
+            let tokenDisplay = '';
+            if (trackTokens && (tokenUsage.input > 0 || tokenUsage.output > 0)) {
+              // Pricing per million tokens (as of 2024)
+              const pricing = {
+                'sonnet': { input: 3.00, output: 15.00, cacheRead: 0.30, cacheWrite: 3.75 },
+                'haiku': { input: 0.25, output: 1.25, cacheRead: 0.025, cacheWrite: 0.30 },
+                'opus': { input: 15.00, output: 75.00, cacheRead: 1.50, cacheWrite: 18.75 }
+              };
+
+              const mainPricing = pricing[tokenUsage.model] || pricing.sonnet;
+              const subPricing = pricing[tokenUsage.subagentModel || tokenUsage.model] || mainPricing;
+
+              // Calculate costs
+              const mainInputCost = (tokenUsage.input / 1_000_000) * mainPricing.input;
+              const mainOutputCost = (tokenUsage.output / 1_000_000) * mainPricing.output;
+              const cacheReadCost = (tokenUsage.cacheRead / 1_000_000) * mainPricing.cacheRead;
+              const cacheWriteCost = (tokenUsage.cacheWrite / 1_000_000) * mainPricing.cacheWrite;
+              const subInputCost = (tokenUsage.subagentInput / 1_000_000) * subPricing.input;
+              const subOutputCost = (tokenUsage.subagentOutput / 1_000_000) * subPricing.output;
+
+              const totalCost = mainInputCost + mainOutputCost + cacheReadCost + cacheWriteCost + subInputCost + subOutputCost;
+
+              const formatNum = (n) => n.toLocaleString();
+              const formatCost = (c) => c < 0.01 ? '<$0.01' : `$${c.toFixed(2)}`;
+
+              tokenDisplay = `
+  ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+  📊 TOKEN USAGE
+  ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+  Main (${tokenUsage.model}):
+    Input:       ${formatNum(tokenUsage.input).padStart(10)} tokens  ${formatCost(mainInputCost)}
+    Output:      ${formatNum(tokenUsage.output).padStart(10)} tokens  ${formatCost(mainOutputCost)}
+    Cache Read:  ${formatNum(tokenUsage.cacheRead).padStart(10)} tokens  ${formatCost(cacheReadCost)}
+    Cache Write: ${formatNum(tokenUsage.cacheWrite).padStart(10)} tokens  ${formatCost(cacheWriteCost)}
+${tokenUsage.subagentInput > 0 || tokenUsage.subagentOutput > 0 ? `
+  Subagents (${tokenUsage.subagentModel || 'unknown'}):
+    Input:       ${formatNum(tokenUsage.subagentInput).padStart(10)} tokens  ${formatCost(subInputCost)}
+    Output:      ${formatNum(tokenUsage.subagentOutput).padStart(10)} tokens  ${formatCost(subOutputCost)}
+` : ''}
+  ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+  💰 TOTAL COST: ${formatCost(totalCost)}
+  ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+`;
+            }
+
             process.stdout.write(`
 
   🔥🔥🔥  THE DRAGON'S HOARD GROWS!  🔥🔥🔥
@@ -443,7 +531,7 @@ async function invokeClaudeCode(config, bookmarkCount) {
   📦  Bookmarks:       ${totalBookmarks} processed
   🐲  Dragon Minions:  ${tasksSpawned > 0 ? tasksSpawned + ' summoned' : 'solo hunt'}
   🏔️  Hoard Status:    ${hoardStatus}
-
+${tokenDisplay}
   🐉 Smaug rests... until the next hoard arrives.
 
 `);
@@ -476,14 +564,15 @@ async function invokeClaudeCode(config, bookmarkCount) {
       stopSpinner();
       clearTimeout(timeoutId);
       if (code === 0) {
-        resolve({ success: true, output: stdout });
+        resolve({ success: true, output: stdout, tokenUsage });
       } else {
         resolve({
           success: false,
           error: `Exit code ${code}`,
           stdout,
           stderr,
-          exitCode: code
+          exitCode: code,
+          tokenUsage
         });
       }
     });
@@ -627,7 +716,9 @@ export async function run(options = {}) {
     if (config.autoInvokeClaude !== false) {
       console.log(`[${now}] Phase 2: Invoking Claude Code for analysis...`);
 
-      const claudeResult = await invokeClaudeCode(config, bookmarkCount);
+      const claudeResult = await invokeClaudeCode(config, bookmarkCount, {
+        trackTokens: options.trackTokens
+      });
 
       if (claudeResult.success) {
         console.log(`[${now}] Analysis complete`);
@@ -659,7 +750,8 @@ export async function run(options = {}) {
           success: true,
           count: bookmarkCount,
           duration: Date.now() - startTime,
-          output: claudeResult.output
+          output: claudeResult.output,
+          tokenUsage: claudeResult.tokenUsage
         };
 
       } else {
