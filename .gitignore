@@ -1,0 +1,24 @@
+# Dependencies
+node_modules/
+
+# State files (contain your bookmark data)
+.state/
+
+# Config with credentials
+bookmarks-archiver.config.json
+
+# Output (optional - you may want to track this)
+# bookmarks.md
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Editor files
+*.swp
+*.swo
+.idea/
+.vscode/
+
+# Logs
+*.log
