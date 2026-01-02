@@ -144,22 +144,10 @@ async function invokeClaudeCode(config, bookmarkCount) {
     ];
     const enhancedPath = [...nodePaths, process.env.PATH || ''].join(':');
 
-    // Get ANTHROPIC_API_KEY from config, env, or parse from ~/.zshrc
-    let apiKey = config.anthropicApiKey || process.env.ANTHROPIC_API_KEY;
-    if (!apiKey) {
-      try {
-        const zshrcPath = path.join(process.env.HOME || '', '.zshrc');
-        if (fs.existsSync(zshrcPath)) {
-          const zshrc = fs.readFileSync(zshrcPath, 'utf8');
-          const match = zshrc.match(/export\s+ANTHROPIC_API_KEY=["']?([^"'\n]+)["']?/);
-          if (match) {
-            apiKey = match[1];
-          }
-        }
-      } catch {
-        // Ignore errors reading zshrc
-      }
-    }
+    // Get ANTHROPIC_API_KEY from config or env only
+    // Note: Don't parse from ~/.zshrc - OAuth tokens (sk-ant-oat01-*) might be
+    // incorrectly stored there and would override valid OAuth credentials
+    const apiKey = config.anthropicApiKey || process.env.ANTHROPIC_API_KEY;
 
     const proc = spawn(claudePath, args, {
       cwd: config.projectRoot || process.cwd(),
