@@ -144,9 +144,30 @@ async function invokeClaudeCode(config, bookmarkCount) {
     ];
     const enhancedPath = [...nodePaths, process.env.PATH || ''].join(':');
 
+    // Get ANTHROPIC_API_KEY from config, env, or parse from ~/.zshrc
+    let apiKey = config.anthropicApiKey || process.env.ANTHROPIC_API_KEY;
+    if (!apiKey) {
+      try {
+        const zshrcPath = path.join(process.env.HOME || '', '.zshrc');
+        if (fs.existsSync(zshrcPath)) {
+          const zshrc = fs.readFileSync(zshrcPath, 'utf8');
+          const match = zshrc.match(/export\s+ANTHROPIC_API_KEY=["']?([^"'\n]+)["']?/);
+          if (match) {
+            apiKey = match[1];
+          }
+        }
+      } catch {
+        // Ignore errors reading zshrc
+      }
+    }
+
     const proc = spawn(claudePath, args, {
       cwd: config.projectRoot || process.cwd(),
-      env: { ...process.env, PATH: enhancedPath },
+      env: {
+        ...process.env,
+        PATH: enhancedPath,
+        ...(apiKey ? { ANTHROPIC_API_KEY: apiKey } : {})
+      },
       stdio: ['inherit', 'pipe', 'pipe']
     });
 
