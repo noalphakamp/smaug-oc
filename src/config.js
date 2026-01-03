@@ -119,6 +119,20 @@ const DEFAULT_CONFIG = {
 };
 
 /**
+ * Expand ~ to home directory in paths
+ */
+function expandTilde(filepath) {
+  if (!filepath || typeof filepath !== 'string') return filepath;
+  if (filepath.startsWith('~/')) {
+    return path.join(os.homedir(), filepath.slice(2));
+  }
+  if (filepath === '~') {
+    return os.homedir();
+  }
+  return filepath;
+}
+
+/**
  * Load configuration from file and environment
  */
 export function loadConfig(configPath) {
@@ -207,6 +221,22 @@ export function loadConfig(configPath) {
   }
   if (process.env.WEBHOOK_TYPE) {
     config.webhookType = process.env.WEBHOOK_TYPE;
+  }
+
+  // Expand ~ in all path-related config values
+  config.archiveFile = expandTilde(config.archiveFile);
+  config.pendingFile = expandTilde(config.pendingFile);
+  config.stateFile = expandTilde(config.stateFile);
+  config.birdPath = expandTilde(config.birdPath);
+  config.projectRoot = expandTilde(config.projectRoot);
+
+  // Expand ~ in category folders
+  if (config.categories) {
+    for (const key of Object.keys(config.categories)) {
+      if (config.categories[key]?.folder) {
+        config.categories[key].folder = expandTilde(config.categories[key].folder);
+      }
+    }
   }
 
   return config;
