@@ -123,6 +123,14 @@ npx smaug fetch --all --max-pages 20  # Fetch up to 20 pages
 
 **Note:** This requires bird CLI built from git (not the npm release). See [Troubleshooting](#troubleshooting) for installation instructions.
 
+**Cost warning:** Processing large bookmark backlogs can consume significant Claude tokens. Each bookmark with content-heavy links (long articles, GitHub READMEs, etc.) adds to the context. Process in batches to control costs:
+
+```bash
+npx smaug run --limit 50 -t    # Process 50 at a time with token tracking
+```
+
+Use the `-t` flag to monitor usage. See [Token Usage Tracking](#token-usage-tracking) for cost estimates by model.
+
 ## Categories
 
 Categories define how different bookmark types are handled. Smaug comes with sensible defaults, but you can customize them in `smaug.config.json`.
