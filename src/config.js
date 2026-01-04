@@ -40,6 +40,16 @@ const DEFAULT_CONFIG = {
     ct0: null
   },
 
+  // ---- Bookmark Folders ----
+  // Map folder IDs to tag names. Bookmarks from each folder will be tagged.
+  // Get folder IDs from URLs like: https://x.com/i/bookmarks/1234567890
+  // Example:
+  //   folders: {
+  //     "1234567890": "ai-tools",
+  //     "0987654321": "articles-to-read"
+  //   }
+  folders: {},
+
   // ---- Categories: Define how different bookmark types are handled ----
   // Each category has:
   //   - match: URL patterns or keywords to identify this type
@@ -171,6 +181,11 @@ export function loadConfig(configPath) {
     categories: {
       ...DEFAULT_CONFIG.categories,
       ...fileConfig.categories
+    },
+    // Merge folders config
+    folders: {
+      ...DEFAULT_CONFIG.folders,
+      ...fileConfig.folders
     }
   };
 
@@ -259,6 +274,15 @@ export function initConfig(targetPath = './smaug.config.json') {
     twitter: {
       authToken: 'YOUR_AUTH_TOKEN_HERE',
       ct0: 'YOUR_CT0_TOKEN_HERE'
+    },
+
+    // Bookmark folders - map folder IDs to tag names
+    // Get folder IDs from URLs like: https://x.com/i/bookmarks/1234567890
+    // When configured, Smaug fetches from each folder and tags bookmarks accordingly
+    folders: {
+      // Example:
+      // "1234567890": "ai-tools",
+      // "0987654321": "articles-to-read"
     },
 
     // Categories define how different bookmark types are handled

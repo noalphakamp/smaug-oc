@@ -208,9 +208,21 @@ async function main() {
       // Run the full job (same as node src/job.js)
       const jobPath = path.join(path.dirname(fileURLToPath(import.meta.url)), 'job.js');
       const trackTokens = args.includes('--track-tokens') || args.includes('-t');
+
+      // Parse --limit flag
+      const limitIdx = args.findIndex(a => a === '--limit' || a === '-l');
+      let limit = null;
+      if (limitIdx !== -1 && args[limitIdx + 1]) {
+        limit = parseInt(args[limitIdx + 1], 10);
+        if (isNaN(limit) || limit <= 0) {
+          console.error('Invalid --limit value. Must be a positive number.');
+          process.exit(1);
+        }
+      }
+
       try {
         const jobModule = await import(pathToFileURL(jobPath).href);
-        const result = await jobModule.default.run({ trackTokens });
+        const result = await jobModule.default.run({ trackTokens, limit });
         process.exit(result.success ? 0 : 1);
       } catch (err) {
         console.error('Failed to run job:', err.message);
@@ -224,6 +236,7 @@ async function main() {
       const specificIds = args.filter(a => a.match(/^\d{10,}$/));
       const force = args.includes('--force') || args.includes('-f');
       const includeMedia = args.includes('--media') || args.includes('-m');
+      const fetchAll = args.includes('--all') || args.includes('-a') || args.includes('-all');
 
       // Parse --source flag
       const sourceIdx = args.findIndex(a => a === '--source' || a === '-s');
@@ -236,12 +249,21 @@ async function main() {
         }
       }
 
+      // Parse --max-pages flag
+      const maxPagesIdx = args.findIndex(a => a === '--max-pages');
+      let maxPages = null;
+      if (maxPagesIdx !== -1 && args[maxPagesIdx + 1]) {
+        maxPages = parseInt(args[maxPagesIdx + 1], 10);
+      }
+
       const result = await fetchAndPrepareBookmarks({
         count,
         specificIds: specificIds.length > 0 ? specificIds : null,
         force,
         source,
-        includeMedia
+        includeMedia,
+        all: fetchAll,
+        maxPages
       });
 
       if (result.count > 0) {
@@ -324,7 +346,10 @@ Commands:
   setup          Interactive setup wizard (start here!)
   run            Run the full job (fetch + process with Claude)
   run -t         Run with token usage tracking (--track-tokens)
+  run --limit N  Process only N bookmarks (for large backlogs)
   fetch [n]      Fetch n tweets (default: 20)
+  fetch --all    Fetch ALL bookmarks (paginated)
+  fetch --max-pages N  Limit pagination to N pages (default: 10)
   fetch --force  Re-fetch even if already archived
   fetch --source <source>  Fetch from: bookmarks, likes, or both
   fetch --media  EXPERIMENTAL: Include media attachments
@@ -334,8 +359,11 @@ Commands:
 Examples:
   smaug setup                    # First-time setup
   smaug run                      # Run full automation
+  smaug run --limit 50           # Process 50 bookmarks at a time
   smaug fetch                    # Fetch latest (uses config source)
   smaug fetch 50                 # Fetch 50 tweets
+  smaug fetch --all              # Fetch ALL bookmarks (paginated)
+  smaug fetch --all --max-pages 5  # Fetch up to 5 pages
   smaug fetch --source likes     # Fetch from likes only
   smaug fetch --source both      # Fetch from bookmarks AND likes
   smaug fetch --media            # Include photos/videos/GIFs (experimental)
@@ -344,6 +372,7 @@ Examples:
 Config (smaug.config.json):
   "source": "bookmarks"    Default source (bookmarks, likes, or both)
   "includeMedia": false    EXPERIMENTAL: Include media (default: off)
+  "folders": {}            Map folder IDs to tags (see README)
 
 More info: https://github.com/alexknowshtml/smaug
 `);

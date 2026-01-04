@@ -68,13 +68,33 @@ function buildBirdEnv(config) {
   return env;
 }
 
-export function fetchBookmarks(config, count = 10) {
+export function fetchBookmarks(config, count = 10, options = {}) {
   try {
     const env = buildBirdEnv(config);
     const birdCmd = config.birdPath || 'bird';
-    const output = execSync(`${birdCmd} bookmarks -n ${count} --json`, {
+
+    // Use --all for large fetches (> 50) or when explicitly requested
+    const useAll = options.all || count > 50;
+    const folderId = options.folderId;
+
+    let cmd;
+    if (useAll) {
+      // Paginated fetch - use longer timeout
+      const maxPages = options.maxPages || 10; // Limit pages to prevent runaway
+      cmd = folderId
+        ? `${birdCmd} bookmarks --folder-id ${folderId} --all --max-pages ${maxPages} --json`
+        : `${birdCmd} bookmarks --all --max-pages ${maxPages} --json`;
+    } else {
+      cmd = folderId
+        ? `${birdCmd} bookmarks --folder-id ${folderId} -n ${count} --json`
+        : `${birdCmd} bookmarks -n ${count} --json`;
+    }
+
+    console.log(`  Running: ${cmd.replace(/--json/, '').trim()}`);
+
+    const output = execSync(cmd, {
       encoding: 'utf8',
-      timeout: 30000,
+      timeout: useAll ? 180000 : 30000, // 3 min for --all, 30s otherwise
       env
     });
     return JSON.parse(output);
@@ -98,15 +118,15 @@ export function fetchLikes(config, count = 10) {
   }
 }
 
-export function fetchFromSource(config, count = 10) {
+export function fetchFromSource(config, count = 10, options = {}) {
   const source = config.source || 'bookmarks';
 
   if (source === 'bookmarks') {
-    return fetchBookmarks(config, count);
+    return fetchBookmarks(config, count, options);
   } else if (source === 'likes') {
     return fetchLikes(config, count);
   } else if (source === 'both') {
-    const bookmarks = fetchBookmarks(config, count);
+    const bookmarks = fetchBookmarks(config, count, options);
     const likes = fetchLikes(config, count);
     // Merge and dedupe by ID
     const seen = new Set();
@@ -121,6 +141,50 @@ export function fetchFromSource(config, count = 10) {
   } else {
     throw new Error(`Invalid source: ${source}. Must be 'bookmarks', 'likes', or 'both'.`);
   }
+}
+
+/**
+ * Fetch bookmarks from configured folders, tagging each with its folder name
+ */
+export function fetchFromFolders(config, count = 10, options = {}) {
+  const folders = config.folders || {};
+  const folderIds = Object.keys(folders);
+
+  if (folderIds.length === 0) {
+    return [];
+  }
+
+  console.log(`Fetching from ${folderIds.length} configured folder(s)...`);
+
+  const allBookmarks = [];
+  const seen = new Set();
+
+  for (const folderId of folderIds) {
+    const folderTag = folders[folderId];
+    console.log(`\n📁 Folder "${folderTag}" (${folderId}):`);
+
+    try {
+      const bookmarks = fetchBookmarks(config, count, { ...options, folderId });
+      let added = 0;
+
+      for (const bookmark of bookmarks) {
+        if (!seen.has(bookmark.id)) {
+          seen.add(bookmark.id);
+          // Add folder tag to the bookmark
+          bookmark._folderTag = folderTag;
+          bookmark._folderId = folderId;
+          allBookmarks.push(bookmark);
+          added++;
+        }
+      }
+
+      console.log(`  Found ${bookmarks.length} bookmarks, ${added} new`);
+    } catch (error) {
+      console.error(`  Error fetching folder ${folderId}: ${error.message}`);
+    }
+  }
+
+  return allBookmarks;
 }
 
 export function fetchTweet(config, tweetId) {
@@ -286,9 +350,26 @@ export async function fetchAndPrepareBookmarks(options = {}) {
   const source = options.source || config.source || 'bookmarks';
   const includeMedia = options.includeMedia ?? config.includeMedia ?? false;
   const configWithOptions = { ...config, source, includeMedia };
+  const count = options.count || 20;
 
-  console.log(`Fetching from source: ${source}${includeMedia ? ' (with media)' : ''}`);
-  const tweets = fetchFromSource(configWithOptions, options.count || 20);
+  // Build fetch options for pagination
+  const fetchOptions = {
+    all: options.all || count > 50,
+    maxPages: options.maxPages
+  };
+
+  let tweets = [];
+  const hasFolders = Object.keys(config.folders || {}).length > 0;
+
+  if (hasFolders && source === 'bookmarks') {
+    // Fetch from each configured folder with tags
+    console.log(`Fetching from ${Object.keys(config.folders).length} folder(s)${includeMedia ? ' (with media)' : ''}`);
+    tweets = fetchFromFolders(configWithOptions, count, fetchOptions);
+  } else {
+    // Normal fetch from source
+    console.log(`Fetching from source: ${source}${includeMedia ? ' (with media)' : ''}${fetchOptions.all ? ' (paginated)' : ''}`);
+    tweets = fetchFromSource(configWithOptions, count, fetchOptions);
+  }
 
   if (!tweets || tweets.length === 0) {
     console.log(`No ${source} found`);
@@ -327,12 +408,20 @@ export async function fetchAndPrepareBookmarks(options = {}) {
   console.log(`Preparing ${toProcess.length} tweets...`);
 
   const prepared = [];
-  const date = now.format('dddd, MMMM D, YYYY');
 
   for (const bookmark of toProcess) {
     try {
       console.log(`\nProcessing bookmark ${bookmark.id}...`);
       const text = bookmark.text || bookmark.full_text || '';
+
+      // Format date from tweet's createdAt, falling back to current date
+      let date;
+      if (bookmark.createdAt) {
+        const tweetDate = dayjs(bookmark.createdAt).tz(config.timezone || 'America/New_York');
+        date = tweetDate.format('dddd, MMMM D, YYYY');
+      } else {
+        date = now.format('dddd, MMMM D, YYYY');
+      }
       const author = bookmark.author?.username || bookmark.user?.screen_name || 'unknown';
 
       // Find and expand t.co links
@@ -453,6 +542,12 @@ export async function fetchAndPrepareBookmarks(options = {}) {
       // Only included if includeMedia is true (--media flag)
       const media = configWithOptions.includeMedia ? (bookmark.media || []) : [];
 
+      // Build tags array from folder tag (if present)
+      const tags = [];
+      if (bookmark._folderTag) {
+        tags.push(bookmark._folderTag);
+      }
+
       prepared.push({
         id: bookmark.id,
         author,
@@ -462,6 +557,7 @@ export async function fetchAndPrepareBookmarks(options = {}) {
         createdAt: bookmark.createdAt,
         links,
         media,
+        tags,
         date,
         isReply: !!bookmark.inReplyToStatusId,
         replyContext,
@@ -470,7 +566,8 @@ export async function fetchAndPrepareBookmarks(options = {}) {
       });
 
       const mediaInfo = media.length > 0 ? ` (${media.length} media)` : '';
-      console.log(`  Prepared: @${author} with ${links.length} links${mediaInfo}${replyContext ? ' (reply)' : ''}${quoteContext ? ' (quote)' : ''}`);
+      const tagInfo = tags.length > 0 ? ` [${tags.join(', ')}]` : '';
+      console.log(`  Prepared: @${author} with ${links.length} links${mediaInfo}${tagInfo}${replyContext ? ' (reply)' : ''}${quoteContext ? ' (quote)' : ''}`);
 
     } catch (error) {
       console.error(`  Error processing bookmark ${bookmark.id}: ${error.message}`);
@@ -488,10 +585,19 @@ export async function fetchAndPrepareBookmarks(options = {}) {
   const existingPendingIds = new Set(existingPending.bookmarks.map(b => b.id));
   const newBookmarks = prepared.filter(b => !existingPendingIds.has(b.id));
 
+  // Merge and sort by createdAt ascending (oldest first)
+  // This ensures when processed, oldest get added first, newest end up on top
+  const allBookmarks = [...existingPending.bookmarks, ...newBookmarks];
+  allBookmarks.sort((a, b) => {
+    const dateA = a.createdAt ? new Date(a.createdAt).getTime() : 0;
+    const dateB = b.createdAt ? new Date(b.createdAt).getTime() : 0;
+    return dateA - dateB; // Ascending: oldest first
+  });
+
   const output = {
     generatedAt: now.toISOString(),
-    count: existingPending.bookmarks.length + newBookmarks.length,
-    bookmarks: [...existingPending.bookmarks, ...newBookmarks]
+    count: allBookmarks.length,
+    bookmarks: allBookmarks
   };
 
   const pendingDir = path.dirname(config.pendingFile);

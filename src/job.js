@@ -679,6 +679,20 @@ export async function run(options = {}) {
       try {
         pendingData = JSON.parse(fs.readFileSync(config.pendingFile, 'utf8'));
         bookmarkCount = pendingData.bookmarks?.length || 0;
+
+        // Apply --limit if specified (process subset of pending)
+        const limit = options.limit;
+        if (limit && limit > 0 && bookmarkCount > limit) {
+          console.log(`[${now}] Limiting to ${limit} of ${bookmarkCount} pending bookmarks`);
+          pendingData.bookmarks = pendingData.bookmarks.slice(0, limit);
+          bookmarkCount = limit;
+          // Write limited subset back (temporarily)
+          fs.writeFileSync(config.pendingFile + '.full', JSON.stringify(
+            JSON.parse(fs.readFileSync(config.pendingFile, 'utf8')), null, 2
+          ));
+          pendingData.count = bookmarkCount;
+          fs.writeFileSync(config.pendingFile, JSON.stringify(pendingData, null, 2));
+        }
       } catch (e) {
         // Invalid pending file, will fetch fresh
       }
@@ -724,13 +738,22 @@ export async function run(options = {}) {
         console.log(`[${now}] Analysis complete`);
 
         // Remove processed IDs from pending file
-        if (fs.existsSync(config.pendingFile)) {
-          const currentData = JSON.parse(fs.readFileSync(config.pendingFile, 'utf8'));
+        // If we used --limit, restore from .full file first
+        const fullFile = config.pendingFile + '.full';
+        let sourceData;
+        if (fs.existsSync(fullFile)) {
+          sourceData = JSON.parse(fs.readFileSync(fullFile, 'utf8'));
+          fs.unlinkSync(fullFile); // Clean up .full file
+        } else if (fs.existsSync(config.pendingFile)) {
+          sourceData = JSON.parse(fs.readFileSync(config.pendingFile, 'utf8'));
+        }
+
+        if (sourceData) {
           const processedIds = new Set(idsToProcess);
-          const remaining = currentData.bookmarks.filter(b => !processedIds.has(b.id));
+          const remaining = sourceData.bookmarks.filter(b => !processedIds.has(b.id));
 
           fs.writeFileSync(config.pendingFile, JSON.stringify({
-            generatedAt: currentData.generatedAt,
+            generatedAt: sourceData.generatedAt,
             count: remaining.length,
             bookmarks: remaining
           }, null, 2));
@@ -755,7 +778,14 @@ export async function run(options = {}) {
         };
 
       } else {
-        // Claude failed - bookmarks stay in pending for retry
+        // Claude failed - restore full pending file for retry
+        const fullFile = config.pendingFile + '.full';
+        if (fs.existsSync(fullFile)) {
+          fs.copyFileSync(fullFile, config.pendingFile);
+          fs.unlinkSync(fullFile);
+          console.log(`[${now}] Restored full pending file for retry`);
+        }
+
         console.error(`[${now}] Claude Code failed:`, claudeResult.error);
 
         await notify(

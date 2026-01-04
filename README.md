@@ -92,6 +92,10 @@ npx smaug run
 # Fetch from bookmarks (default)
 npx smaug fetch 20
 
+# Fetch ALL bookmarks (paginated - requires bird CLI from git)
+npx smaug fetch --all
+npx smaug fetch --all --max-pages 5  # Limit to 5 pages
+
 # Fetch from likes instead
 npx smaug fetch --source likes
 
@@ -107,6 +111,17 @@ npx smaug process --force
 # Check what's pending
 cat .state/pending-bookmarks.json | jq '.count'
 ```
+
+### Fetching All Bookmarks
+
+By default, Twitter's API returns ~50-70 bookmarks per request. To fetch more, use the `--all` flag which enables pagination:
+
+```bash
+npx smaug fetch --all              # Fetch all (up to 10 pages)
+npx smaug fetch --all --max-pages 20  # Fetch up to 20 pages
+```
+
+**Note:** This requires bird CLI built from git (not the npm release). See [Troubleshooting](#troubleshooting) for installation instructions.
 
 ## Categories
 
@@ -154,6 +169,32 @@ Add your own categories in `smaug.config.json`:
 ```
 
 Your custom categories merge with the defaults. To override a default, use the same key (e.g., `github`, `article`).
+
+## Bookmark Folders
+
+If you've organized your Twitter bookmarks into folders, Smaug can preserve that organization as tags. Configure folder IDs mapped to tag names:
+
+```json
+{
+  "folders": {
+    "1234567890": "ai-tools",
+    "0987654321": "articles-to-read",
+    "1122334455": "research"
+  }
+}
+```
+
+**How to find folder IDs:**
+1. Open Twitter/X and go to your bookmarks
+2. Click on a folder
+3. The URL will be `https://x.com/i/bookmarks/1234567890` - the number is the folder ID
+
+When folders are configured:
+- Smaug fetches from each folder separately
+- Each bookmark gets tagged with its folder name
+- Tags appear in `bookmarks.md` entries and knowledge file frontmatter
+
+**Note:** Twitter's API doesn't return folder membership when fetching all bookmarks at once, so Smaug must fetch each folder individually.
 
 ## Automation
 
@@ -380,6 +421,28 @@ Your Twitter cookies may have expired. Get fresh ones from your browser.
 
 - Try `haiku` model instead of `sonnet` in config for faster (but less thorough) processing
 - Make sure you're not re-processing with `--force` (causes edits instead of appends)
+
+### Only ~50-70 bookmarks fetched
+
+The npm release of bird CLI (v0.5.1) doesn't support pagination. To fetch all bookmarks, install bird from git:
+
+```bash
+# Clone and build bird from source
+cd /tmp
+git clone https://github.com/steipete/bird.git
+cd bird
+pnpm install    # or: npm install -g pnpm && pnpm install
+pnpm run build:dist
+
+# Link globally (may need sudo or --force)
+npm link --force
+
+# Verify
+bird --version  # Should show a newer commit hash
+bird bookmarks --help  # Should show --all flag
+```
+
+Then use `npx smaug fetch --all` to fetch all bookmarks with pagination.
 
 ## Credits
 
