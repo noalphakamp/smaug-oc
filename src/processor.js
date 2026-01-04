@@ -13,6 +13,7 @@
 import { execSync, spawn } from 'child_process';
 import fs from 'fs';
 import path from 'path';
+import os from 'os';
 import dayjs from 'dayjs';
 import utc from 'dayjs/plugin/utc.js';
 import timezone from 'dayjs/plugin/timezone.js';
@@ -92,11 +93,15 @@ export function fetchBookmarks(config, count = 10, options = {}) {
 
     console.log(`  Running: ${cmd.replace(/--json/, '').trim()}`);
 
-    const output = execSync(cmd, {
-      encoding: 'utf8',
-      timeout: useAll ? 180000 : 30000, // 3 min for --all, 30s otherwise
-      env
+    // Use temp file to work around bird CLI pipe buffering bug
+    const tmpFile = path.join(os.tmpdir(), `smaug-bookmarks-${Date.now()}.json`);
+    execSync(`${cmd} > "${tmpFile}"`, {
+      timeout: useAll ? 180000 : 60000, // 3 min for --all, 60s otherwise
+      env,
+      shell: true
     });
+    const output = fs.readFileSync(tmpFile, 'utf8');
+    fs.unlinkSync(tmpFile);
     return JSON.parse(output);
   } catch (error) {
     throw new Error(`Failed to fetch bookmarks: ${error.message}`);
@@ -107,11 +112,15 @@ export function fetchLikes(config, count = 10) {
   try {
     const env = buildBirdEnv(config);
     const birdCmd = config.birdPath || 'bird';
-    const output = execSync(`${birdCmd} likes -n ${count} --json`, {
-      encoding: 'utf8',
-      timeout: 30000,
-      env
+    // Use temp file to work around bird CLI pipe buffering bug
+    const tmpFile = path.join(os.tmpdir(), `smaug-likes-${Date.now()}.json`);
+    execSync(`${birdCmd} likes -n ${count} --json > "${tmpFile}"`, {
+      timeout: 60000,
+      env,
+      shell: true
     });
+    const output = fs.readFileSync(tmpFile, 'utf8');
+    fs.unlinkSync(tmpFile);
     return JSON.parse(output);
   } catch (error) {
     throw new Error(`Failed to fetch likes: ${error.message}`);
@@ -382,7 +391,7 @@ export async function fetchAndPrepareBookmarks(options = {}) {
   try {
     if (fs.existsSync(config.pendingFile)) {
       const pending = JSON.parse(fs.readFileSync(config.pendingFile, 'utf8'));
-      pendingIds = new Set(pending.bookmarks.map(b => b.id.toString()));
+      pendingIds = new Set((pending.bookmarks || []).map(b => b.id.toString()));
     }
   } catch (e) {}
 
@@ -578,7 +587,8 @@ export async function fetchAndPrepareBookmarks(options = {}) {
   let existingPending = { bookmarks: [] };
   try {
     if (fs.existsSync(config.pendingFile)) {
-      existingPending = JSON.parse(fs.readFileSync(config.pendingFile, 'utf8'));
+      const parsed = JSON.parse(fs.readFileSync(config.pendingFile, 'utf8'));
+      existingPending = { bookmarks: parsed.bookmarks || [], ...parsed };
     }
   } catch (e) {}
 
