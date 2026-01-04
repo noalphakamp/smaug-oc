@@ -62,16 +62,23 @@ date +"%A, %B %-d, %Y"
 
 Use this format for date section headers (e.g., "Thursday, January 2, 2026").
 
-**Load categories from config:**
+**Load paths and categories from config:**
 ```bash
-cat ./smaug.config.json | jq '.categories // empty'
+cat ./smaug.config.json | jq '{archiveFile, pendingFile, stateFile, categories}'
 ```
 
+This gives you:
+- `archiveFile`: Where to write the bookmark archive (e.g., `~/Obsidian_Vaults/.../bookmarks.md`)
+- `pendingFile`: Where pending bookmarks are stored
+- `stateFile`: Where processing state is tracked
+- `categories`: Custom category definitions
+
+**IMPORTANT:** Use these paths throughout. The `~` will be the user's home directory.
 If no custom categories, use the defaults from `src/config.js`.
 
 ## Input
 
-Prepared bookmarks are in: `./.state/pending-bookmarks.json`
+Prepared bookmarks are in the `pendingFile` path from config (typically `./.state/pending-bookmarks.json` or a custom path).
 
 Each bookmark includes:
 - `id`, `author`, `authorName`, `text`, `tweetUrl`, `date`
@@ -106,8 +113,11 @@ Categories define how different bookmark types are handled. Each category has:
 
 ### 1. Read the Prepared Data
 
+Read from the `pendingFile` path specified in config. If the path starts with `~`, expand it to `$HOME`:
 ```bash
-cat ./.state/pending-bookmarks.json
+# Get pendingFile from config and expand ~
+PENDING_FILE=$(cat ./smaug.config.json | jq -r '.pendingFile' | sed "s|^~|$HOME|")
+cat "$PENDING_FILE"
 ```
 
 ### 2. Process Bookmarks (Parallel for 3+)
@@ -149,7 +159,7 @@ Match each bookmark's links against category patterns (check `match` arrays). Us
 
 #### c. Write bookmark entry
 
-Add to `./bookmarks.md`:
+Add to the `archiveFile` path from config (expand `~` to home directory):
 
 **CRITICAL ordering rules:**
 1. Use the bookmark's `date` field from the JSON, format as friendly date
@@ -201,15 +211,16 @@ Separate entries with `---` only between different dates, not between entries on
 
 ### 3. Clean Up Pending File
 
-After successfully processing, remove the processed bookmarks from the pending file:
+After successfully processing, remove the processed bookmarks from the pending file (use `pendingFile` path from config, expanding `~`):
 
 ```javascript
-const pending = JSON.parse(fs.readFileSync('./.state/pending-bookmarks.json', 'utf8'));
+const pendingPath = config.pendingFile.replace(/^~/, process.env.HOME);
+const pending = JSON.parse(fs.readFileSync(pendingPath, 'utf8'));
 const processedIds = new Set([/* IDs you processed */]);
 const remaining = pending.bookmarks.filter(b => !processedIds.has(b.id));
 pending.bookmarks = remaining;
 pending.count = remaining.length;
-fs.writeFileSync('./.state/pending-bookmarks.json', JSON.stringify(pending, null, 2));
+fs.writeFileSync(pendingPath, JSON.stringify(pending, null, 2));
 ```
 
 ### 4. Commit and Push Changes
@@ -220,8 +231,8 @@ After all bookmarks are processed and filed, commit the changes:
 # Get today's date for commit message
 DATE=$(date +"%b %-d")
 
-# Stage all bookmark-related changes
-git add bookmarks.md
+# Stage all bookmark-related changes (use archiveFile path from config)
+git add "$ARCHIVE_FILE"  # The archiveFile path from config
 git add knowledge/
 
 # Commit with descriptive message
