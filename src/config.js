@@ -131,7 +131,7 @@ const DEFAULT_CONFIG = {
 /**
  * Expand ~ to home directory in paths
  */
-function expandTilde(filepath) {
+export function expandTilde(filepath) {
   if (!filepath || typeof filepath !== 'string') return filepath;
   if (filepath.startsWith('~/')) {
     return path.join(os.homedir(), filepath.slice(2));
