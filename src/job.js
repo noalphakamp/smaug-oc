@@ -160,7 +160,7 @@ async function invokeClaudeCode(config, bookmarkCount, options = {}) {
         PATH: enhancedPath,
         ...(apiKey ? { ANTHROPIC_API_KEY: apiKey } : {})
       },
-      stdio: ['inherit', 'pipe', 'pipe']
+      stdio: ['pipe', 'pipe', 'pipe']
     });
 
     let stdout = '';
