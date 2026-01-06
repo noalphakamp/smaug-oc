@@ -102,7 +102,10 @@ export function fetchBookmarks(config, count = 10, options = {}) {
     });
     const output = fs.readFileSync(tmpFile, 'utf8');
     fs.unlinkSync(tmpFile);
-    return JSON.parse(output);
+    const parsed = JSON.parse(output);
+    // bird CLI v0.6.0+ returns { tweets: [...], nextCursor: ... } for paginated requests
+    // but plain arrays for non-paginated. Handle both formats.
+    return Array.isArray(parsed) ? parsed : (parsed.tweets || []);
   } catch (error) {
     throw new Error(`Failed to fetch bookmarks: ${error.message}`);
   }
@@ -121,7 +124,9 @@ export function fetchLikes(config, count = 10) {
     });
     const output = fs.readFileSync(tmpFile, 'utf8');
     fs.unlinkSync(tmpFile);
-    return JSON.parse(output);
+    const parsed = JSON.parse(output);
+    // Handle both array and object formats for consistency
+    return Array.isArray(parsed) ? parsed : (parsed.tweets || []);
   } catch (error) {
     throw new Error(`Failed to fetch likes: ${error.message}`);
   }
