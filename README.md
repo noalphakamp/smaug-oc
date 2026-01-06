@@ -54,16 +54,20 @@ The setup wizard will:
 
 ## Manually Getting Twitter Credentials
 
-Smaug uses the bird CLI which needs your Twitter session cookies. 
+Smaug uses the bird CLI which needs your Twitter session cookies.
 
-If you don't want to use the wizard to make it easy, you can manually put your seession info into the config. 
+If you don't want to use the wizard to make it easy, you can manually put your session info into the config.
 
-1. Open Twitter/X in your browser
-2. Open Developer Tools → Application → Cookies
-3. Find and copy these values:
+1. Copy the example config:
+   ```bash
+   cp smaug.config.example.json smaug.config.json
+   ```
+2. Open Twitter/X in your browser
+3. Open Developer Tools → Application → Cookies
+4. Find and copy these values:
    - `auth_token`
    - `ct0`
-4. Add them to `smaug.config.json`:
+5. Add them to your `smaug.config.json`:
 
 ```json
 {
@@ -73,6 +77,8 @@ If you don't want to use the wizard to make it easy, you can manually put your s
   }
 }
 ```
+
+> **Note:** `smaug.config.json` is gitignored to prevent accidentally committing credentials. The example file is tracked instead.
 
 ## What Smaug Actually Does
 
@@ -288,7 +294,13 @@ Real-time speech-to-text transcription using OpenAI Whisper...
 
 ## Configuration
 
-Create `smaug.config.json`:
+Copy the example config and customize:
+
+```bash
+cp smaug.config.example.json smaug.config.json
+```
+
+Example `smaug.config.json`:
 
 ```json
 {
