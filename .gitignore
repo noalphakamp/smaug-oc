@@ -3,6 +3,8 @@ node_modules/
 
 # State files (contain your bookmark data)
 .state/
+knowledge
+bookmarks.md
 
 # Config with credentials (use smaug.config.example.json as template)
 bookmarks-archiver.config.json
