@@ -1193,25 +1193,19 @@ export async function run(options = {}) {
         console.log(`[${now}] Analysis complete`);
 
         // Remove processed IDs from pending file
-        // If --limit was used, .full is a backup - we should delete it and use current file
-        // If .full exists without --limit, something went wrong - restore from backup
+        // If --limit was used, we need to restore from .full backup (which has ALL bookmarks)
+        // and filter out only the processed ones, then write back to pending-file
         const fullFile = config.pendingFile + '.full';
         const usedLimit = options.limit && options.limit > 0;
-
-        if (usedLimit && fs.existsSync(fullFile)) {
-          // --limit was used: delete the backup, use current pending file
-          fs.unlinkSync(fullFile);
-        }
 
         let sourceData;
         try {
           if (fs.existsSync(fullFile)) {
-            // No --limit but .full exists: restore from backup
+            // Always read from .full if it exists (contains full backup)
             sourceData = JSON.parse(fs.readFileSync(fullFile, 'utf8'));
-            fs.unlinkSync(fullFile); // Clean up
+            fs.unlinkSync(fullFile); // Clean up backup
           } else if (fs.existsSync(config.pendingFile)) {
             const content = fs.readFileSync(config.pendingFile, 'utf8');
-            // Check if file looks like valid JSON before parsing
             const trimmed = content.trim();
             if (trimmed.startsWith('{') && trimmed.endsWith('}')) {
               sourceData = JSON.parse(content);
