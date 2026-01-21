@@ -1193,12 +1193,21 @@ export async function run(options = {}) {
         console.log(`[${now}] Analysis complete`);
 
         // Remove processed IDs from pending file
-        // If we used --limit, restore from .full file first
+        // If --limit was used, .full is a backup - we should delete it and use current file
+        // If .full exists without --limit, something went wrong - restore from backup
         const fullFile = config.pendingFile + '.full';
+        const usedLimit = options.limit && options.limit > 0;
+
+        if (usedLimit && fs.existsSync(fullFile)) {
+          // --limit was used: delete the backup, use current pending file
+          fs.unlinkSync(fullFile);
+        }
+
         let sourceData;
         if (fs.existsSync(fullFile)) {
+          // No --limit but .full exists: restore from backup
           sourceData = JSON.parse(fs.readFileSync(fullFile, 'utf8'));
-          fs.unlinkSync(fullFile); // Clean up .full file
+          fs.unlinkSync(fullFile); // Clean up
         } else if (fs.existsSync(config.pendingFile)) {
           sourceData = JSON.parse(fs.readFileSync(config.pendingFile, 'utf8'));
         }
