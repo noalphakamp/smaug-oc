@@ -1204,12 +1204,25 @@ export async function run(options = {}) {
         }
 
         let sourceData;
-        if (fs.existsSync(fullFile)) {
-          // No --limit but .full exists: restore from backup
-          sourceData = JSON.parse(fs.readFileSync(fullFile, 'utf8'));
-          fs.unlinkSync(fullFile); // Clean up
-        } else if (fs.existsSync(config.pendingFile)) {
-          sourceData = JSON.parse(fs.readFileSync(config.pendingFile, 'utf8'));
+        try {
+          if (fs.existsSync(fullFile)) {
+            // No --limit but .full exists: restore from backup
+            sourceData = JSON.parse(fs.readFileSync(fullFile, 'utf8'));
+            fs.unlinkSync(fullFile); // Clean up
+          } else if (fs.existsSync(config.pendingFile)) {
+            const content = fs.readFileSync(config.pendingFile, 'utf8');
+            // Check if file looks like valid JSON before parsing
+            const trimmed = content.trim();
+            if (trimmed.startsWith('{') && trimmed.endsWith('}')) {
+              sourceData = JSON.parse(content);
+            } else {
+              console.warn(`[${now}] Warning: pending file appears corrupted, using empty state`);
+              sourceData = { bookmarks: [], generatedAt: new Date().toISOString() };
+            }
+          }
+        } catch (parseError) {
+          console.warn(`[${now}] Warning: failed to parse pending file: ${parseError.message}`);
+          sourceData = { bookmarks: [], generatedAt: new Date().toISOString() };
         }
 
         if (sourceData) {
