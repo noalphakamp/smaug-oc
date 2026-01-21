@@ -246,24 +246,11 @@ The file must be in **descending chronological order** (newest dates at TOP, old
 
 Separate entries with `---` only between different dates, not between entries on the same day.
 
-### 3. Clean Up Pending File
+### 3. DO NOT Clean Up Pending File
 
-After successfully processing, remove the processed bookmarks from the pending file (use `pendingFile` path from config, expanding `~`):
+**IMPORTANT:** Do NOT modify the pending file. The Smaug job handles cleanup automatically. Modifying the file here would cause race conditions and data corruption.
 
-```javascript
-const fs = require('fs');
-const path = require('path');
-
-const config = JSON.parse(fs.readFileSync('./smaug.config.json', 'utf8'));
-const pendingPath = config.pendingFile.replace(/^~/, process.env.HOME);
-const pending = JSON.parse(fs.readFileSync(pendingPath, 'utf8'));
-
-// IDs of bookmarks you just processed (from the input)
-const processedIds = new Set([/* IDs from the bookmarks array */]);
-pending.bookmarks = pending.bookmarks.filter(b => !processedIds.has(b.id));
-pending.count = pending.bookmarks.length;
-fs.writeFileSync(pendingPath, JSON.stringify(pending, null, 2));
-```
+Just focus on processing the bookmarks and writing the results.
 
 ### 4. Commit and Push Changes
 
