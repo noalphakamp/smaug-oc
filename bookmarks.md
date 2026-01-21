@@ -6,6 +6,23 @@ This file contains archived Twitter bookmarks processed with OpenCode.
 
 ---
 
+# Wednesday, December 25, 2024
+
+## @Truthpolex - UFO/Drone Sightings Over White Sands
+> 🚨 BREAKING - Multiple UFO/Drone Sightings reported Over White Sands NASA Testing Facility in New Mexico
+>
+> Time: 9:16 12/24/24
+> Location: Las Cruces, NM
+>
+> This was an unidentified flying object sighting here in Las Cruces, New Mexico, 12/24/24 9:16. On the other side of the mountain range behind these is one of the largest weapons testing facilities in the United States the White Sands missile range.
+>
+> #Ufotwitter #Ufos #Uap #Ufox #LueElizondo #Ovni #Alien #Disclosure #Uaphearing #NJ #NewJersey #NewJerseyUFO #Drones
+
+- **Tweet:** https://x.com/Truthpolex/status/1871873978672746909
+- **What:** Breaking report of multiple UFO/drone sightings over the White Sands NASA testing facility and missile range in New Mexico on December 24, 2024, noted as significant due to proximity to one of the largest US weapons testing facilities.
+
+---
+
 # Sunday, December 15, 2024
 
 ## @AuburnBomber - Trump News
