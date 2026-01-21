@@ -1,13 +1,30 @@
 {
+  "source": "bookmarks",
   "archiveFile": "./bookmarks.md",
   "pendingFile": "./.state/pending-bookmarks.json",
   "stateFile": "./.state/bookmarks-state.json",
   "parallelThreshold": 8,
-  "timezone": "UTC",
+  "timezone": "America/New_York",
   "twitter": {
     "authToken": "YOUR_AUTH_TOKEN_HERE",
     "ct0": "YOUR_CT0_HERE"
   },
   "autoInvokeClaude": true,
-  "claudeModel": "sonnet"
+
+  "aiProvider": "claude-code",
+
+  "claudeCode": {
+    "model": "sonnet",
+    "allowedTools": "Read,Write,Edit,Glob,Grep,Bash,Task,TodoWrite"
+  },
+
+  "opencode": {
+    "model": "openrouter/minimax/minimax-m2.1",
+    "agent": "general",
+    "subtask": true,
+    "allowedTools": "Read,Write,Edit,Glob,Grep,Bash,Task,TodoWrite"
+  },
+
+  "webhookUrl": null,
+  "webhookType": "discord"
 }

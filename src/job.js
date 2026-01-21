@@ -17,7 +17,7 @@ import fs from 'fs';
 import path from 'path';
 import os from 'os';
 import { fetchAndPrepareBookmarks } from './processor.js';
-import { loadConfig } from './config.js';
+import { loadConfig, getAIProvider, getOpenCodeConfig, getClaudeCodeConfig } from './config.js';
 
 const JOB_NAME = 'smaug';
 const LOCK_FILE = path.join(os.tmpdir(), 'smaug.lock');
@@ -600,8 +600,452 @@ ${tokenDisplay}
 }
 
 // ============================================================================
-// Webhook Notifications (Optional)
+// AI Provider Interface
 // ============================================================================
+
+async function invokeAIProvider(config, bookmarkCount, options = {}) {
+  const provider = getAIProvider(config);
+
+  if (provider === 'opencode') {
+    return invokeOpenCode(config, bookmarkCount, options);
+  } else {
+    return invokeClaudeCode(config, bookmarkCount, options);
+  }
+}
+
+// ============================================================================
+// OpenCode Invocation
+// ============================================================================
+
+async function invokeOpenCode(config, bookmarkCount, options = {}) {
+  const ocConfig = getOpenCodeConfig(config);
+  const timeout = config.claudeTimeout || 900000; // 15 minutes default
+  const trackTokens = options.trackTokens || false;
+
+  // Find opencode binary
+  let opencodePath = 'opencode';
+  const possiblePaths = [
+    '/usr/local/bin/opencode',
+    '/opt/homebrew/bin/opencode',
+    path.join(process.env.HOME || '', '.local/bin/opencode'),
+  ];
+  for (const p of possiblePaths) {
+    if (fs.existsSync(p)) {
+      opencodePath = p;
+      break;
+    }
+  }
+  // Also check via which if we haven't found it
+  if (opencodePath === 'opencode') {
+    try {
+      opencodePath = execSync('which opencode', { encoding: 'utf8' }).trim() || 'opencode';
+    } catch {
+      // which failed, stick with 'opencode'
+    }
+  }
+
+  // Dramatic dragon reveal with fire animation
+  const showDragonReveal = async (totalBookmarks) => {
+    process.stdout.write('\n');
+    const fireFramesIntro = ['🔥', '🔥🔥', '🔥🔥🔥', '🔥🔥🔥🔥', '🔥🔥🔥🔥🔥'];
+    for (let i = 0; i < 10; i++) {
+      const frame = fireFramesIntro[i % fireFramesIntro.length];
+      process.stdout.write(`\r  ${frame.padEnd(12)}`);
+      await new Promise(r => setTimeout(r, 150));
+    }
+
+    process.stdout.write('\r                    \r');
+    process.stdout.write(`  Wait... that's not Claude... it's
+
+   🔥  🔥  🔥  🔥  🔥  🔥  🔥  🔥  🔥  🔥  🔥  🔥
+        _____ __  __   _   _   _  ____
+       / ____|  \/  | / \ | | | |/ ___|
+       \___ \| |\/| |/ _ \| | | | |  _
+        ___) | |  | / ___ \ |_| | |_| |
+       |____/|_|  |_/_/  \_\___/ \____|
+
+   🐉 The dragon stirs... ${totalBookmarks} treasure${totalBookmarks !== 1 ? 's' : ''} to hoard!
+ `);
+  };
+
+  await showDragonReveal(bookmarkCount);
+
+  return new Promise((resolve) => {
+    const args = [
+      'run',
+      '--format', 'json',
+      '--model', ocConfig.model,
+      '--',
+      `Process the ${bookmarkCount} bookmark(s) in ./.state/pending-bookmarks.json following the instructions in ./.opencode/commands/process-bookmarks.md. Read that file first, then process each bookmark.`
+    ];
+
+    // Ensure PATH includes common node locations
+    const nodePaths = [
+      '/usr/local/bin',
+      '/opt/homebrew/bin',
+      process.env.NVM_BIN,
+      path.join(process.env.HOME || '', '.local/bin'),
+      path.join(process.env.HOME || '', '.bun/bin'),
+    ];
+    const enhancedPath = [...nodePaths, process.env.PATH || ''].join(':');
+
+    // Clean environment
+    const cleanEnv = { ...process.env };
+
+    const proc = spawn(opencodePath, args, {
+      cwd: config.projectRoot || process.cwd(),
+      env: {
+        ...cleanEnv,
+        PATH: enhancedPath,
+      },
+      stdio: ['ignore', 'pipe', 'pipe']
+    });
+
+    let stdout = '';
+    let stderr = '';
+    let lastText = '';
+    let filesWritten = [];
+    let bookmarksProcessed = 0;
+    let totalBookmarks = bookmarkCount;
+
+    // Track parallel tasks
+    const parallelTasks = new Map();
+    let tasksSpawned = 0;
+    let tasksCompleted = 0;
+
+    // Token usage tracking (via OpenCode stats after completion)
+    const tokenUsage = {
+      input: 0,
+      output: 0,
+      reasoning: 0,
+      cacheRead: 0,
+      cacheWrite: 0,
+      model: ocConfig.model,
+      subagentModel: ocConfig.model
+    };
+
+    // Helper to format time elapsed
+    const startTime = Date.now();
+    const elapsed = () => {
+      const ms = Date.now() - startTime;
+      const secs = Math.floor(ms / 1000);
+      return secs < 60 ? `${secs}s` : `${Math.floor(secs/60)}m ${secs%60}s`;
+    };
+
+    // Progress bar helper
+    const progressBar = (current, total, width = 20) => {
+      const pct = Math.min(current / total, 1);
+      const filled = Math.round(pct * width);
+      const empty = width - filled;
+      const bar = '█'.repeat(filled) + '░'.repeat(empty);
+      return `[${bar}] ${current}/${total}`;
+    };
+
+    // Dragon status messages
+    const dragonSays = [
+      '🐉 *sniff sniff* Fresh bookmarks detected...',
+      '🔥 Breathing fire on these tweets...',
+      '💎 Adding treasures to the hoard...',
+      '🏔️ Guarding the mountain of knowledge...',
+      '⚔️ Vanquishing duplicate bookmarks...',
+      '🌋 The dragon\'s flames illuminate the data...',
+    ];
+    let dragonMsgIndex = 0;
+    const nextDragonMsg = () => dragonSays[dragonMsgIndex++ % dragonSays.length];
+
+    // Track one-time messages to avoid duplicates
+    const shownMessages = new Set();
+
+    // Animated fire spinner
+    const fireFrames = [
+      '  🔥    ',
+      ' 🔥🔥   ',
+      '🔥🔥🔥  ',
+      ' 🔥🔥🔥 ',
+      '  🔥🔥🔥',
+      '   🔥🔥 ',
+      '    🔥  ',
+      '   🔥   ',
+      '  🔥🔥  ',
+      ' 🔥 🔥  ',
+      '🔥  🔥  ',
+      '🔥   🔥 ',
+      ' 🔥  🔥 ',
+      '  🔥 🔥 ',
+      '   🔥🔥 ',
+    ];
+    const spinnerMessages = [
+      'Breathing fire on bookmarks',
+      'Examining the treasures',
+      'Sorting the hoard',
+      'Polishing the gold',
+      'Counting coins',
+      'Guarding the lair',
+      'Hunting for gems',
+      'Cataloging riches',
+    ];
+    let fireFrame = 0;
+    let spinnerMsgFrame = 0;
+    let lastSpinnerLine = '';
+    let spinnerActive = true;
+    let currentSpinnerMsg = spinnerMessages[0];
+
+    const msgInterval = setInterval(() => {
+      if (!spinnerActive) return;
+      spinnerMsgFrame = (spinnerMsgFrame + 1) % spinnerMessages.length;
+      currentSpinnerMsg = spinnerMessages[spinnerMsgFrame];
+    }, 10000);
+
+    const spinnerInterval = setInterval(() => {
+      if (!spinnerActive) return;
+      fireFrame = (fireFrame + 1) % fireFrames.length;
+      const flame = fireFrames[fireFrame];
+      const spinnerLine = `\r  ${flame} ${currentSpinnerMsg}... [${elapsed()}]`;
+      process.stdout.write(spinnerLine + '          ');
+      lastSpinnerLine = spinnerLine;
+    }, 150);
+
+    process.stdout.write('\n  ⏳ Dragons are patient hunters... this may take a moment.\n');
+    lastSpinnerLine = '  🔥     Processing...';
+    process.stdout.write(lastSpinnerLine);
+
+    const printStatus = (msg) => {
+      process.stdout.write('\r' + ' '.repeat(60) + '\r');
+      process.stdout.write(msg);
+    };
+
+    const stopSpinner = () => {
+      spinnerActive = false;
+      clearInterval(spinnerInterval);
+      clearInterval(msgInterval);
+      process.stdout.write('\r' + ' '.repeat(60) + '\r');
+    };
+
+    let lineBuffer = '';
+
+    proc.stdout.on('data', (data) => {
+      const text = data.toString();
+      stdout += text;
+
+      lineBuffer += text;
+      const lines = lineBuffer.split('\n');
+      lineBuffer = lines.pop() || '';
+
+      for (const line of lines) {
+        if (!line.trim()) continue;
+        if (!line.startsWith('{')) continue;
+
+        try {
+          const event = JSON.parse(line);
+
+          // OpenCode event format handling (verified from testing)
+          // Event types: step_start, step_finish, tool_use, text
+          // Tool use events have: part.type === "tool", part.tool, part.state
+
+          if (event.type === 'tool_use' && event.part) {
+            const part = event.part;
+            if (part.type === 'tool') {
+              const toolName = part.tool;
+              const input = part.state?.input || {};
+
+              if (toolName === 'Write' && input.filePath) {
+                const fileName = input.filePath.split('/').pop();
+                const dir = input.filePath.includes('/knowledge/tools/') ? 'tools' :
+                           input.filePath.includes('/knowledge/articles/') ? 'articles' : '';
+                filesWritten.push(fileName);
+                if (dir) {
+                  printStatus(`    💎 Hoarded → ${dir}/${fileName}\n`);
+                } else if (fileName === 'bookmarks.md') {
+                  bookmarksProcessed++;
+                  const fireIntensity = '🔥'.repeat(Math.min(Math.ceil(bookmarksProcessed / 2), 5));
+                  printStatus(`  ${fireIntensity} ${progressBar(bookmarksProcessed, totalBookmarks)} [${elapsed()}]`);
+                } else {
+                  printStatus(`    💎 ${fileName}\n`);
+                }
+              } else if (toolName === 'Edit' && input.filePath) {
+                const fileName = input.filePath.split('/').pop();
+                if (fileName === 'bookmarks.md') {
+                  bookmarksProcessed++;
+                  const fireIntensity = '🔥'.repeat(Math.min(Math.ceil(bookmarksProcessed / 2), 5));
+                  printStatus(`  ${fireIntensity} ${progressBar(bookmarksProcessed, totalBookmarks)} [${elapsed()}]`);
+                } else if (fileName === 'pending-bookmarks.json') {
+                  printStatus(`  🐉 *licks claws clean* Tidying the lair...\n`);
+                }
+              } else if (toolName === 'Read' && input.filePath) {
+                const fileName = input.filePath.split('/').pop();
+                if (fileName === 'pending-bookmarks.json' && !shownMessages.has('eye')) {
+                  shownMessages.add('eye');
+                  printStatus(`  👁️  The dragon's eye opens... surveying treasures...\n`);
+                } else if (fileName === 'process-bookmarks.md' && !shownMessages.has('scrolls')) {
+                  shownMessages.add('scrolls');
+                  printStatus(`  📜 Consulting the ancient scrolls...\n`);
+                }
+              } else if (toolName === 'task') {
+                const desc = input.description || `batch ${tasksSpawned + 1}`;
+                const taskKey = `task-${desc}`;
+                if (!parallelTasks.has(taskKey)) {
+                  tasksSpawned++;
+                  parallelTasks.set(taskKey, {
+                    description: desc,
+                    startTime: Date.now(),
+                    status: 'running'
+                  });
+                  printStatus(`  🐲 Summoning dragon minion: ${desc}\n`);
+                  if (tasksSpawned > 1) {
+                    printStatus(`     🔥 ${tasksSpawned} dragons now circling the hoard\n`);
+                  }
+                }
+              } else if (toolName === 'Bash') {
+                const cmd = input.command || '';
+                if (cmd.includes('jq') && cmd.includes('bookmarks')) {
+                  printStatus(`  ⚡ ${nextDragonMsg()}\n`);
+                }
+              }
+            }
+          }
+
+          // Track task completions (Task tool results)
+          if (event.type === 'tool_use' && event.part?.tool === 'task' && event.part?.state?.status === 'completed') {
+            tasksCompleted++;
+            if (tasksSpawned > 0 && tasksCompleted <= tasksSpawned) {
+              const pct = Math.round((tasksCompleted / tasksSpawned) * 100);
+              const flames = '🔥'.repeat(Math.ceil(pct / 20));
+              printStatus(`  🐲 Dragon minion returns! ${flames} (${tasksCompleted}/${tasksSpawned})\n`);
+            }
+          }
+
+          // Track token usage (OpenCode format in step_finish events)
+          if (event.type === 'step_finish' && event.part?.tokens) {
+            tokenUsage.input = event.part.tokens.input || 0;
+            tokenUsage.output = event.part.tokens.output || 0;
+            tokenUsage.reasoning = event.part.tokens.reasoning || 0;
+            tokenUsage.cacheRead = event.part.tokens.cache?.read || 0;
+            tokenUsage.cacheWrite = event.part.tokens.cache?.write || 0;
+          }
+
+          // Show result summary (step_finish with reason: "stop")
+          if (event.type === 'step_finish' && event.part?.reason === 'stop') {
+            stopSpinner();
+
+            const hoardDescriptions = {
+              small: ['A Few Coins', 'Sparse', 'Humble Beginnings', 'First Treasures', 'A Modest Start'],
+              medium: ['Glittering', 'Growing Nicely', 'Respectable Pile', 'Gleaming Hoard', 'Handsome Collection'],
+              large: ['Overflowing', 'Mountain of Gold', 'Legendary Hoard', 'Dragon\'s Fortune', 'Vast Riches']
+            };
+
+            const tier = totalBookmarks > 15 ? 'large' : totalBookmarks > 7 ? 'medium' : 'small';
+            const descriptions = hoardDescriptions[tier];
+            const hoardStatus = descriptions[Math.floor(Math.random() * descriptions.length)];
+
+            let tokenDisplay = '';
+            if (trackTokens && (tokenUsage.input > 0 || tokenUsage.output > 0)) {
+              // OpenRouter pricing (Mini Max M2.1)
+              const pricing = {
+                'openrouter/minimax/minimax-m2.1': { input: 0.10, output: 0.10, cacheRead: 0, cacheWrite: 0 }
+              };
+
+              const modelPricing = pricing[ocConfig.model] || { input: 0.10, output: 0.10 };
+
+              const inputCost = (tokenUsage.input / 1_000_000) * modelPricing.input;
+              const outputCost = (tokenUsage.output / 1_000_000) * modelPricing.output;
+              const cacheReadCost = (tokenUsage.cacheRead / 1_000_000) * (modelPricing.cacheRead || 0);
+              const cacheWriteCost = (tokenUsage.cacheWrite / 1_000_000) * (modelPricing.cacheWrite || 0);
+
+              const totalCost = inputCost + outputCost + cacheReadCost + cacheWriteCost;
+
+              const formatNum = (n) => n.toLocaleString();
+              const formatCost = (c) => c < 0.01 ? '<$0.01' : `$${c.toFixed(2)}`;
+
+              tokenDisplay = `
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+   📊 TOKEN USAGE (${ocConfig.model})
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+     Input:       ${formatNum(tokenUsage.input).padStart(10)} tokens  ${formatCost(inputCost)}
+     Output:      ${formatNum(tokenUsage.output).padStart(10)} tokens  ${formatCost(outputCost)}
+   ${tokenUsage.cacheRead > 0 || tokenUsage.cacheWrite > 0 ? `
+     Cache Read:  ${formatNum(tokenUsage.cacheRead).padStart(10)} tokens  ${formatCost(cacheReadCost)}
+     Cache Write: ${formatNum(tokenUsage.cacheWrite).padStart(10)} tokens  ${formatCost(cacheWriteCost)}
+   ` : ''}
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+   💰 TOTAL COST: ${formatCost(totalCost)}
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+ `;
+            }
+
+            process.stdout.write(`
+
+   🔥🔥🔥  THE DRAGON'S HOARD GROWS!  🔥🔥🔥
+
+               🐉
+             /|  |\\
+            / |💎| \\      Victory!
+           /  |__|  \\
+          /  /    \\  \\
+         /__/  💰  \\__\\
+
+   ⏱️  Quest Duration:  ${elapsed()}
+   📦  Bookmarks:       ${totalBookmarks} processed
+   🐲  Dragon Minions:  ${tasksSpawned > 0 ? tasksSpawned + ' summoned' : 'solo hunt'}
+   🏔️  Hoard Status:    ${hoardStatus}
+${tokenDisplay}
+   🐉 Smaug rests... until the next hoard arrives.
+
+ `);
+          }
+        } catch (e) {
+          // JSON parse failed - silently ignore
+        }
+      }
+    });
+
+    proc.stderr.on('data', (data) => {
+      const text = data.toString();
+      stderr += text;
+      process.stderr.write(text);
+    });
+
+    const timeoutId = setTimeout(() => {
+      stopSpinner();
+      proc.kill('SIGTERM');
+      resolve({
+        success: false,
+        error: `Timeout after ${timeout}ms`,
+        stdout,
+        stderr,
+        exitCode: -1
+      });
+    }, timeout);
+
+    proc.on('close', (code) => {
+      stopSpinner();
+      clearTimeout(timeoutId);
+      if (code === 0) {
+        resolve({ success: true, output: stdout, tokenUsage });
+      } else {
+        resolve({
+          success: false,
+          error: `Exit code ${code}`,
+          stdout,
+          stderr,
+          exitCode: code,
+          tokenUsage
+        });
+      }
+    });
+
+    proc.on('error', (err) => {
+      stopSpinner();
+      clearTimeout(timeoutId);
+      resolve({
+        success: false,
+        error: err.message,
+        stdout,
+        stderr,
+        exitCode: -1
+      });
+    });
+  });
+}
 
 async function sendWebhook(config, payload) {
   if (!config.webhookUrl) return;
@@ -734,15 +1178,18 @@ export async function run(options = {}) {
     // Track IDs we're about to process
     const idsToProcess = pendingData.bookmarks.map(b => b.id);
 
-    // Phase 2: Claude Code analysis (if enabled)
-    if (config.autoInvokeClaude !== false) {
-      console.log(`[${now}] Phase 2: Invoking Claude Code for analysis...`);
+    // Phase 2: AI analysis (if enabled)
+    const provider = getAIProvider(config);
+    const providerName = provider === 'opencode' ? 'OpenCode' : 'Claude Code';
 
-      const claudeResult = await invokeClaudeCode(config, bookmarkCount, {
+    if (config.autoInvokeClaude !== false) {
+      console.log(`[${now}] Phase 2: Invoking ${providerName} for analysis...`);
+
+      const aiResult = await invokeAIProvider(config, bookmarkCount, {
         trackTokens: options.trackTokens
       });
 
-      if (claudeResult.success) {
+      if (aiResult.success) {
         console.log(`[${now}] Analysis complete`);
 
         // Remove processed IDs from pending file
@@ -781,12 +1228,12 @@ export async function run(options = {}) {
           success: true,
           count: bookmarkCount,
           duration: Date.now() - startTime,
-          output: claudeResult.output,
-          tokenUsage: claudeResult.tokenUsage
+          output: aiResult.output,
+          tokenUsage: aiResult.tokenUsage
         };
 
       } else {
-        // Claude failed - restore full pending file for retry
+        // AI failed - restore full pending file for retry
         const fullFile = config.pendingFile + '.full';
         if (fs.existsSync(fullFile)) {
           fs.copyFileSync(fullFile, config.pendingFile);
@@ -794,12 +1241,12 @@ export async function run(options = {}) {
           console.log(`[${now}] Restored full pending file for retry`);
         }
 
-        console.error(`[${now}] Claude Code failed:`, claudeResult.error);
+        console.error(`[${now}] ${providerName} failed:`, aiResult.error);
 
         await notify(
           config,
           'Bookmark Processing Failed',
-          `Prepared ${bookmarkCount} bookmarks but analysis failed:\n${claudeResult.error}`,
+          `Prepared ${bookmarkCount} bookmarks but analysis failed:\n${aiResult.error}`,
           false
         );
 
@@ -807,12 +1254,12 @@ export async function run(options = {}) {
           success: false,
           count: bookmarkCount,
           duration: Date.now() - startTime,
-          error: claudeResult.error
+          error: aiResult.error
         };
       }
     } else {
       // Auto-invoke disabled - just fetch
-      console.log(`[${now}] Claude auto-invoke disabled. Run 'smaug process' or /process-bookmarks manually.`);
+      console.log(`[${now}] AI auto-invoke disabled. Run 'smaug process' or /process-bookmarks manually.`);
 
       return {
         success: true,
