@@ -938,3 +938,117 @@ it's live now do check it out and would appreciate your feedback https://t.co/DO
 
 - **Tweet:** https://x.com/alexhillman/status/1992252350812270856
 - **What:** Personal reflection on core imperatives with emphasis on keeping humans central to all technology decisions.
+
+# Thursday, December 12, 2024
+
+## @UAPReportingCnt - Clear Drone Capture in NJ
+> Amazing clear capture of a "drone" in NJ. Multiple witnesses confirming. #dronesnj #dronesightings #uapdisclosure #UFOTwitter https://t.co/lVC9prFMPT
+
+- **Tweet:** https://x.com/UAPReportingCnt/status/1867427901865439583
+- **What:** A clear photo/video capture of a drone observed in New Jersey, with multiple witnesses confirming the sighting. Part of the ongoing mystery drone sightings in NJ.
+
+---
+
+# Friday, December 13, 2024
+
+## @WallStreetApes - Drone Appears to Be Spraying Something
+> American captured "drone" that appears to be spraying something into our sky
+
+"Look at him spraying. Look at that. He is spraying the sky again. Bro, this is f*cking crazy, man" https://t.co/f0aEguVfec
+
+- **Tweet:** https://x.com/WallStreetApes/status/1867473067695358264
+- **What:** Video footage of a drone allegedly spraying something into the sky, contributing to concerns about the purpose of the widespread drone activity in NJ.
+
+---
+
+## @Maerox - Get Ready Warning
+> 🚨🚨GET READY!!! 🚨🚨 https://t.co/eRXrSKRZxZ
+
+- **Tweet:** https://x.com/Maerox/status/1867582484495450371
+- **What:** A dramatic warning post with accompanying media, likely referencing ongoing developments in the drone situation.
+
+---
+
+## @KristyTallman - Mystery Drone Potentially Landed in Hillsborough Township, NJ
+> 🚨‼️Mystery drone possibly landed in Hillsborough Township, NJ
+
+Investigators are probing a potential drone landing in Hillsborough, NJ. Law enforcement agencies combed a wooded area off Route 206. The FBI is aware of the incident but has not released details.
+
+#NJdrones #MysteryDrones #FBI #DroneInvestigation #HillsboroughNJ #LawEnforcement #AerialPhenomena #BreakingNews
+
+Video credit: CBS
+
+- **Tweet:** https://x.com/KristyTallman/status/1867608842391126088
+- **What:** Breaking news report about investigators searching a wooded area in Hillsborough, NJ after a potential drone landing. FBI has been notified but no official details released.
+
+---
+
+## @davidgrusch - Drones Drones?
+> #Drones Drones? 👀
+
+- **Tweet:** https://x.com/davidgrusch/status/1867647852606107774
+- **What:** Brief comment from former UAP whistleblower David Grusch, who previously testified to Congress about government UFO programs, offering a cryptic response to the drone situation.
+
+---
+
+# Saturday, December 14, 2024
+
+## @RedPandaKoala - UFO Footage
+> "We have no idea what it is." 
+
+ABC News crew catpures clear footage of UFO
+
+- **Tweet:** https://x.com/RedPandaKoala/status/1867812166600110344
+- **What:** ABC News captured video of an unidentified flying object, with the crew stating they don't know what it is.
+
+---
+
+## @theurigeller - NEST Team Conspiracy
+> Dear friends this is serious:
+I cannot verify this, nor is this in the news however the #NewJerseyStatePolice reported that the #DepartmentofEnergy, #NuclearEmergencySupportTeam and the #USArmy21stOrdnanceCompany-Cobra Response Team (CRT), were deployed to joint base, McGuire-Ft Dix, NJ.  Both teams respond to incident involving Improvised Nuclear Devices.
+
+My guess is; this may be a set up to blame a foreign adversary so as to initiate marshal law and not handover the presidency in January.
+It may also be possible, and this is a stretch, but if there is some nuclear leak, attack, or anything related to that, non human intelligences will be close by to observe. They are often around nuclear facilities and technologies. 
+I may be wrong, but only under marshal law can they delay the turnover of administration.
+A sitting administration might claim extraordinary circumstances, such as a national emergency (e.g., war, insurrection, or catastrophic event,
+I think that may be the motivation behind the drone chaos. But what about the drones being seen in UK, Germany and other countries? Please leave a comment.
+#aliens #ufo #ElonMusk #DonaldJTrump
+
+- **Tweet:** https://x.com/theurigeller/status/1867826059296575728
+- **What:** Unverified claims about nuclear response teams deployed to New Jersey, speculating about martial law, alien observation of nuclear facilities, and a conspiracy to delay the presidential transition.
+
+---
+
+## @richgel999 - NEST Team in New Jersey
+> @theurigeller Sounds like they've deployed a NEST team to NJ, is what you're saying above. That would make a lot of sense right now considering the Salem situation.
+
+https://t.co/y7yunhpsEq
+
+- **Tweet:** https://x.com/richgel999/status/1867836797276840325
+- **What:** Reply to Uri Geller suggesting the Nuclear Emergency Support Team was deployed to New Jersey, possibly connected to the Salem nuclear facility situation.
+
+---
+
+## @JimFergusonUK - Project Bluebeam Warning
+> 🚨 Project Bluebeam Warning 🚨
+
+Dr. Steven Greer reveals a chilling plan: a false flag alien attack is coming. Since the 1950s, human assets have staged abductions disguised as aliens, he claims. 
+
+Greer says we've already mastered gravity control and that the script for what's coming looks eerily like the film Independence Day.
+
+The goal? To create fear and chaos, paving the way for a totalitarian superstate—the New World Order.
+
+Is this the ultimate deception by a covert globalist group? Stay vigilant. 👽🛸 #ProjectBluebeam #FalseFlag #AlienAgenda #NewWorldOrder
+
+- **Tweet:** https://x.com/JimFergusonUK/status/1867946020971106763
+- **What:** Claims Dr. Steven Greer alleges a false flag alien attack is being planned to establish a totalitarian New World Order government.
+
+---
+
+## @david_govea - Brooklyn Drone Sighting
+> Can't believe I caught this last night. Got swarmed with unmarked cop cars and they forced me to leave the area
+
+Bay ridge Brooklyn NYC #dronesoverNJ #dronesightings https://t.co/WB0q1icMJF
+
+- **Tweet:** https://x.com/david_govea/status/1868009058231586980
+- **What:** Witness reports encountering a drone swarm in Bay Ridge, Brooklyn, with unmarked police vehicles forcing them to leave the area.
