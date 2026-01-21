@@ -314,3 +314,32 @@ export function initConfig(targetPath = './smaug.config.json') {
   console.log('Edit this file to add your Twitter credentials.');
   return targetPath;
 }
+
+/**
+ * Get the configured AI provider (claude-code or opencode)
+ */
+export function getAIProvider(config) {
+  return config.aiProvider || 'claude-code';
+}
+
+/**
+ * Get OpenCode-specific configuration
+ */
+export function getOpenCodeConfig(config) {
+  return {
+    model: config.opencode?.model || 'openrouter/minimax/minimax-m2.1',
+    agent: config.opencode?.agent || 'general',
+    subtask: config.opencode?.subtask ?? true,
+    allowedTools: config.opencode?.allowedTools || config.allowedTools || 'Read,Write,Edit,Glob,Grep,Bash,Task,TodoWrite'
+  };
+}
+
+/**
+ * Get Claude Code-specific configuration
+ */
+export function getClaudeCodeConfig(config) {
+  return {
+    model: config.claudeCode?.model || config.claudeModel || 'sonnet',
+    allowedTools: config.claudeCode?.allowedTools || config.allowedTools || 'Read,Write,Edit,Glob,Grep,Bash,Task,TodoWrite'
+  };
+}

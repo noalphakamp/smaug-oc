@@ -8,13 +8,15 @@ Archive your Twitter/X bookmarks (and/or optionally, likes) to markdown. Automat
 
 - [Quick Start](#quick-start-5-minutes)
 - [Getting Twitter Credentials](#getting-twitter-credentials)
-- [What It Does](#what-it-does)
-- [Running](#running)
+- [What It Does](#what-smaug-actually-does)
+- [Running](#running-manually)
 - [Categories](#categories)
+- [Bookmark Folders](#bookmark-folders)
 - [Automation](#automation)
 - [Output](#output)
 - [Configuration](#configuration)
 - [Claude Code Integration](#claude-code-integration)
+- [OpenCode Integration](#opencode-integration)
 - [Troubleshooting](#troubleshooting)
 - [Credits](#credits)
 
@@ -36,14 +38,14 @@ Archive your Twitter/X bookmarks (and/or optionally, likes) to markdown. Automat
 # See https://github.com/steipete/bird for installation
 
 # 2. Clone and install Smaug
-git clone https://github.com/alexknowshtml/smaug
-cd smaug
+git clone https://github.com/noalphakamp/smaug-oc
+cd smaug-oc
 npm install
 
 # 3. Run the setup wizard
 npx smaug setup
 
-# 4. Run the full job (fetch + process with Claude)
+# 4. Run the full job (fetch + process with AI)
 npx smaug run
 ```
 
@@ -363,7 +365,7 @@ When enabled, the `media[]` array is included in the pending JSON with:
 
 ## Claude Code Integration
 
-Smaug uses Claude Code for intelligent bookmark processing. The `.claude/commands/process-bookmarks.md` file contains instructions for:
+Smaug uses Claude Code by default for intelligent bookmark processing. The `.claude/commands/process-bookmarks.md` file contains instructions for:
 
 - Generating descriptive titles (not generic "Article" or "Tweet")
 - Filing GitHub repos to `knowledge/tools/`
@@ -417,7 +419,111 @@ For large batches (8+ bookmarks by default), Smaug spawns parallel subagents. By
 
 Same speed, ~50% cheaper. The categorization and filing tasks don't require Sonnet-level reasoning, so Haiku handles them well.
 
-This is configured in `.claude/commands/process-bookmarks.md` with `model="haiku"` in the Task calls.
+This is configured in `.claude/commands/process-bookmarks-claude.md` with `model="haiku"` in the Task calls.
+
+## OpenCode Integration
+
+Smaug can use either Claude Code or OpenCode as its AI provider for bookmark processing.
+
+### Setting Up OpenCode
+
+1. **Install OpenCode:**
+   ```bash
+   curl -fsSL https://opencode.ai/install | bash
+   ```
+
+2. **Configure OpenCode:**
+   ```bash
+   opencode auth login
+   # Or set API key in environment: OPENROUTER_API_KEY
+   ```
+
+3. **Initialize OpenCode for Smaug:**
+   ```bash
+   cd /path/to/smaug
+   opencode /init
+   ```
+
+4. **Update smaug.config.json:**
+   ```json
+   {
+     "aiProvider": "opencode",
+     "opencode": {
+       "model": "openrouter/minimax/minimax-m2.1"
+     }
+   }
+   ```
+
+5. **Verify:**
+   ```bash
+   npx smaug run
+   ```
+
+### OpenCode Command File
+
+Smaug creates `.opencode/commands/process-bookmarks.md` with instructions for OpenCode to process bookmarks. This file is automatically used when `aiProvider` is set to `"opencode"`.
+
+### Switching Between Providers
+
+| Config | Provider |
+|--------|----------|
+| `"aiProvider": "claude-code"` | Claude Code (default, existing behavior) |
+| `"aiProvider": "opencode"` | OpenCode |
+
+### Model Configuration
+
+**Claude Code models:**
+- `sonnet` (default)
+- `haiku` (faster, cheaper)
+- `opus` (most capable)
+
+**OpenRouter models (via OpenCode):**
+- `openrouter/minimax/minimax-m2.1` (recommended for Smaug)
+- Any other OpenRouter-compatible model
+
+Example:
+```json
+{
+  "aiProvider": "opencode",
+  "opencode": {
+    "model": "openrouter/minimax/minimax-m2.1"
+  }
+}
+```
+
+### Token Usage Tracking
+
+Both providers support token tracking with `-t` flag:
+
+```bash
+npx smaug run -t
+```
+
+Output shows input/output tokens and estimated cost based on provider pricing.
+
+### Troubleshooting
+
+**OpenCode not found:**
+- Ensure OpenCode is installed: `which opencode`
+- Add to PATH or use absolute path in config
+
+**OpenCode authentication errors:**
+- Run `opencode auth login` to configure credentials
+- Or set `OPENROUTER_API_KEY` environment variable
+
+**Parallel processing issues:**
+- Ensure `subtask: true` is set in OpenCode config
+- Check `.opencode/commands/process-bookmarks.md` exists
+- Verify model supports subagent spawning
+
+### Cost Comparison
+
+| Provider | Model | Est. Cost (20 bookmarks) |
+|----------|-------|--------------------------|
+| Claude Code | sonnet | ~$0.50 |
+| OpenCode | minimax-m2.1 | ~$0.05 |
+
+OpenCode with Mini Max can be ~10x cheaper for bookmark processing.
 
 ## Troubleshooting
 
