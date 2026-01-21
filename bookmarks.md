@@ -75,6 +75,32 @@
 - **What:** Shared article link
 
 ---
+# Thursday, January 11, 2024
+
+## @rez0__ - Invisible Prompt Injection Breakthrough
+> I revise my earlier tweet about this being the best prompt injection content in a few weeks. This is the biggest breakthrough and security issue since prompt injection itself.
+>
+> Here's why:
+> - It's invisible
+> - It's near impossible to fix
+
+- **Tweet:** https://x.com/rez0__/status/1745545813512663203
+- **Quoted:** https://x.com/goodside/status/1745511940351287394
+- **Link:** https://embracethered.com/blog/posts/2023/google-bard-data-exfiltration/
+- **What:** Analysis of invisible prompt injection vulnerability that can hide in unicode text, making it nearly impossible to detect and fix
+
+---
+# Wednesday, January 31, 2024
+
+## @mattjay - New Container Escape Vulnerability via runc
+> A new container escape vulnerability just dropped.
+>
+> It gives an attacker the ability to hop from container to host OS via runc.
+
+- **Tweet:** https://x.com/mattjay/status/1752805908235661811
+- **What:** Reports of a new container escape vulnerability allowing attackers to escape from container to host OS via runc
+
+---
 # Tuesday, January 20, 2026
 
 ## @vasuman - High Value Article Signal
