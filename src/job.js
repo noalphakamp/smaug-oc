@@ -564,7 +564,8 @@ ${tokenDisplay}
         error: `Timeout after ${timeout}ms`,
         stdout,
         stderr,
-        exitCode: -1
+        exitCode: -1,
+        duration: Date.now() - startTime
       });
     }, timeout);
 
@@ -593,7 +594,8 @@ ${tokenDisplay}
         error: err.message,
         stdout,
         stderr,
-        exitCode: -1
+        exitCode: -1,
+        duration: Date.now() - startTime
       });
     });
   });
@@ -1012,7 +1014,8 @@ ${tokenDisplay}
         error: `Timeout after ${timeout}ms`,
         stdout,
         stderr,
-        exitCode: -1
+        exitCode: -1,
+        duration: Date.now() - startTime
       });
     }, timeout);
 
@@ -1041,7 +1044,8 @@ ${tokenDisplay}
         error: err.message,
         stdout,
         stderr,
-        exitCode: -1
+        exitCode: -1,
+        duration: Date.now() - startTime
       });
     });
   });
@@ -1249,29 +1253,72 @@ export async function run(options = {}) {
         };
 
       } else {
-        // AI failed - restore full pending file for retry
+        // AI failed
+        const isTimeout = aiResult.error?.includes('Timeout') || aiResult.error?.includes('timeout');
         const fullFile = config.pendingFile + '.full';
-        if (fs.existsSync(fullFile)) {
-          fs.copyFileSync(fullFile, config.pendingFile);
-          fs.unlinkSync(fullFile);
-          console.log(`[${now}] Restored full pending file for retry`);
+
+        if (isTimeout) {
+          // On timeout: DO NOT restore from .full - pending file may have partial progress
+          // Just clean up the backup file if it exists
+          if (fs.existsSync(fullFile)) {
+            fs.unlinkSync(fullFile);
+          }
+
+          console.error(`\n⚠️  ${providerName} TIMEOUT after ${Math.round(aiResult.duration / 60000)} minutes`);
+          console.error(`   The pending file has been preserved with remaining bookmarks.`);
+          console.error(`   Try running with a smaller batch size to avoid timeouts.\n`);
+
+          // Count remaining bookmarks
+          let remainingCount = 0;
+          try {
+            const pending = JSON.parse(fs.readFileSync(config.pendingFile, 'utf8'));
+            remainingCount = pending.bookmarks?.length || 0;
+          } catch (e) {}
+
+          if (remainingCount > 0) {
+            console.error(`   ${remainingCount} bookmarks remaining in pending file.\n`);
+          }
+
+          await notify(
+            config,
+            'Bookmark Processing Timed Out',
+            `${providerName} timed out after ${Math.round(aiResult.duration / 60000)} minutes. ${remainingCount} bookmarks remain pending. Try a smaller batch size.`,
+            false
+          );
+
+          return {
+            success: false,
+            count: 0,
+            duration: Date.now() - startTime,
+            error: aiResult.error,
+            timedOut: true,
+            remainingBookmarks: remainingCount
+          };
+
+        } else {
+          // Non-timeout failure - restore from .full for retry
+          if (fs.existsSync(fullFile)) {
+            fs.copyFileSync(fullFile, config.pendingFile);
+            fs.unlinkSync(fullFile);
+            console.log(`[${now}] Restored full pending file for retry`);
+          }
+
+          console.error(`[${now}] ${providerName} failed:`, aiResult.error);
+
+          await notify(
+            config,
+            'Bookmark Processing Failed',
+            `Prepared ${bookmarkCount} bookmarks but analysis failed:\n${aiResult.error}`,
+            false
+          );
+
+          return {
+            success: false,
+            count: bookmarkCount,
+            duration: Date.now() - startTime,
+            error: aiResult.error
+          };
         }
-
-        console.error(`[${now}] ${providerName} failed:`, aiResult.error);
-
-        await notify(
-          config,
-          'Bookmark Processing Failed',
-          `Prepared ${bookmarkCount} bookmarks but analysis failed:\n${aiResult.error}`,
-          false
-        );
-
-        return {
-          success: false,
-          count: bookmarkCount,
-          duration: Date.now() - startTime,
-          error: aiResult.error
-        };
       }
     } else {
       // Auto-invoke disabled - just fetch
