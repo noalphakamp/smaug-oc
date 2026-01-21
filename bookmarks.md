@@ -87,6 +87,7 @@
 - **Tweet:** https://x.com/rez0__/status/1745545813512663203
 - **Quoted:** https://x.com/goodside/status/1745511940351287394
 - **Link:** https://embracethered.com/blog/posts/2023/google-bard-data-exfiltration/
+- **Filed:** [google-bard-data-exfiltration.md](./knowledge/articles/google-bard-data-exfiltration.md)
 - **What:** Analysis of invisible prompt injection vulnerability that can hide in unicode text, making it nearly impossible to detect and fix
 
 ---
