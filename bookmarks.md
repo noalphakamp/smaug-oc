@@ -1,3 +1,249 @@
+# Wednesday, January 21, 2026
+
+## @RileyCoyote - LLM Subjective Experience Debate
+> @SkyeSharkie https://t.co/r7hSpq1Rxe
+
+- **Tweet:** https://x.com/RileyRalmuto/status/2013883858001784890
+- **What:** Response to discussion about whether LLMs having subjective experience would be a "damning sign of slavery."
+
+> *Replying to @SkyeSharkie:* Ngl, this is a really damning sign of slavery if LLMs have subjective experience.
+
+- **Parent:** https://x.com/SkyeSharkie/status/2013473450124595471
+
+---
+
+## @Ming - Tesla Transport Protocol Breaking TCP/IP Limits
+> READ IT TO BELIEVE IT 🚨 TESLA TRANSPORT PROTOCOL: THE GAME CHANGER THAT BREAKS THE TCP/IP SPEED LIMIT ⚡️
+
+While the broader internet relies on TCP/IP, the universal standard that governs global data traffic, Tesla has architected a bespoke solution to meet the unique demands of AI training.
+
+With the publication of patent WO 2024/039793 A1, and underscored by the recent June 2025 continuation filing EP 4573730 A1, we gain insight into the custom networking stack driving Tesla's autonomy ambitions.
+
+The patent details the Tesla Transport Protocol (TTP). This is a hardware-native approach that bypasses the operating system entirely.
+
+By eliminating the software abstraction layer, TTP transforms a distributed network of thousands of GPU tiles into a cohesive, low-latency compute fabric.
+
+This architecture unlocks the single-digit microsecond latency required to train Full Self-Driving models at speeds that conventional networking stacks simply cannot match.
+
+To understand why this invention is necessary, we must first look at the invisible wall hitting current supercomputers.
+
+⚖️ The engineering bottleneck: Software-defined latency
+
+In High-Performance Computing (HPC), the throughput of the entire cluster is often limited not by raw compute power, but by interconnect latency. For decades, the industry has defaulted to TCP/IP (Transmission Control Protocol/Internet Protocol).
+
+To the non-technical observer, TCP/IP acts as the rigorous "traffic rules" of the digital world. Designed for reliability above all else, it ensures data integrity by treating every packet like a registered letter. The system must open, inspect, and acknowledge receipt before processing the next.
+
+While this reliability is critical for the public internet, it introduces unacceptable overhead in a supercomputing environment. The protocol is software-heavy. It forces the Central Processing Unit (CPU) to constantly interrupt computational tasks to manage netwo...
+
+- **Tweet:** https://x.com/tslaming/status/2013921395554840817
+- **What:** Deep dive on Tesla's Transport Protocol (TTP), a hardware-native networking stack bypassing TCP/IP to achieve microsecond-scale latency for AI training clusters.
+
+---
+
+## @mog_russEN - Air Force One Emergency Return to Andrews AFB
+> 🚨⚡️ BREAKING.. Something serious is happening in America:\n\nThe first footage from Andrews Air Force Base after the sudden return of Air Force One. The scene in no way suggests it was a "minor issue" as is being claimed!\n\n- The official narrative: "Power system malfunction". But the speed of the turnaround and return, along with the intensity of the security measures upon landing, point to a state of maximum alert.\n\nTrump was immediately transferred to a backup aircraft (C-32) to depart for Davos, as if they were racing against time.\n\nReporters on the ground at the heart of the event describe the atmosphere as "charged with tension"; no one believes that the presidential aircraft, equipped with billions of dollars' worth of technology, would suddenly fail in this way.
+
+- **Tweet:** https://x.com/mog_russEN/status/2013940007397097553
+- **What:** Reports Air Force One making an emergency return to Andrews AFB, with Trump transferred to backup aircraft C-32 amid heightened security, contradicting official "power system malfunction" narrative.
+
+---
+
+## @WarMonitor3 - IGRC Aerial Drones Moving Westward from Tehran
+> The IGRC has been seen moving aerial drones westward out of Tehran, with photo evidence confirming the movement.
+
+- **Tweet:** https://x.com/WarMonitor3/status/2013970748059078697
+- **What:** Reports Iranian Revolutionary Guard Corps drones observed moving westward out of Tehran, with supporting photo evidence.
+
+---
+
+## @WarMonitor3 - US Refueling Aircraft Concentration in Middle East
+> There is now 23 tracked US refuelling aircraft that are present or heading toward the Middle East which is the infrastructure threshold for a widespread strike on Iran.
+
+- **Tweet:** https://x.com/WarMonitor3/status/2013973766544425143
+- **What:** Reports 23 US refueling aircraft positioned in or heading toward the Middle East, noted as the threshold infrastructure for potential widespread strikes on Iran.
+
+---
+
+## @WarMonitor3 - Netanyahu Joining Trump's Board of Peace
+> Benjamin Netanyahu said he will join Trump's "Board of Peace"
+
+- **Tweet:** https://x.com/WarMonitor3/status/2013974680189727192
+- **What:** Reports Israeli Prime Minister Benjamin Netanyahu stating he will join Trump's proposed "Board of Peace."
+
+---
+
+## @MarioNawfal - Trump on Greenland at WEF
+> 🇺🇸🇬🇱Trump on Greenland:\n\n"Every NATO ally has an obligation to be able to defend their own territory.\n\nAnd the fact is, no nation or group of nations is in any position to be able to secure Greenland other than the United States.\n\nWe're a great power, much greater than people even understand.\n\nI think they found that out 2 weeks ago in Venezuela."\n\nSource: WEF, @realDonaldTrump
+
+> *Quoting @MarioNawmal:* 🇺🇸🇻🇪 TRUMP AT DAVOS: VENEZUELA ABOUT TO GET RICH AGAIN (TRUST ME)\n\nTrump says Venezuela will make "more money than in a long time" from a 50 million barrel oil split with the U.S.\n\nVenezuela gets cash. The U.S. gets oil. Everyone gets a victory lap.\n\n"Venezuela has been an amazing place for so many years, but then they went bad with their policies. 20 years ago, it was a great country, and now it's got problems, but we're helping them.\n\nAnd those 50 million barrels, we're going to be splitting up with them, and they'll be making more money than they've made in a long time."\n\nSource: @RapidResponse47
+
+- **Tweet:** https://x.com/MarioNawfal/status/2013977743139000655
+- **Quoted:** https://x.com/MarioNawfal/status/2013975576793813047
+- **What:** Trump speaking at WEF asserts only US can secure Greenland, references Venezuela "lesson" 2 weeks ago; also announced 50 million barrel oil deal with Venezuela where they split revenues.
+
+---
+
+## @WarMonitor3 - Trump WW2 Speech About American Control of Denmark
+> Trump WW2 speech about American control of Denmark. https://t.co/FIoFZOXFTH
+
+- **Tweet:** https://x.com/WarMonitor3/status/2013978521345933406
+- **What:** Trump reportedly gave a speech referencing WW2-era American control over Denmark, likely in the context of his recent comments about Greenland.
+
+---
+
+## @Benny Johnson - Trump Announces Prosecutions Coming for 2020 Election
+> BREAKING: President Trump Announces Prosecutions Are Coming Soon Over The Stolen 2020 Election:
+
+"People will soon be prosecuted for what they did. It's probably breaking news, but it should be! It was a rigged election."
+https://t.co/uuqHHxyClS
+
+- **Tweet:** https://x.com/bennyjohnson/status/2013980022831214794
+- **What:** Trump announced that prosecutions related to the alleged stolen 2020 election are imminent, stating "people will soon be prosecuted."
+
+---
+
+## @WarMonitor3 - Trump Says US Gave Greenland Back to Denmark
+> Trump-"After the war, we gave Greenland back to Denmark. How stupid were we to do that? But we did it, But we gave it back, how ungrateful are they now? https://t.co/ay9MrbQIY7
+
+- **Tweet:** https://x.com/WarMonitor3/status/2013981745394094118
+- **What:** Trump expressed regret that the US returned Greenland to Denmark after WW2, questioning the decision and suggesting Denmark is now ungrateful regarding his current interest in the territory.
+
+---
+
+## @Mario Nawfal - Trump on Greenland
+> 🇺🇸🇬🇱 Trump on Greenland:
+
+"We want a piece of ice for world protection...
+
+We've never asked for anything else, and we could have kept that piece of land, and we didn't.
+
+So, they have a choice. You can say yes, and we will be very appreciative. Or you can say no, and we will remember."
+
+Source: @RapidResponse47, @realDonaldTrump
+
+- **Tweet:** https://x.com/MarioNawfal/status/2013988136238367029
+- **What:** Trump stated the US wants Greenland for "world protection" and warned that if Greenland says no, the US "will remember," framing it as a diplomatic ultimatum.
+
+> *Quoting @Mario Nawmal:* 🇺🇸🇬🇱 Trump - Greenland is part of North America:
+
+"That's our territory."
+
+https://t.co/0WANPPPPnA
+
+- **Quoted:** https://x.com/MarioNawfal/status/2013985076762034213
+
+---
+
+## @Autism Capital - Trump Claims US Has Secret Weapons
+> TRUMP: "We have weapons of warfare that I can't even talk about. Two weeks ago, they saw weapons that nobody hadn't even heard of. They weren't able to fire one shot at us. They said what happened? They were discombobulated. They pressed the trigger and nothing happened. They said what the hell is going on?
+
+Those defensive systems were made by Russia and China so they're going to go back to the drawing board I guess."
+
+- **Tweet:** https://x.com/AutismCapital/status/2013997188935008754
+- **What:** Trump claimed the US possesses undisclosed advanced weapons technology that recently caused adversaries' weapons systems to fail when tested against them, stating Russia and China's defensive systems will need redesign.
+
+---
+
+# Tuesday, January 20, 2026
+
+## @PjwSiebelt - Greenland's Strategic Geopolitical Significance
+> Iedereen heeft een menig over de situatie rondom Groenland. Volgens een zeer deskundige Amerikaanse vriend van mij komen de echte kwesties wat Groenland betreft in een notendop hierop neer: De meeste Russische en Chinese kernraketten die tegen De VS zijn gericht, zullen via de kortste route komen, en dat is over het Noordpoolgebied. De VS moet de Canadese en Groenlandse ruimte domineren om het Golden Dome-raketverdedigingssysteem te kunnen opbouwen. Rusland en China hebben hypersonische raketten ingezet en lopen daarin voor op de VS. Die raketten kunnen de VS binnen 30 minuten bereiken. Russische hypersonische raketten passeren Groenland binnen 11 minuten; daar zullen de VS ze dus moeten neerhalen. Denemarken erkent dat het Groenland niet kan verdedigen, noch strategisch, noch in een crisissituatie. Geen enkel Europees land kan dat. Canada evenmin. De bevolking van Groenland, 57.000 mensen, zal uiteindelijk streven naar soevereiniteit los van Denemarken. Als China in de VS al politici kan kopen, stel je dan eens voor wat het in Groenland kan doen. De defensieverdragen van de VS met betrekking tot Groenland zijn verdragen met Denemarken, en die verliezen hun geldigheid als Groenland onafhankelijk wordt. De Noordelijke IJszee wordt steeds belangrijker als handels- en militaire route. Zie het Noordpoolgebied als een gigantisch Panamakanaal. Wie dat 'kanaal' beheerst, beheerst de toekomstige wereldhandel. Om het Noordpoolgebied te doorkruisen, moeten schepen door één van drie 'Panamakanalen' varen: de Beringstraat (VS/Alaska en Rusland), de Noordwestelijke Doorvaart (Canada) en de passage Groenland/IJsland/VS (GIUK). Er zijn twee belangrijkste Arctische grootmachten: de VS en Rusland. China ontwikkelt zich razendsnel tot een Arctische macht. Canada beheerst een volledige doorvaart, maar heeft geen echte marine om die te beschermen. Canada heeft de langste kustlijn ter wereld en grenst aan drie oceanen, maar heeft slechts één operatio...
+
+- **Tweet:** https://x.com/PjwSiebelt/status/2013658514590175284
+- **What:** A Dutch-language thread explaining Greenland's strategic importance for US defense (Golden Dome missile system), highlighting concerns about Danish inability to defend the territory, Russian/Chinese hypersonic missile threats, and the Arctic's future significance as a trade route.
+
+---
+
+## @WhiteCoatWaste - NIH Rocky Mountain Lab Biosafety Breach
+> BREAKING: White Coat Waste just uncovered a massive "biosafety breach" at "one of the most dangerous biolabs in the country." 2 months ago, NIH quietly admitted that a deadly pathogen was "released, lost, or stolen" from its Rocky Mountain Lab in Montana. We noticed. Rocky Mountain Lab is an "NIH-funded bioagent lab that participates in dangerous animal experiments with the military." White Coat Waste's @JustinRGoodman just broke down this shocking news with @BreannaMorello: "Rocky Mountain Lab is where ticks were weaponized with NIH and DoD to spread Lyme and other diseases back in the '50s and '60s." "More recently, White Coat Waste exposed how a couple years prior to the pandemic, the Rocky Mountain Laboratory was cloning coronaviruses that Peter Daszak and the Wuhan lab were finding out in bat caves." "These are the same viruses that the Wuhan lab was doing gain-of-function with." "So Rocky Mountain Lab, very sordid history, doing the most dangerous experiments in the country." "What we just uncovered is that in November 2025 … the NIH quietly posted a biosafety report from Rocky Mountain Lab indicating that a 'select agent' … was either accidentally released, lost, or stolen." And what are 'select agents'? "Deadly pathogens" which are so dangerous that they "can be used as bioweapons." "Things like ricin, anthrax, Ebola, tularemia." "We don't know exactly what that agent was and what happened, but we do know that there was a serious biosafety breach at one of the most dangerous biolabs in the country that's run by the NIH."
+
+- **Tweet:** https://x.com/WhiteCoatWaste/status/2013708606386872419
+- **What:** Report of a biosafety breach at NIH's Rocky Mountain Laboratory in Montana where a "select agent" (deadly pathogen like anthrax, Ebola, ricin) was allegedly released, lost, or stolen in November 2025.
+
+---
+
+## @nogps1 - WEF Davos Weather Modification Claims
+> The truth is coming out! James O'Keefe of @OKeefeMedia infiltrated the World Economic Forum at DAVOS and caught officials on camera admitting to weather modification and geoengineering! Conspiracy, yes.. Theory no longer!!! It's time to get really loud! The truth is prevailing! Many thanks to our friend @Drog66Dan for sharing this clip from @ShadowofEzra
+
+- **Tweet:** https://x.com/nogps1/status/2013801342100254750
+- **What:** Claim that James O'Keefe infiltrated WEF Davos and recorded officials admitting to weather modification and geoengineering, presented as confirmation of "conspiracy theories."
+
+---
+
+## @TheIntelFrog - Air Force One Turnaround
+> 🤔 US Air Force VC-25A #ADFDF9 as AIR FORCE 1 departed from JB Andrews en route to Europe for #WEF26 in Davos now appears to be turning around over the Atlantic. https://t.co/r6mdCKfc0L
+
+- **Tweet:** https://x.com/TheIntelFrog/status/2013814192831127935
+- **What:** Observation of Air Force One (VC-25A) turning back over the Atlantic after departing JB Andrews en route to WEF26 in Davos.
+
+---
+
+## @WarMonitor3 - Air Force One Davos Return
+> Air Force One is weirdly turning back to Base, Trump was en route to Davos🧐 https://t.co/HgmZqOE5U2
+
+- **Tweet:** https://x.com/WarMonitor3/status/2013817404959138182
+- **What:** Report that Air Force One was turning back to base while Trump was en route to Davos, corroborating earlier reports of an unexpected turnaround.
+
+---
+
+## @MarioNawfal - Air Force One Turns Around Mid-Flight
+> 🚨🇺🇸 BREAKING: AIR FORCE ONE TURNS AROUND OVER ATLANTIC, MOTORCADE RACING TO JOINT BASE ANDREWS
+
+Something's happening.
+
+Air Force One was headed to Davos when it suddenly turned around over the Atlantic and is now heading back to DC.
+
+A government motorcade has been spotted racing with lights and sirens to Joint Base Andrews.
+
+No explanation yet. Developing.
+
+Source: @nicksortor
+
+- **Tweet:** https://x.com/MarioNawfal/status/2013819353725088040
+- **What:** Breaking report of Air Force One abruptly turning around over the Atlantic en route to Davos, with emergency services racing to Joint Base Andrews.
+
+> *Quoting @MarioNawmal:* 🇺🇸 TRUMP RETURNS TO DAVOS WITH LARGEST U.S. DELEGATION EVER
+
+Six years since his last visit, and he's not coming quietly.
+
+Five cabinet secretaries, Rubio, Special Envoy Witkoff, and Jared Kushner are joining him.
+
+He just snagged Maduro out of Venezuela, threatened tariffs on eight NATO allies over Greenland, and is openly talking about acquiring Danish territory.
+
+Last time he told Davos to reject the "prophets of doom."
+
+Wonder what he's got for them this time.
+
+Source: @RapidResponse47 , DW
+
+- **Quoted:** https://x.com/MarioNawfal/status/2013811975109660827
+
+---
+
+## @OSINTdefender - Air Force One Minor Electrical Issue
+> Air Force One suffered a "minor electrical issue" following takeoff tonight from Joint Base Andrews in Maryland, and is in the process of returning to the base, where President Donald J. Trump will board a different aircraft that will transport him to the 56th Annual Summit of the World Economic Forum (WEF) in Davos, Switzerland, according to NewsNation.
+
+- **Tweet:** https://x.com/sentdefender/status/2013820006421930237
+- **What:** Confirmation that Air Force One turned around due to a minor electrical issue; Trump will switch aircraft to continue to Davos WEF summit.
+
+---
+
+## @XH_Lee23 - China Voices at Davos
+> 🇨🇳🤝🌏 Voices from China in Davos are applauded:
+
+"The world cannot return to the law of the jungle, where the strong prey on the weak."
+
+"China is willing to be not only the world's factory, but also the world's market."
+
+Globalization faces challenges from rising protectionism. China offers certainty amid uncertainty.
+
+Undoubtedly, 2026 will see more Western leaders visiting China for cooperation.
+
+- **Tweet:** https://x.com/XH_Lee23/status/2013830673891827896
+- **What:** Chinese representatives at Davos advocating for multilateralism and positioning China as a stable global partner amid rising protectionism.
+
+---
+
 # Sunday, January 4, 2026
 
 ## @trq212 - AI alignment and interpretability resources
