@@ -19,8 +19,8 @@ import os from 'os';
 import { fetchAndPrepareBookmarks } from './processor.js';
 import { loadConfig, getAIProvider, getOpenCodeConfig, getClaudeCodeConfig } from './config.js';
 
-const JOB_NAME = 'smaug';
-const LOCK_FILE = path.join(os.tmpdir(), 'smaug.lock');
+const JOB_NAME = 'smaug-oc';
+const LOCK_FILE = path.join(os.tmpdir(), 'smaug-oc.lock');
 
 // ============================================================================
 // Lock Management - Prevents overlapping runs
