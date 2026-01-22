@@ -1258,17 +1258,18 @@ export async function run(options = {}) {
         const fullFile = config.pendingFile + '.full';
 
         if (isTimeout) {
-          // On timeout: DO NOT restore from .full - pending file may have partial progress
-          // Just clean up the backup file if it exists
+          // On timeout: Restore from .full backup first, THEN calculate remaining
+          // The pending file currently only has the limited subset
           if (fs.existsSync(fullFile)) {
+            fs.copyFileSync(fullFile, config.pendingFile);
             fs.unlinkSync(fullFile);
           }
 
-          console.error(`\n⚠️  ${providerName} TIMEOUT after ${Math.round(aiResult.duration / 60000)} minutes`);
-          console.error(`   The pending file has been preserved with remaining bookmarks.`);
+          console.error(`\n⚠️  ${providerName} TIMEOUT after ${Math.round((aiResult.duration || 0) / 60000)} minutes`);
+          console.error(`   The pending file has been restored from backup.`);
           console.error(`   Try running with a smaller batch size to avoid timeouts.\n`);
 
-          // Count remaining bookmarks
+          // Count remaining bookmarks (now from restored full file)
           let remainingCount = 0;
           try {
             const pending = JSON.parse(fs.readFileSync(config.pendingFile, 'utf8'));
