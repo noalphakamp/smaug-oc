@@ -68,6 +68,485 @@ Read the full statement below - thoughts?
 - **What:** Navy X whistleblower releases statement about NHI disclosure efforts
 
 ---
+DATE: Tuesday, December 17, 2024
+## @MarioNawfal - Pentagon Reveals "Truth" on Drones Over US
+> 🔴 PENTAGON REVEALS "TRUTH" ON DRONES OVER US https://t.co/vOQiZzZfWR
+
+- **Tweet:** https://x.com/MarioNawfal/status/1869109375291596879
+- **What:** A link to a broadcast from the Pentagon regarding mysterious drones spotted over US airspace. The pentagon allegedly reveals information about these drone sightings.
+
+---
+DATE: Tuesday, December 17, 2024
+## @theblackvault - New Interview Claims Lue Elizondo and David Grusch Worked Together at US Space Force
+> Today, a new interview with @LueElizondo claims he and "UFO whistleblower" David Grusch worked together at U.S. Space Force on UAPs, funded by USSF, with data surpassing what he collected with AATIP.
+> I have reached out to Space Force for comment.
+
+- **Tweet:** https://x.com/theblackvault/status/1869114104209609020
+- **What:** John Greenewald reports on claims from Lue Elizondo about working with David Grusch at US Space Force on classified UAP programs. He has reached out to Space Force for verification.
+
+---
+DATE: Tuesday, December 17, 2024
+## @WarClandestine - Joking About Danger After Exposing US-Funded Biolabs in Ukraine
+> I'm not trying to be dramatic, but am I in danger?
+> Exposing the US-funded biolabs in Ukraine is essentially my entire identity.
+> Now the CIA are assassinating the Russian Military Officials in charge of investigating the US-funded biolabs in Ukraine.
+> I am not suicidal 😂 https://t.co/PmPx3wa0Xg
+
+- **Tweet:** https://x.com/WarClandestine/status/1869121926888878495
+- **What:** A tongue-in-cheek post about personal safety after reporting on US-funded biolabs in Ukraine, referencing alleged CIA assassinations of Russian officials investigating these programs.
+
+---
+DATE: Tuesday, December 17, 2024
+## @Truthpole - C-130 with Armed Escort Off NJ Coast, Downed Drone Report
+> 🚨 C-130 with an armed escort off the coast of NJ right now
+> There is a Report of downed drone in body of water near Silverton/Pt Pleasant area. Blackhawk circling now.
+> Someone posted what was on Facebook New Jersey Drones page
+
+- **Tweet:** https://x.com/Truthpole/status/1869189047832465630
+- **What:** Reports of military aircraft activity off the New Jersey coast, including a C-130 with armed escort and a Blackhawk helicopter investigating a reported downed drone in the water.
+
+---
+DATE: Tuesday, December 17, 2024
+## @bdanie01 - Meme About Drone Situation
+> Probably the best representation of what's going on right now 😂😂😂 @elonmusk @SteveSkojec @digijordan @richgel999 https://t.co/Eqi8cAN8UL
+
+- **Tweet:** https://x.com/bdanie01/status/1869195705652519256
+- **What:** A humorous video/meme referencing the ongoing mysterious drone situation, tagged to Elon Musk and others discussing the phenomenon.
+
+---
+DATE: Tuesday, December 17, 2024
+## @ProjectConstitution - Anonymous Military Insider Exposes Truth About Mysterious Drones
+> 🚨 BREAKING: Anonymous Military Official Exposes Truth About Mysterious Drones
+> An anonymous military official with top-secret clearance from Fort Drum has come forward with explosive claims about the mysterious drones that have been spotted worldwide, including above U.S. military bases.
+
+- **Tweet:** https://x.com/ProjectConstitu/status/1869210052369793170
+- **What:** Claims from an anonymous Fort Drum military official that drones conducting reconnaissance over US bases have advanced technology (no heat signatures, outlast fighter jets), and soldiers are ordered not to engage despite clear threats.
+
+---
+DATE: Wednesday, December 18, 2024
+## @PostDisclosure - Whistleblower Claims Secret UFO Program Forced Me to Kill Aliens
+> New video!
+> Whistleblower: Secret UFO Program Forced Me to Kill Aliens
+> https://t.co/DEmGUbM6jx https://t.co/g4W3bxOdtT
+
+- **Tweet:** https://x.com/PostDisclosure/status/1869444278214398163
+- **What:** A YouTube video featuring a whistleblower claiming they were forced to kill aliens as part of a secret UFO program.
+
+---
+DATE: Wednesday, December 18, 2024
+## @Target_Reporter - Blue Mystery Drone Nearly Lands in NJ Driveway
+> In New Jersey, this blue object / mystery drone seems to almost land in this man's drive way hovering about 2 feet from the ground.
+> NJ residents have been warned by FBI not to shoot down or shine lasers at them.
+
+- **Tweet:** https://x.com/Target_Reporter/status/1869496263638675599
+- **What:** Video footage of a blue unidentified object hovering extremely close to a New Jersey residence, part of the ongoing drone sightings. The FBI has reportedly warned residents not to interfere with these objects.
+
+---
+DATE: Wednesday, December 18, 2024
+## @Humble_Hodl1111 - Helicopter Following Orbs Over House
+> Just saw these from a distance but my friend recorded a helicopter following two orbs over their house https://t.co/buG9qMHePt
+
+- **Tweet:** https://x.com/Humble_Hodl1111/status/1869533224118153516
+- **What:** Report of two glowing orbs being pursued by a helicopter over a residential area, captured on video by a friend of the poster.
+
+---
+DATE: Wednesday, December 18, 2024
+## @RedPandaKoala - Joe Rogan Posts Original Unedited UFO Video
+> I don't know what this is, but I want to believe...
+> Joe Rogan just posted this original unedited UFO video to Instagram. https://t.co/2ldRGUxHQ7
+
+- **Tweet:** https://x.com/RedPandaKoala/status/1869572371390361720
+- **What:** Joe Rogan shares an original, unedited UFO video on Instagram, adding to the ongoing discussion and speculation about recent drone/orb sightings.
+
+---
+
+# Wednesday, December 18, 2024
+
+---
+DATE: Wednesday, December 18, 2024
+## @Truthpole - C-130 Armed Escort NJ Coast
+> 🚨 C-130 with an armed escort off the coast of NJ right now
+> There is a Report of downed drone in body of water near Silverton/Pt Pleasant area. Blackhawk circling now.
+
+- **Tweet:** https://x.com/Truthpole/status/1869189047832465630
+- **What:** Reports of C-130 with armed escort and Blackhawk helicopter activity off NJ coast, investigating reported downed drone in water.
+
+---
+DATE: Wednesday, December 18, 2024
+## @Target_Reporter - Blue Drone Nearly Lands in Driveway
+> In New Jersey, this blue object / mystery drone seems to almost land in this man's drive way hovering about 2 feet from the ground.
+
+- **Tweet:** https://x.com/Target_Reporter/status/1869496263638675599
+- **What:** Video of blue mystery drone hovering very close to NJ residence. FBI warned residents not to shoot at or shine lasers at drones.
+
+---
+DATE: Wednesday, December 18, 2024
+## @Humble_Hodl1111 - Helicopter Chasing Orbs
+> Just saw these from a distance but my friend recorded a helicopter following two orbs over their house
+
+- **Tweet:** https://x.com/Humble_Hodl1111/status/1869533224118153516
+- **What:** Witness reports helicopter pursuing two glowing orbs over residential area.
+
+---
+DATE: Wednesday, December 18, 2024
+## @RedPandaKoala - Joe Rogan UFO Video
+> "I don't know what this is, but I want to believe..."
+> Joe Rogan just posted this original unedited UFO video to Instagram.
+
+- **Tweet:** https://x.com/RedPandaKoala/status/1869572371390361720
+- **What:** Joe Rogan shares unedited UFO video on Instagram during ongoing drone/orb sightings.
+
+---
+
+# Thursday, December 19, 2024
+
+---
+DATE: Thursday, December 19, 2024
+## @richgel999 - ISS Camera Tracks Mysterious Object
+> Yup, I saw it too. Whoever was operating the ISS cam zoomed and panned to center it - whatever it was. I took a video as well. Some screen caps here.
+
+- **Tweet:** https://x.com/richgel999/status/1869698805043703932
+- **What:** Richard Geldreich reports ISS camera operator tracked and zoomed in on unknown object, with video and screenshots captured.
+
+---
+DATE: Thursday, December 19, 2024
+## @TallbarFIN - Swedish Police Board Yi Peng 3
+> Swedish police announced that they are planning to board cargo ship Yi Peng 3 today. Yi Peng 3 is the Chinese ship suspected of breaking the cables on Baltic Sea few weeks ago. Ship's captain is reportedly russian.
+
+- **Tweet:** https://x.com/TallbarFIN/status/1869699796044505253
+- **What:** Swedish authorities boarding Chinese cargo vessel Yi Peng 3, suspected of damaging Baltic Sea communication cables with Russian captain.
+
+---
+DATE: Thursday, December 19, 2024
+## @WallStreetApes - Mysterious Flashing Lights Across America
+> The mysterious flashing lights continue to be spotted all over America, New York, Asheville North Carolina, this is new footage from Virginia. "Waynesboro, Virginia. We have blinking light syndrome here too — everything's blinking" Is it the "Drones/ Orbs?" Something with our power grid being tested for a future event?
+
+- **Tweet:** https://x.com/WallStreetApes/status/1869702847534604475
+- **What:** Reports of widespread mysterious blinking/flashing lights appearing across multiple US states including NY, NC, and VA.
+
+---
+DATE: Thursday, December 19, 2024
+## @Kabamur_Taygeta - Trump Q Archangel Michael Galactic Federation Connection
+> Connecting the dots between Trump, Q, Archangel Michael and Galactic Federation. For those who are interested in disclosure but are still trying to reconcile their religious or political beliefs with recent events concerning Trump, Galactic Federation, and the 'mystery drones'.
+
+- **Tweet:** https://x.com/Kabamur_Taygeta/status/1869755221779361982
+- **What:** Channeled Pleiadian content attempting to reconcile religious and political beliefs with disclosure events involving Trump and the Galactic Federation.
+
+---
+DATE: Thursday, December 19, 2024
+## @MikeColangelo - Space Force UFO Data Lue Elizondo David Grusch
+> Space Force UFO Data. Lue Elizondo and David Grusch hired by Space Force to Study UFOs. "Some of the most compelling data that we have right now in the U.S. government was a result of our time at Space Force not at AATIP because we had better technology, more capabilities, more persistence."
+
+- **Tweet:** https://x.com/MikeColangelo/status/1869761709491032567
+- **What:** Lue Elizondo claims he and David Grusch worked together at Space Force in a classified facility studying UAPs with better technology than AATIP.
+
+---
+DATE: Thursday, December 19, 2024
+## @richgel999 - F-16s Scrambled Over South NJ
+> Post by USAF vet who lives 10 minutes away from 177th fighter squadron.
+
+- **Tweet:** https://x.com/richgel999/status/1869821156548915225
+- **What:** USAF veteran reports four F-16s scrambled from Atlantic City area after witnesses saw extremely bright glowing orb in sky.
+- **Quoted:** https://x.com/MatthewUSAF/status/1869820747070222475
+
+---
+DATE: Thursday, December 19, 2024
+## @sentdefender - Anti-Drone Capabilities Deployed to New Jersey
+> On Anti-Drone Capabilities deployed to New Jersey in the midst of the rash of Drone Sightings across the State: "Majority of that capability has been deployed," while the rest will be arriving "imminently." These Capabilities include a Mix of Active and Passive Anti-Drone Capabilities. - Pentagon Press Secretary Major General Pat Ryder
+
+- **Tweet:** https://x.com/sentdefender/status/1869840848474583219
+- **What:** Pentagon announces active and passive anti-drone capabilities being deployed to New Jersey amid ongoing mystery drone sightings.
+
+---
+DATE: Thursday, December 19, 2024
+## @richgel999 - USS New Jersey Airspace Violation
+> So does this mean USS New Jersey - BB-62's airspace was technically violated?
+
+- **Tweet:** https://x.com/richgel999/status/1869930289926980050
+- **What:** Commentary questioning whether the cloaked drone near the USS New Jersey battleship violated the historic naval vessel's airspace.
+- **Quoted:** https://x.com/528vibes/status/1869930174888464697
+
+---
+DATE: Thursday, December 19, 2024
+## @TheUfoJoe - Garry Nolan NHI Conflict Misquote
+> "@GarryPNolan says there is multiple types of NHI are here and they are in conflict with each other." Garry did NOT say that. He said there's only "raw material for a hypothesis," not confirmation.
+
+- **Tweet:** https://x.com/TheUfoJoe/status/1869941070353809529
+- **What:** Joe Murgia clarifies that Garry Nolan was misquoted regarding NHI conflict claims; Nolan says there's only evidence for a hypothesis.
+- **Quoted:** https://x.com/Neil__Goodman/status/1869940566191104262
+
+---
+
+# Friday, December 20, 2024
+
+---
+DATE: Friday, December 20, 2024
+## @JimFergusonUK - 200 Cattle Vanish in Colorado
+> 200 Cattle Vanish in Colorado—What's Going On? In a baffling incident, 200 cattle have gone missing in Colorado without a trace. With strange craft reported across the US, questions are swirling: Could these mysterious sightings be connected?
+
+- **Tweet:** https://x.com/JimFergusonUK/status/1870036670080528789
+- **What:** Reports of 200 cattle disappearing in Colorado with no traces found, with speculation connecting to widespread UFO/drone sightings.
+
+---
+DATE: Friday, December 20, 2024
+## @JimFergusonUK - David Grusch Bombshell Interview Claims
+> David Grusch Drops Bombshell: Agreements with Non-Human Intelligence. In a shocking interview with Ross Coulthart, David Grusch suggests the U.S. government may have made agreements with non-human intelligences. He warns: "These agreements may have jeopardized our future. Some of these entities could be hostile to humanity."
+
+- **Tweet:** https://x.com/JimFergusonUK/status/1870110058530713792
+- **What:** David Grusch claims in an interview that the US government has made agreements with non-human intelligences, warning these deals may have endangered humanity's future.
+
+---
+DATE: Friday, December 20, 2024
+## @MikeColangelo - Garry Nolan Crash Retrieval Program Access
+> Garry Nolan Speaking to Folks Who Have Worked in the Non-Human Crash Retrieval Program. "If you knew what was going on you'd be amazed." Garry Nolan also states he was part of a group that was going to gain access to non-human "materials" and knew where this material was being kept.
+
+- **Tweet:** https://x.com/MikeColangelo/status/1870161558468219168
+- **What:** Garry Nolan reveals he was part of a group denied access to non-human materials being stored at a known address, sourced from individuals who worked in a crash retrieval program.
+
+---
+DATE: Friday, December 20, 2024
+## @MarioNawfal - Biden Admin Big Tech Censorship Collusion
+> 🚨🇺🇸BIDEN ADMIN'S BIG TECH COLLUSION BOMBSHELL. Emails are out, and they're ugly: Stanford, Facebook, and the Department of Homeland Security (DHS) teamed up on an "Election Integrity Partnership" during the 2020 election. One email reveals DHS quietly pushing platforms to suppress "misinformation."
+
+- **Tweet:** https://x.com/MarioNawfal/status/1870252486726169004
+- **What:** Leaked emails reveal Stanford, Facebook, and DHS collaborated on an "Election Integrity Partnership" during the 2020 election to suppress alleged misinformation.
+- **Quoted:** https://x.com/KanekoaTheGreat/status/1870252486726169004
+
+---
+DATE: Friday, December 20, 2024
+## @uapcappa - The Sphere Network Knoxville Recording
+> The Sphere Network recorded at 7:11 PM in Knoxville, TN on 12/19/24.
+
+- **Tweet:** https://x.com/uapcappa/status/1870288350801797368
+- **Link:** https://twitter.com/Grail_Whale/status/1870288350801797368/video/1
+- **What:** The Sphere Network captured a UAP event on video at 7:11 PM in Knoxville, Tennessee.
+
+---
+DATE: Friday, December 20, 2024
+## @jamescfox - Senate Committee Staff Secret Meetings
+> Former staff member from Senate Armed Services Committee describes secret meetings with 1st hand witnesses (allegedly) in D.C. with senators present.
+
+- **Tweet:** https://x.com/jamescfox/status/1870303283681632341
+- **What:** A former Senate Armed Services Committee staff member claims secret meetings occurred in Washington D.C. with first-hand witnesses and senators present.
+
+---
+
+# Saturday, December 21, 2024
+
+---
+DATE: Saturday, December 21, 2024
+## @richgel999 - House Intelligence Statement
+> So what was it?
+
+- **Tweet:** https://x.com/richgel999/status/1870377078555570407
+- **What:** Richard Geldreich questioning House Intelligence Committee statement about undisclosed topic.
+- **Quoted:** https://x.com/HouseIntel/status/1870377078555570407
+
+---
+DATE: Saturday, December 21, 2024
+## @MvonRen - UK Bases UAP Advanced Technology
+> Additional confirmation that the UAP over sensitive U.S. bases in the UK demonstrated advanced technology. Why would an adversary expose such technology, which resisted detection and interception efforts, for days on end?
+
+- **Tweet:** https://x.com/MvonRen/status/1870552641828499754
+- **Link:** https://www.thetimes.com/uk/defence/article/mystery-drones-hostile-state-fhs07lnb7
+- **What:** Additional confirmation that UAP over sensitive UK military bases displayed advanced technology that resisted detection and interception.
+
+---
+DATE: Saturday, December 21, 2024
+## @goodmorningufo - Virginia Influencer UAP Health Effects
+> Virginia Homestead Influencer experiences UAP with wife, only to experience health affects. Similar incident happened again in same week to his friend who also experienced health affects.
+
+- **Tweet:** https://x.com/goodmorningufo/status/1870604071683641560
+- **Link:** https://www.youtube.com/watch?si=1ZH2RJysnQSCoTOp&v=pfREqualiBg&feature=youtu.be
+- **What:** A Virginia-based YouTube influencer and his wife experienced a UAP encounter followed by health effects.
+
+---
+DATE: Saturday, December 21, 2024
+## @ospensadorestt - New Jersey Orb Event
+> In a shocking turn of events, an orb was seen shooting out other smaller orbs in the sky over New Jersey. Moments later, a drone appeared and reportedly shot the main orb down.
+
+- **Tweet:** https://x.com/ospensadorestt/status/1870607939842801812
+- **What:** An orb reportedly ejected smaller orbs over New Jersey before a drone appeared and allegedly shot down the main orb.
+
+---
+DATE: Saturday, December 21, 2024
+## @MvonRen - NHI Confirmed Langley UAP Incursions
+> NHI is 100% on the table for the "drone" incursions. Ex-NORAD head VanHerck explains how "our most advanced" aircraft struggled to ID the Langley UAP, which could not be tracked or shot down. Per base commander Kelly, the incursions were "Close Encounters at Langley."
+
+- **Tweet:** https://x.com/MvonRen/status/1870627453598945746
+- **What:** Ex-NORAD head VanHerck states that advanced US aircraft struggled to identify or engage UAP at Langley that could not be tracked or shot down.
+
+---
+DATE: Saturday, December 21, 2024
+## @rabbitholebot - Aliens are already here
+> Aliens are already here 👇
+
+- **Tweet:** https://x.com/rabbitholebot/status/1870633883500442025
+- **What:** Video from @ufob0t showing what is claimed to be UFO/alien activity.
+
+---
+
+# Sunday, December 22, 2024
+
+---
+DATE: Sunday, December 22, 2024
+## @MarioNawfal - Fireball Dazzles the Southeast
+> 🚨🇺🇸 DID SOMEONE ORDER A LIGHT SHOW? FIREBALL DAZZLES THE SOUTHEAST. People across Kansas, Arkansas, Tennessee, Missouri, and Louisiana just got treated to nature's fireworks: a massive meteor (or maybe a satellite?) burning up in the sky.
+
+- **Tweet:** https://x.com/MarioNawfal/status/1870706902713135211
+- **What:** Report of a large meteor or fireball sighting visible across multiple southeastern US states.
+
+---
+DATE: Sunday, December 22, 2024
+## @WallStreetApes - FBI Demanding Deletion of Drone/Orb Videos
+> 🚨 The FBI is showing up on Americans doors who are filming "drone / orb" videos and posting them on TikTok. They're demanding the videos be deleted.
+
+- **Tweet:** https://x.com/WallStreetApes/status/1870835265905754190
+- **What:** Claim that federal agents (alleged FBI) are visiting Americans who post videos of mysterious drone/orb activity and demanding deletion of the footage.
+
+---
+
+# Monday, December 23, 2024
+
+---
+DATE: Monday, December 23, 2024
+## @planethunter56 - Non-Human Intelligence & the UFO IQ Test
+> "The evidence suggests that there are certain kinds of people with certain kinds of abilities that they are in someway, lighthouses in the dark to these things [non-human intelligence]... Because certain people recognize what they see for what it is. That moment of interaction is sort of like a quantum connection." - Garry Nolan
+
+- **Tweet:** https://x.com/planethunter56/status/1871065505509069211
+- **What:** Garry Nolan discussing how certain individuals act as "lighthouses" for non-human intelligence, with the ability to recognize phenomena for what they are.
+
+---
+DATE: Monday, December 23, 2024
+## @RedPandaKoala - New Jersey Mayor Leaks FBI's Game Plan
+> 🚨 BREAKING: New Jersey Mayor leaks FBI's game plan. Facebook thread by New Jersey Mayor Ryan Herd. Herd had a plan to undertake an assessment of the drone situation, only for it to be blocked at federal level. His position is that the feds are not interested in identifying the cause.
+
+- **Tweet:** https://x.com/RedPandaKoala/status/1871082158720512021
+- **What:** New Jersey Mayor Ryan Herd claims federal authorities blocked his plan to investigate drone activity, suggesting the feds don't know who the drones belong to.
+
+---
+DATE: Monday, December 23, 2024
+## @maniaUFO - China Releases Moon Footage of Alien Base
+> China releases Moon footage of alien base. The report stipulates: "I was sent some pictures by a source who claims China will be releasing Hi Res images taken by the Chang'e-2 moon orbiter, which clearly show buildings and structures on the moons surface."
+
+- **Tweet:** https://x.com/maniaUFO/status/1871184039404572857
+- **What:** Unverified claim that China will release Chang'e-2 moon orbiter images showing alien structures, with accusations that NASA bombed lunar sites.
+
+---
+DATE: Monday, December 23, 2024
+## @Ryan_Herd_USA - The Drone Mystery They Don't Want You to Solve
+> 🚨 THREAD: The Drone Mystery They Don't Want You to Solve. Buckle up. This is going to be long. Share widely because social media platforms other than X will take this down—and they might ban me too.
+
+- **Tweet:** https://x.com/Ryan_Herd_USA/status/1871192836466487751
+- **What:** Ryan Herd (NJ Mayor) announcing a thread about the drone mystery in New Jersey, warning it may be taken down from other platforms.
+
+---
+DATE: Monday, December 23, 2024
+## @Truthpole - Joe McMoneagle Remote Viewed Mars
+> 🚨 JOE McMONEAGLE THE REMOTE VIEWER - Joe McMoneagle is the remote viewer who remote viewed Mars when he was tasked by a classified program. The recent Daily Mail's CIA article about Mars having Pyramids that were built by Ancient giant Martians (1 Million BC) was from his accounts.
+
+- **Tweet:** https://x.com/Truthpole/status/1871323807610519619
+- **What:** Joe McMoneagle, a CIA remote viewer tasked with viewing Mars, is credited as source for recent articles about ancient Martian pyramids.
+
+---
+DATE: Monday, December 23, 2024
+## @Halsrethink - Los Alamos Report to JFK
+> As soon as I received the report from Los Alamos in early November, at the same time as that report was made to JFK
+
+- **Tweet:** https://x.com/Halsrethink/status/1871333059267883194
+- **What:** Harald Malmgren referencing receiving a Los Alamos report in early November that was also made to JFK.
+
+---
+DATE: Monday, December 23, 2024
+## @Halsrethink - Le May Deeply Investigating UFO Phenomena
+> At the time Le May made only a passing reference to UFOs, but I later discovered he had long been deeply investigating any info gathered about UFO phenomena
+
+- **Tweet:** https://x.com/Halsrethink/status/1871335390273208340
+- **What:** Harald Malmgren reveals that General Le May had been secretly investigating UFO information for a long time despite only making passing references publicly.
+- **Quoted:** https://x.com/Rizstanford/status/1871323807610519619
+
+---
+
+# Tuesday, December 24, 2024
+
+---
+DATE: Tuesday, December 24, 2024
+## @Z00KY - Drone/UAP Sighting Locations Compilation
+> Updated 24th Dec 2024. Here's the current list of sites where Drones/UAPs have been reported: RAF Lakenheath (UK), RAF Mildenhall (UK), Ramstein AFB (Germany), Picatinny Arsenal (NJ), Naval Weapons Station Earle (NJ), Langley AFB (Virginia), Wright-Patterson AFB (Ohio), and many more including reservoirs, power stations, airports, and ports.
+
+- **Tweet:** https://x.com/Z00KY/status/1871534340414284165
+- **What:** Comprehensive list of military bases, reservoirs, power stations, airports, and ports where drone/UAP sightings have been reported across the US, UK, Germany, and Japan.
+
+---
+DATE: Tuesday, December 24, 2024
+## @528vibes - Banned from r/nuclearweapons
+> I got banned from r/nuclearweapons for simply posting Harold Malmgren's statements 😂 😂 😂 😂
+
+- **Tweet:** https://x.com/528vibes/status/1871638586753462418
+- **What:** User reports being banned from a nuclear weapons subreddit for sharing statements attributed to Harold Malmgren.
+
+---
+DATE: Tuesday, December 24, 2024
+## @Tangledtitty - Non-Human Craft During 1962 Los Alamos Nuclear Test
+> Video shows an alleged non-human craft falling out of the sky the moment a nuclear bomb is detonated mid-air during a test in Los Alamos, NM in 1962. JFK was briefed about the craft and rushed to Los Alamos along with LBJ according to their aide who was also present.
+
+- **Tweet:** https://x.com/Tangledtitty/status/1871656230705385595
+- **What:** Video allegedly showing a non-human craft falling from the sky during a 1962 nuclear test in Los Alamos, with claims JFK and LBJ were briefed.
+
+---
+DATE: Tuesday, December 24, 2024
+## @Tangledtitty - UFO Downtown Dallas TX December 2024
+> UFO Downtown Dallas TX - Dec. 23, 2024
+
+- **Tweet:** https://x.com/Tangledtitty/status/1871662480356962807
+- **What:** Video of a UFO sighting in downtown Dallas, Texas on December 23, 2024.
+
+---
+DATE: Tuesday, December 24, 2024
+## @DerrickEvans4WV - Christmas Present Meme
+> This is a Christmas present they will NEVER forget 😂
+
+- **Tweet:** https://x.com/DerrickEvans4WV/status/1871681326530932825
+- **What:** Political figure shares a meme/joke about a "Christmas present" they claim Democrats will never forget.
+
+---
+
+# Wednesday, December 25, 2024
+
+---
+DATE: Wednesday, December 25, 2024
+## @TheDeep_State6 - Fayetteville NC UFO Sighting Near Fort Liberty
+> r/aliens - littlespacemochi - Fayetteville, North Carolina near Fort Liberty, December 21, 2024
+
+- **Tweet:** https://x.com/TheDeep_State6/status/1871773303901483495
+- **What:** Reddit post reporting a UFO sighting in Fayetteville, North Carolina near Fort Liberty (formerly Fort Bragg) on December 21, 2024.
+
+---
+DATE: Wednesday, December 25, 2024
+## @WallStreetApes - Drones Over 177th Fighter Wing Base NJ
+> 🚨NEW: The drone that was spotted over the 177th Fighter Wing Base in NJ has been CALLED IN by the base commander. According to my sources, the base commander has contacted the Pentagon directly regarding the drone that was hovering directly over the base for HOURS.
+
+- **Tweet:** https://x.com/WallStreetApes/status/1871893086912266554
+- **What:** Report that the base commander at the 177th Fighter Wing Base in New Jersey has contacted the Pentagon about drones hovering directly over the base for hours.
+
+---
+DATE: Wednesday, December 25, 2024
+## @TheAviMann - Drone Story Predicted as Biggest of 2024
+> The drone issue is the biggest story of 2024. And it's about to get huge because the...
+
+- **Tweet:** https://x.com/TheAviMann/status/1871961316529460448
+- **What:** Avi Mann predicts the drone story is the biggest of 2024 and suggests it's about to escalate significantly.
+
+---
+DATE: Wednesday, December 25, 2024
+## @TheDeep_State6 - BREAKING: Drones Above Pentagon
+> 🚨 BREAKING: DRONES - They are now being seen above the THE PENTAGON. Multiple sources are now confirming. This is escalating rapidly.
+
+- **Tweet:** https://x.com/TheDeep_State6/status/1871995811028496551
+- **What:** BREAKING report claiming drones are now being sighted above the Pentagon, with multiple sources confirming and noting rapid escalation.
+
+---
+
 DATE: Monday, December 16, 2024
 ## @UAPJames - Trump on Drone Origin
 > 🚨BREAKING: Trump says President Biden knows the origin of the 'drones'
