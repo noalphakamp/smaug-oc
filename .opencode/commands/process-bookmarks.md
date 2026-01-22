@@ -9,13 +9,27 @@ subtask: true
 
 Process prepared Twitter bookmarks into a markdown archive with rich analysis and optional filing to a knowledge library.
 
+---
+## ⚠️ CRITICAL DATA SAFETY RULES ⚠️
+
+**READ THIS BEFORE DOING ANYTHING:**
+
+1. **NEVER overwrite bookmarks.md** - Always READ existing content first, then INSERT new entries
+2. **VERIFY after every write** - Run `grep -c "^## @" bookmarks.md` before AND after. Count must increase!
+3. **If count decreases = DATA LOSS** - Stop immediately and investigate
+4. **Sequential is safer than parallel** - When in doubt, process one at a time
+
+**Past failures:** Previous runs lost 1800+ entries by overwriting instead of merging. Don't repeat this mistake.
+
+---
+
 ## Before You Start
 
 ### Multi-Step Parallel Protocol (CRITICAL)
 
 **Create todo list IMMEDIATELY after reading bookmark count.** This ensures final steps never get skipped.
 
-**Check parallelThreshold from config** (default: 8). Use parallel processing only when bookmark count >= threshold. For smaller batches, sequential processing is faster due to subagent overhead.
+**Check parallelThreshold from config** (default: 100). **Sequential processing is strongly preferred** - it's safer and avoids complex merge logic that has caused data loss in the past. Only use parallel processing for very large batches (100+).
 
 ```bash
 node -e "console.log(require('./smaug.config.json').parallelThreshold ?? 8)"
@@ -246,6 +260,21 @@ The file must be in **descending chronological order** (newest dates at TOP, old
 
 Separate entries with `---` only between different dates, not between entries on the same day.
 
+#### d. VERIFY entry count (REQUIRED after each write)
+
+**After EVERY write to bookmarks.md, verify the entry count:**
+
+```bash
+# Get current count
+BEFORE=$(grep -c "^## @" bookmarks.md 2>/dev/null || echo "0")
+# ... write new entry ...
+AFTER=$(grep -c "^## @" bookmarks.md)
+echo "Before: $BEFORE, After: $AFTER"
+# AFTER must be >= BEFORE. If AFTER < BEFORE, STOP - you lost data!
+```
+
+**If count decreased:** DO NOT CONTINUE. Investigate what went wrong. Use `git diff bookmarks.md` to see what changed.
+
 ### 3. DO NOT Clean Up Pending File
 
 **IMPORTANT:** Do NOT modify the pending file. The Smaug job handles cleanup automatically. Modifying the file here would cause race conditions and data corruption.
@@ -458,23 +487,58 @@ DO NOT touch bookmarks.md - only write to .state/batch-{N}.md
 
 **Phase 2: Sequential merge (main agent combines batches)**
 
-After ALL subagents complete:
-1. Read all .state/batch-*.md files in order (batch-0, batch-1, batch-2...)
-2. Parse each entry (separated by `---`) and extract the DATE line
-3. Insert each entry into bookmarks.md at the correct chronological position
-4. Delete the temp batch files
+**CRITICAL: YOU MUST PRESERVE ALL EXISTING CONTENT IN bookmarks.md**
 
-**Merge logic for bookmarks.md:**
-- File is descending order (newest dates at top)
-- For each entry from batch files (processed in order):
-  - Find or create the date section at correct position
-  - Insert entry at TOP of that date section
-- Since batches are oldest-first, entries end up in correct order
+The merge step is the most important part. If you overwrite or lose existing entries, data is permanently lost.
+
+After ALL subagents complete:
+1. **Read the ENTIRE existing bookmarks.md first** - store all content in memory
+2. Read all .state/batch-*.md files in order (batch-0, batch-1, batch-2...)
+3. Parse each entry (separated by `---`) and extract the DATE line
+4. **INSERT** each new entry into the existing content at correct chronological position
+5. Write the **combined** result (old + new) back to bookmarks.md
+6. Delete the temp batch files only AFTER confirming the merge succeeded
+
+**Merge algorithm (pseudocode):**
+```javascript
+// Step 1: Read existing content
+const existingContent = fs.readFileSync('bookmarks.md', 'utf8');
+const existingSections = parseIntoDateSections(existingContent); // Map<date, entries[]>
+
+// Step 2: Read batch files
+const batchFiles = glob.sync('.state/batch-*.md').sort();
+for (const batchFile of batchFiles) {
+  const entries = parseBatchFile(batchFile);
+  for (const entry of entries) {
+    // INSERT entry into existingSections at correct date
+    if (!existingSections.has(entry.date)) {
+      existingSections.set(entry.date, []);
+    }
+    existingSections.get(entry.date).unshift(entry); // Add at TOP of date section
+  }
+}
+
+// Step 3: Rebuild file in chronological order (newest first)
+const sortedDates = [...existingSections.keys()].sort((a, b) => new Date(b) - new Date(a));
+const mergedContent = sortedDates.map(date => {
+  return `# ${date}\n` + existingSections.get(date).join('\n');
+}).join('\n---\n');
+
+// Step 4: Write merged content
+fs.writeFileSync('bookmarks.md', mergedContent);
+```
+
+**Verification step (REQUIRED):**
+After merging, count entries with `grep -c "^## @" bookmarks.md`. The count should be:
+- Previous count + new entries processed
+- If the count is LOWER than before, the merge FAILED - investigate immediately!
 
 **DO NOT:**
 - Have subagents write directly to bookmarks.md (causes race conditions)
 - Process all bookmarks sequentially (too slow)
 - Skip the merge step
+- **OVERWRITE bookmarks.md without reading existing content first**
+- **Lose any existing entries during merge**
 
 ## Example Output
 
