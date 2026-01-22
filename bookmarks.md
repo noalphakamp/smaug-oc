@@ -1,6 +1,505 @@
 # bookmarks.md
 
 This file contains archived Twitter bookmarks processed with OpenCode.
+
+# Tuesday, December 17, 2024
+---
+DATE: Tuesday, December 17, 2024
+## @Disclosure_D - Pentagon Drone Update
+> NEW: Pentagon provides an update on the drone situation – clarifies that recent incidents are not the result of any DoD assets and admits drone incursions over sensitive military sites "is nothing new"
+
+- **Tweet:** https://x.com/Disclosure_D/status/1869106166875251030
+- **What:** Pentagon clarifies drone incidents not from DoD assets, admits incursions over military sites ongoing
+
+---
+DATE: Tuesday, December 17, 2024
+## @disclosureteamx - Elizondo Working with Grusch at Space Force
+> For the first time @LueElizondo discussed working alongside David Grusch at US Space Force focusing their work on UAP.
+
+Full video featuring @LueElizondo @TheZignal @RobertESheridan and myself on @WorldOfBigIdeas 
+
+https://t.co/ZBqXX43Guu https://t.co/XTlBNpSvCG
+
+- **Tweet:** https://x.com/disclosureteamx/status/1869105028801384565
+- **What:** Luis Elizondo discusses working with David Grusch at US Space Force on UAP
+
+---
+DATE: Tuesday, December 17, 2024
+## @WarClandestine - Assassination of Ukraine Bio-chart Figure
+> You all should recognize Russia's chart of the US bio-network in Ukraine. I've shared it many times.
+
+Russia allege that Soros, Obama, Clinton, Biden, USGov, NGOs, and Big Pharma, are creating bioweapons in Ukraine.
+
+The CIA/Ukraine just assassinated the guy who made this chart.
+
+The Russian General in charge of the Military investigation into the biolabs in Ukraine, was just blown up by an IED.
+
+This is more confirmation that the Deep State greatly fear facing accountability for their crimes against humanity. Anyone who tries to expose this secret faces extreme resistance from the Deep State.
+
+Now that Trump is soon about to take over, they are resorting to assassinations.
+
+- **Tweet:** https://x.com/WarClandestine/status/1869098267767697843
+- **What:** Reports on assassination of figure who charted US bio-network in Ukraine
+
+---
+DATE: Tuesday, December 17, 2024
+## @theblackvault - Joint Statement on Drone Sightings
+> 🚨 "There have been a limited number of visual sightings of drones over military facilities in New Jersey and elsewhere, including within restricted air space."
+-- DHS, FBI, FAA & DoD Joint Statement Today
+
+- **Tweet:** https://x.com/theblackvault/status/1869056839456784653
+- **What:** Joint DHS, FBI, FAA & DoD statement on drone sightings over military facilities
+
+---
+DATE: Tuesday, December 17, 2024
+## @thatuapgirl - Navy X Whistleblower Statement
+> The whistleblower named Navy X as featured in The Program by @jamescfox 
+has provided a statement shared by @matthew_pines dated 16th December 
+
+Navy X signs off with 
+
+'This will be my only statement, and I will not appear in interviews or podcasts as overall disclosure is more important, but I want people to know that I remain steadfast in my support for NHI disclosure behind the scenes. It has truly been an honor and a privilege to network and speak with disclosure proponents, witnesses, Congressional staffers, and others dedicated to revealing the greatest development in human history. We are not alone in the cosmos, nor are we alone on this planet—the process of making this truth available to the public continues.
+
+U.S. Navy X' 
+
+Read the full statement below - thoughts?
+
+- **Tweet:** https://x.com/thatuapgirl/status/1868814238518804732
+- **What:** Navy X whistleblower releases statement about NHI disclosure efforts
+
+---
+DATE: Monday, December 16, 2024
+## @UAPJames - Trump on Drone Origin
+> 🚨BREAKING: Trump says President Biden knows the origin of the 'drones'
+
+"Something strange is going on.… For some reason they don't want to tell the people."
+
+- **Tweet:** https://x.com/UAPJames/status/1868707421092561194
+- **What:** Trump claims Biden knows origin of mysterious drones
+
+---
+DATE: Monday, December 16, 2024
+## @Neuromancer_2k - China Important Announcement
+> China is rumoured to announce something that will be important for all humanity. Post reads: "Chinese scientists have announced that they will make an important statement on Friday on an issue that affects all of humanity"
+
+- **Tweet:** https://x.com/Neuromancer_2k/status/1868655842796482716
+- **What:** Rumored major announcement from Chinese scientists affecting all of humanity
+
+---
+DATE: Monday, December 16, 2024
+## @DrKeithLTaylor - Important Interview Clip
+> The most important and telling part of this interview!
+
+- **Tweet:** https://x.com/DrKeithLTaylor/status/1868653196295741636
+- **What:** Video clip from an interview described as significant
+
+---
+DATE: Monday, December 16, 2024
+## @Zaywari - New Jersey Lights Video
+> 🚨 NEW VIDEO OF Crazy Lights over New Jersey LAST NIGHT 🚨 NO ONE KNOWS IF THEY ARE Drone? UAP? ORB? UFO? 🤷🏻‍♂️
+
+- **Tweet:** https://x.com/Zaywari/status/1868648965941706838
+- **What:** Video of mysterious lights observed over New Jersey, unknown origin
+
+---
+DATE: Monday, December 16, 2024
+## @HustleBitch_ - Missing Radioactive Material Alert
+> 🚨#BREAKING: U.S. NUCLEAR REGULATORY COMMISSION ALERTS RADIOACTIVE MATERIAL IS MISSING ⚠️Confirmed report that "less than cat 3" (possibly shielded cat 4) radioactive material is missing from New Jersey.
+
+- **Tweet:** https://x.com/HustleBitch_/status/1868534771737080171
+- **What:** U.S. Nuclear Regulatory Commission reports missing radioactive material from New Jersey
+
+---
+DATE: Sunday, December 15, 2024
+## @GovMurphy - FBI Briefing on Drone Sightings
+> Received a briefing tonight from @FBINewark Special Agent in Charge Nelson Delgado and his team at @NWSEarleNJ in Colts Neck to discuss the @FBI's investigation into recent drone sightings.
+
+We are ready to assist the federal government in getting to the bottom of this.
+
+- **Tweet:** https://x.com/GovMurphy/status/1868499153153855491
+- **What:** Governor Phil Murphy received a briefing from FBI Newark regarding the investigation into recent drone sightings and offered state assistance.
+
+---
+DATE: Sunday, December 15, 2024
+## @ZachBrowne - Wright Patterson AFB Drone Shutdown
+> Of all bases, the base in the middle of all UFO conspiracies. This is not an accident.
+
+- **Tweet:** https://x.com/ZachBrowne/status/1868486395666264136
+- **Quoted:** https://x.com/nicksortor/status/1868482620574830951
+- **What:** Commentary on Wright Patterson Air Force Base in Ohio being shut down due to unauthorized drone activity.
+
+---
+DATE: Sunday, December 15, 2024
+## @Milajoy - Saxon Aerospace Drone Explanation Part 2
+> Part TWO of Saxon Aerospace CEO John Ferguson's Drone explanation.
+
+- **Tweet:** https://x.com/Milajoy/status/1868456748564320524
+- **Quoted:** https://x.com/Milajoy/status/1868042627360403849
+- **What:** Part two of Saxon Aerospace CEO John Ferguson's assessment of the mysterious drones plaguing New Jersey and other areas.
+
+---
+DATE: Sunday, December 15, 2024
+## @uncertainvector - Drones Unrelated to Nuclear Threats
+> I have spoken with sources inside government who would be responsible for responding to a potential nuclear threats within the U.S. I have high confidence the drone issue is unrelated to any potential nuclear threat.
+
+- **Tweet:** https://x.com/uncertainvector/status/1868443726722617413
+- **What:** Ryan Graves states he has high confidence the mysterious drone activity is unrelated to any potential nuclear threat based on sources in government.
+
+---
+DATE: Sunday, December 15, 2024
+## @MarioNawfal - Israel Strikes Syrian Coast
+> 🚨🇮🇱🇸🇾 ISRAEL REPORTEDLY LAUNCHES MASSIVE STRIKES ON SYRIAN COAST
+
+Israeli warplanes allegedly targeted military sites in Syria's Tartus region, striking air defense units and missile depots, according to the Syrian Observatory for Human Rights (SOHR).
+
+SOHR claims these are the "heaviest strikes" on Syria's coastal region since 2012.
+
+Details remain unconfirmed
+
+Source: Times of Israel, @RawsGlobal @BRICSinfo
+
+- **Tweet:** https://x.com/MarioNawfal/status/1868434545944510927
+- **Quoted:** https://x.com/MarioNawfal/status/1868390050620162084
+- **What:** Israeli warplanes reportedly targeted military sites in Syria's Tartus region in the heaviest strikes on the coastal region since 2012.
+
+---
+DATE: Sunday, December 15, 2024
+## @RoyalIntel_ - Explosions in Tartus Syria
+> #BREAKING🚨 MASSIVE explosions in Tartus, Syria from Israeli airstrike. Bruh, we're getting nuked out here tf is that.
+
+- **Tweet:** https://x.com/RoyalIntel_/status/1868421009474560408
+- **What:** Reports of massive explosions in Tartus, Syria from an Israeli airstrike.
+
+---
+DATE: Saturday, December 14, 2024
+## @WW3_Monitor - Russia Drone Black Sea
+> Russia claims to have shot down 13 drones over the Black Sea 🇷🇺🇷🇺‼️‼️‼️
+
+- **Tweet:** https://x.com/WW3_Monitor/status/1868155814655172864
+- **What:** Russia claims to have shot down 13 drones over the Black Sea.
+
+---
+DATE: Saturday, December 14, 2024
+## @richgel999 - Elizondo Good Trouble Show
+> Excellent show. I don't think I've ever seen Elizondo this worked up ever. He almost messed up his mic. I'm downloading to AI transcribe+summarize. Instant pivot from the early, and ridiculous, "state actor" narratives induced by IC dupes.
+
+- **Tweet:** https://x.com/richgel999/status/1868129277612634606
+- **Quoted:** https://x.com/GoodTroubleShow/status/1868060952803086608
+- **What:** Commentary on Elizondo's appearance on The Good Trouble Show discussing NJ/NY drones and a US Air Force Base.
+
+---
+DATE: Saturday, December 14, 2024
+## @LueElizondo - Trump Drone Response Appeal
+> Sir, @realDonaldTrump, the fiasco this current administration has gotten us into regarding drones is unacceptable. We have been ringing the alarm bells since 2017. For the sake of the American People, please enable Tulsi @TulsiGabbard and the rest of your cabinet to fix this issue once and for all and come clean with the American People. Between Tulsi, RFK @RobertKennedyJr and others in your staff, we can do this! I know you share our perspective and thank you for your courage to address this! Know that you have a small army of former Gvt officials ready to help anyway we can! America can handle the truth and America deserves the truth.
+
+- **Tweet:** https://x.com/LueElizondo/status/1868046506491781587
+- **What:** Elizondo urges Trump to have Tulsi Gabbard and cabinet address the drone situation and come clean with the American people.
+
+---
+DATE: Saturday, December 14, 2024
+## @Milajoy - Saxon Aerospace Drone Assessment
+> John Ferguson, the CEOof Saxon Aerospace, a manufacturer of manned drones, gives his assessment of all the mysterious drones plaguing New Jersey and other places in America right now.
+
+- **Tweet:** https://x.com/Milajoy/status/1868042627360403849
+- **What:** Saxon Aerospace CEO John Ferguson assesses the mysterious drones over New Jersey.
+
+---
+DATE: Saturday, December 14, 2024
+## @david_govea - Brooklyn Drone Encounter
+> Can't believe I caught this last night. Got swarmed with unmarked cop cars and they forced me to leave the area
+
+Bay ridge Brooklyn NYC #dronesoverNJ #dronesightings
+
+- **Tweet:** https://x.com/david_govea/status/1868009058231586980
+- **What:** Witness reports unmarked cop cars forcing people to leave area during drone sightings in Brooklyn.
+
+---
+DATE: Saturday, December 14, 2024
+## @JimFergusonUK - Project Bluebeam Warning
+> 🚨 Project Bluebeam Warning 🚨
+
+Dr. Steven Greer reveals a chilling plan: a false flag alien attack is coming. Since the 1950s, human assets have staged abductions disguised as aliens, he claims. 
+
+Greer says we've already mastered gravity control and that the script for what's coming looks eerily like the film Independence Day.
+
+The goal? To create fear and chaos, paving the way for a totalitarian superstate—the New World Order.
+
+Is this the ultimate deception by a covert globalist group? Stay vigilant. 👽🛸 #ProjectBluebeam #FalseFlag #AlienAgenda #NewWorldOrder
+
+- **Tweet:** https://x.com/JimFergusonUK/status/1867946020971106763
+- **What:** Steven Greer claims false flag alien attack planned to create New World Order.
+
+---
+DATE: Saturday, December 14, 2024
+## @richgel999 - NEST Team Confirmation
+> @theurigeller Sounds like they've deployed a NEST team to NJ, is what you're saying above. That would make a lot of sense right now considering the Salem situation.
+
+https://t.co/y7yunhpsEq
+
+- **Tweet:** https://x.com/richgel999/status/1867836797276840325
+- **Parent:** https://x.com/theurigeller/status/1867826059296575728
+- **What:** Confirmation that Nuclear Emergency Support Team appears deployed to NJ.
+
+---
+DATE: Saturday, December 14, 2024
+## @theurigeller - Nuclear Deployment Conspiracy
+> Dear friends this is serious:
+I cannot verify this, nor is this in the news however the #NewJerseyStatePolice reported that the #DepartmentofEnergy, #NuclearEmergencySupportTeam and the #USArmy21stOrdnanceCompany-Cobra Response Team (CRT), were deployed to joint base, McGuire-Ft Dix, NJ. Both teams respond to incident involving Improvised Nuclear Devices.
+
+My guess is; this may be a set up to blame a foreign adversary so as to initiate marshal law and not handover the presidency in January.
+It may also be possible, and this is a stretch, but if there is some nuclear leak, attack, or anything related to that, non human intelligences will be close by to observe. nuclear facilities and technologies They are often around. 
+I may be wrong, but only under marshal law can they delay the turnover of administration.
+A sitting administration might claim extraordinary circumstances, such as a national emergency (e.g., war, insurrection, or catastrophic event,
+I think that may be the motivation behind the drone chaos. But what about the drones being seen in UK, Germany and other countries? Please leave a comment.
+#aliens #ufo #ElonMusk #DonaldJTrump
+
+- **Tweet:** https://x.com/theurigeller/status/1867826059296575728
+- **What:** Uri Geller claims NEST team and Army CBRN team deployed to NJ, suggesting false flag to delay presidential transition.
+
+---
+DATE: Saturday, December 14, 2024
+## @RedPandaKoala - UFO Footage
+> "We have no idea what it is."
+
+ABC News crew captures clear footage of UFO
+
+- **Tweet:** https://x.com/RedPandaKoala/status/1867812166600110344
+- **What:** News report of UFO sighting with clear footage.
+
+---
+DATE: Friday, December 13, 2024
+## @davidgrusch - Drones Comment
+> #Drones Drones? 👀
+
+- **Tweet:** https://x.com/davidgrusch/status/1867647852606107774
+- **What:** David Grusch commenting on drone situation
+
+---
+DATE: Friday, December 13, 2024
+## @KristyTallman - Hillsborough Drone Landing
+> 🚨‼️Mystery drone possibly landed in Hillsborough Township, NJ
+
+Investigators are probing a potential drone landing in Hillsborough, NJ. Law enforcement agencies combed a wooded area off Route 206. The FBI is aware of the incident but has not released details.
+
+#NJdrones #MysteryDrones #FBI #DroneInvestigation #HillsboroughNJ #LawEnforcement #AerialPhenomena #BreakingNews
+
+Video credit: CBS
+
+- **Tweet:** https://x.com/KristyTallman/status/1867608842391126088
+- **What:** News about mystery drone landing investigation in New Jersey with FBI involvement
+
+---
+DATE: Friday, December 13, 2024
+## @Maerox - Get Ready
+> 🚨🚨GET READY!!! 🚨🚨
+
+- **Tweet:** https://x.com/Maerox/status/1867582484495450371
+- **What:** Post signaling upcoming developments
+
+---
+DATE: Friday, December 13, 2024
+## @WallStreetApes - Drone Spraying
+> American captured "drone" that appears to be spraying something into our sky
+
+"Look at him spraying. Look at that. He is spraying the sky again. Bro, this is f*cking crazy, man"
+
+- **Tweet:** https://x.com/WallStreetApes/status/1867473067695358264
+- **What:** Video showing drone allegedly spraying substances into the sky
+
+---
+DATE: Thursday, December 12, 2024
+## @UAPReportingCnt - Clear Drone Capture
+> Amazing clear capture of a "drone" in NJ. Multiple witnesses confirming. #dronesnj #dronesightings #uapdisclosure #UFOTwitter
+
+- **Tweet:** https://x.com/UAPReportingCnt/status/1867427901865439583
+- **What:** Clear video capture of drone activity in New Jersey with multiple witnesses
+
+---
+DATE: Thursday, December 12, 2024
+## @Bubblebathgirl - LaGuardia Drones
+> There are reportedly now 10 drones over LaGuardia Airport in NYC.
+
+Obviously is illegal to fly drones here.
+
+What is going on?
+
+- **Tweet:** https://x.com/Bubblebathgirl/status/1867406707468435802
+- **What:** Report of 10 drones over LaGuardia Airport in NYC, noting illegal flight.
+
+---
+DATE: Thursday, December 12, 2024
+## @WayneTechSPFX - Drones Shooting
+> 🚨ESCALATION: Eyewitnesses say that the drones over NJ appear to be shooting at something
+
+- **Tweet:** https://x.com/WayneTechSPFX/status/1867405199855260156
+- **What:** Eyewitnesses report drones over NJ appearing to shoot at something.
+
+---
+DATE: Thursday, December 12, 2024
+## @Ayylmao68072490 - Remote Viewer Prediction
+> @rawsalerts remote viewers predicted this UAP wave in advance
+
+- **Tweet:** https://x.com/Ayylmao68072490/status/1867400308583801299
+- **Parent:** https://x.com/rawsalerts/status/1867398877067854160
+- **Quoted:** https://x.com/DavidLWindt/status/1861402529856176200
+- **What:** Reply noting remote viewers predicted UAP wave in advance.
+
+---
+DATE: Thursday, December 12, 2024
+## @intelFromBrian - Drone Down 911 Calls
+> #BREAKING
+
+911 calls of a "drone down" in Morris, northern New Jersey
+
+- **Tweet:** https://x.com/intelFromBrian/status/1867395238031241644
+- **What:** 911 calls reporting a drone down in Morris, northern New Jersey.
+
+---
+DATE: Thursday, December 12, 2024
+## @MOSSADil - NY Drone Swarm
+> The Drones are sworming NY state.
+
+- **Tweet:** https://x.com/MOSSADil/status/1867394149819077098
+- **What:** Report of drone swarm over NY state.
+
+---
+DATE: Thursday, December 12, 2024
+## @OmniRich88 - Orb to Drone Transformation
+> 🛸⚠️🚨SHOCKING: " WOMAN SPOTS ANOTHER TRANSFORMATION" CAUGHT ON CAMERA: #NJ #Orbs TO #DRONES! 🚨⚠️🛸 12/12/2024 "Um what in the world did I just get on video…. I've been watching these 2 orbs in Mahwah, NJ and then a drone came along… went through the orb and then the orb started moving and literally became a DRONE. I'm not even kidding."Madison Leigh The #drone and orb #phenomena in New Jersey have been #escalating, with this latest #footage adding a whole new layer of mystery. This incident in Mahwah could be the most #bizarre yet, pushing the boundaries of what we understand about these #sightings. Source🤳: Madison Leigh (FB GROUP) LOCATION📍: #Mahwah, #NewJersey DATE📅: 12/12/2024 TIME🕢: Around 07:37pm #NJOrbs #MahwahNJ #MysteryDrones #UAPTransformation #DroneOrbs #ViralVideo #UAPNJ #NJDrone #UFO #BreakingNews #WTF #Unbelievable
+
+- **Tweet:** https://x.com/OmniRich88/status/1867381433158733881
+- **What:** Report of alleged orb-to-drone transformation caught on video in Mahwah, NJ.
+
+---
+DATE: Thursday, December 12, 2024
+## @realRJTalks - Biden Drone Response
+> Biden White House official response to the drones/UFO's over NJ is an embarrassment. No answers, just 'trust us there's no threat, now please stop asking'. This is called gaslighting.
+
+- **Tweet:** https://x.com/realRJTalks/status/1867347450014707763
+- **What:** Criticism of Biden administration's response to NJ drone sightings.
+
+---
+DATE: Wednesday, December 11, 2024
+## @gipple_taylor - NJ Drone Video
+> Really informative video on New Jersey drone situation w/ Belleville Mayor Michael Melham on attending 'Mayor only' briefing held at the State Police Headquarters -- Begins at 3 min in: https://t.co/pkzntGloEb
+
+- **Tweet:** https://x.com/gipple_taylor/status/1867001776282669120
+- **Quoted:** https://x.com/BarnettParker/status/1866993861337428242
+- **What:** Video from Belleville Mayor about the NJ drone briefing at State Police HQ.
+
+---
+DATE: Wednesday, December 11, 2024
+## @theblackvault - NJ Drone Briefing Reaction
+> "It was worthless. It was the biggest amateur hour presentation I have ever seen." -- New Jersey State Rep Brian Bergen's (@votebergen) reaction to a briefing by NJ Office of Homeland Security and Preparedness on the NJ drone situation, as said on @NewsNation. That went well...
+
+- **Tweet:** https://x.com/theblackvault/status/1866957421484163412
+- **What:** Criticism of NJ government's briefing on the drone situation.
+
+---
+DATE: Saturday, December 7, 2024
+## @bigbrovar - Supportive Reply
+> @thisischegbe ♥️
+
+- **Tweet:** https://x.com/bigbrovar/status/1865569608209514835
+- **Parent:** https://x.com/thisischegbe/status/1865490262786482520
+- **What:** A supportive reply to someone experiencing their first birthday without their father.
+
+---
+DATE: Wednesday, November 13, 2024
+## @shellenberger - Media Reply 2
+> https://t.co/h6cB2FULyN
+
+- **Tweet:** https://x.com/shellenberger/status/1856773564533543038
+- **Parent:** https://x.com/shellenberger/status/1856773494903894468
+- **What:** Media attachment (reply to own tweet about Immaculate Constellation report).
+
+---
+DATE: Wednesday, November 13, 2024
+## @shellenberger - Media Reply 1
+> https://t.co/iNNQ51euBH
+
+- **Tweet:** https://x.com/shellenberger/status/1856773494903894468
+- **Parent:** https://x.com/shellenberger/status/1856773415983820802
+- **What:** Media attachment (reply to own tweet about Immaculate Constellation report).
+
+---
+DATE: Wednesday, November 13, 2024
+## @shellenberger - Immaculate Constellation Report
+> IMMACULATE CONSTELLATION - Report on the US government's secret UAP (UFO) program
+
+From a whistleblower and released today by @NancyMace and discussed in today's Congressional hearing
+
+FULL REPORT https://t.co/FKCywpnhsU
+
+- **Tweet:** https://x.com/shellenberger/status/1856773415983820802
+- **What:** Michael Shellenberger sharing a report on the US government's secret UAP (UFO) program from a whistleblower, released by Rep. Nancy Mace and discussed in Congressional hearing.
+
+---
+DATE: Friday, July 19, 2024
+## @esrtweet - Crowdstrike Incident Commentary
+> The folly of closed source strikes again.
+
+Every computer running Crowdstrike Falcon crashed a few hours ago and is stuck in a boot loop that requires manual intervention by an expert to fix. This is a significant percentage of all the Windows machines in the world. Huge swathes of infrastructure are down - at airlines, hospitals, police stations, portions of the power grid, and that's only the beginning.
+
+I contrast this with the way a huge compromise of open-source infrastructure was headed off earlier this year when the xz trojan was discovered. Because all that code was open-source and could be audited, somebody caught it in time, before it could escape on to the net and do real damage.
+
+And all I can do is shake my head wearily and wonder: are you people just plain *stupid*?
+
+I and others have been trying to warn everyone for decades about the fragility of closed-source software and the proprietary distribution chain. Secrecy proliferates places for bugs to lurk. As our civilization depends more and more dependent on software to keep the wheels turning, the risk and deadliness of that secrecy is only rising.
+
+Take this day as a warning, because the next disaster of this kind will only be worse and could cost millions of lives. Get the hell out of closed source *now*, not just operating systems like Windows but applications too; the civilization you save could be your own.
+
+- **Tweet:** https://x.com/esrtweet/status/1814251150046073243
+- **What:** Eric S. Raymond's commentary on the July 2024 Crowdstrike Falcon incident that caused worldwide Windows crashes, contrasting with the xz utils trojan that was caught due to open-source auditing.
+
+---
+DATE: Wednesday, May 1, 2024
+## @vxunderground - DropBox Sign Breach
+> Today DropBox reported to the SEC that on April 24th, 2024, they detected unauthorized access to the DropBox Sign prod environment. DropBox states an unknown Threat Actor(s) was able to access user e-mails, usernames, account settings, and in some scenarios hashed passwords, phone numbers, API keys, OAuth tokens, and MFA.
+
+DropBox states there is no evidence the Threat Actor(s) accessed user contents or payment information. They state no other products owned by DropBox were compromised – only DropBox Sign was compromised.
+
+They state an investigation is on-going and no specific Threat Actor(s) or group have been attributed to the attack.
+
+More information: https://t.co/p4oXg58EOY
+
+- **Tweet:** https://x.com/vxunderground/status/1785783603407831282
+- **What:** News of DropBox Sign security breach where threat actors accessed user emails, credentials, API keys, and OAuth tokens; reported to the SEC.
+
+---
+DATE: Tuesday, April 2, 2024
+## @CraigHRowland - XZ Backdoor Analysis
+> Looking at the xz backdoor, it has one particular trait for spawned processes in the environment that is unusual. Linux command line forensics like so: strings /proc/<PID>/environ The RUNTIME_DIRECTORY and SSHD_OPTS are odd.
+
+- **Tweet:** https://x.com/CraigHRowland/status/1775306526632399337
+- **What:** Analysis of the xz backdoor focusing on unusual environment variables (RUNTIME_DIRECTORY and SSHD_OPTS) visible via process forensics.
+
+---
+DATE: Wednesday, January 31, 2024
+## @mattjay - Container Escape Vulnerability
+> A new container escape vulnerability just dropped. It gives an attacker the ability to hop from container to host OS via runc.
+
+- **Tweet:** https://x.com/mattjay/status/1752805908235661811
+- **What:** Announcement of a new container escape vulnerability in runc allowing escape from container to host OS.
+
+---
+DATE: Thursday, January 11, 2024
+## @rez0__ - Invisible Prompt Injection
+> I revise my earlier tweet about this being the best prompt injection content in a few weeks. This is the biggest breakthrough and security issue since prompt injection itself. Here's why: - It's invisible - It's near impossible to fix That's only 2 things but the fact it is invisible breaks down so many security trust boundaries that the implications are staggering to me.
+
+- **Tweet:** https://x.com/rez0__/status/1745545813512663203
+- **Quoted:** https://x.com/goodside/status/1745511940351287394
+- **What:** Discussion about invisible prompt injection vulnerabilities using unicode character manipulation, referencing the original POC by Riley Goodside.
+
+---
+DATE: Tuesday, December 19, 2023
+## @AMAZlNGNATURE - Nature Quiz
+> QUIZ TIME which is a Gator, Croc, and Caiman 🤔
+
+- **Tweet:** https://x.com/AMAZlNGNATURE/status/1736982471403503721
+- **What:** Quiz asking to identify the differences between an alligator, crocodile, and caiman.
+
+---
 # Tuesday, November 4, 2025
 ---
 DATE: Tuesday, November 4, 2025
