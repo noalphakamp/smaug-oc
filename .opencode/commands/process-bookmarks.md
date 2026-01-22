@@ -27,7 +27,7 @@ TodoWrite({ todos: [
   {content: "Read pending bookmarks", id: "1", priority: "high", status: "pending"},
   {content: "Process bookmark 1", id: "2", priority: "high", status: "pending"},
   {content: "Process bookmark 2", id: "3", priority: "high", status: "pending"},
-  {content: "Clean up pending file", id: "4", priority: "high", status: "pending"},
+  {content: "Clean up batch files if created", id: "4", priority: "high", status: "pending"},
   {content: "Commit and push changes", id: "5", priority: "high", status: "pending"},
   {content: "Return summary", id: "6", priority: "high", status: "pending"}
 ]})
@@ -40,7 +40,7 @@ TodoWrite({ todos: [
   {content: "Spawn subagents to write batch files", id: "2", priority: "high", status: "pending"},
   {content: "Wait for all subagents to complete", id: "3", priority: "high", status: "pending"},
   {content: "Merge batch files into bookmarks.md", id: "4", priority: "high", status: "pending"},
-  {content: "Clean up batch and pending files", id: "5", priority: "high", status: "pending"},
+  {content: "Clean up batch files only", id: "5", priority: "high", status: "pending"},
   {content: "Commit and push changes", id: "6", priority: "high", status: "pending"},
   {content: "Return summary", id: "7", priority: "high", status: "pending"}
 ]})
