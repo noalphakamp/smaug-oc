@@ -4,6 +4,33 @@
 
 ---
 # Thursday, January 22, 2026
+## @UnoMasReactor - Nuclear Funding Bill Passes with Blowout Votes
+> Nuclear funding passed with blowout votes in Senate (82-14) and House (397-28)
+> 
+> Billions of $ being redirected to @GovNuclear
+
+- **Tweet:** https://x.com/UnoMasReactor/status/2014347875371610276
+- **Link:** https://twitter.com/UnoMasReactor/status/2014347875371610276/photo/1
+- **What:** Nuclear funding legislation passes with overwhelming bipartisan support (82-14 Senate, 397-28 House), redirecting billions to government nuclear programs.
+## @disclosetv - Trump Asks About Fourth Term
+> JUST IN - Trump: "Should I try for a fourth term?"
+
+- **Tweet:** https://x.com/disclosetv/status/2014465223105577313
+- **Link:** https://twitter.com/disclosetv/status/2014465223105577313/photo/1
+- **What:** Report of Trump asking about pursuing a fourth term as president.
+## @rohanpaul_ai - OpenAI Proposes Profit-Sharing from AI Breakthroughs
+> This is almost like post-AGI kind of world.
+> 
+> OpenAI Proposes Profit-Sharing from AI breakthroughs.
+> 
+> So OpenAI wants to get paid like a partner that shares the upside when the customer hits something valuable, like a new drug, a new material, or a new financial product.
+> 
+> Sarah Friar framed it as "licensing models" where OpenAI takes a share of downstream sales if the customer's product takes off.
+> 
+> The bright side is that this kind of "take a cut of the upside" talk is basically a signal that the models are getting powerful enough to regularly produce discoveries that are worth fighting over.
+
+- **Tweet:** https://x.com/rohanpaul_ai/status/2014507879685095651
+- **What:** Analysis of OpenAI's profit-sharing proposal suggesting models are becoming powerful enough to produce valuable discoveries worth sharing upside.
 ## @sentdefender - IRGC Firing at Protesters in Tehran
 > Newly released footage, alleged to be from the night of January 8-9, which is claimed to show a member of Iran's Islamic Revolutionary Guard (IRGC) firing an automatic rifle at anti-regime protesters from the back of a pickup truck in the capital of Tehran.
 
@@ -396,6 +423,56 @@ Mais detalhes devem ser divulgados em breve pelo Marco Rubio.
 ---
 ---
 # Friday, January 23, 2026
+## @Kekius_Sage - 3I/ATLAS Comet with Massive Dust Tail
+> 🚨: 3I/ATLAS is perfectly aligned with Earth & Jupiter right now – a once-in-a-lifetime event, and the latest images just revealed a massive dust tail!
+> 
+> Images captured on Jan 21, 2025 from Italy show an extremely bright and long dust tail.
+> 
+> It's NOT an anti-tail pointing toward the Sun like many people thought.
+> 
+> Reality: The dust tail is pointing exactly opposite to its direction of travel (just like a jet contrail), with only a 0.69° alignment to the Sun.
+> 
+> The dust particles are unusually large and tough, irradiated by cosmic rays for billions of years → No secret propulsion or mysterious shield.
+> 
+> This is NOT a normal comet! It may need an entirely new classification.
+
+- **Tweet:** https://x.com/Kekius_Sage/status/2014576498234315020
+- **What:** Analysis of 3I/ATLAS comet showing massive dust tail with once-in-a-lifetime Earth-Jupiter alignment, requiring potential new classification.
+## @0xSero - Recommendation for Intelligent YouTuber
+> This is one of the most intelligent YouTubers out there
+
+- **Tweet:** https://x.com/0xSero/status/2014607953710436555
+- **Link:** https://www.youtube.com/watch?si=iN3UlI9W3Q89IMbz&v=HZ9iL_lFYgQ&feature=youtu.be
+- **What:** Recommendation highlighting an intelligent YouTube creator.
+## @Osint613 - French Politician on Trump Strategy Targeting China
+> French politician Jean-Luc Mélenchon, the de facto leader of La France Insoumise (LFI), offered a strategic reading of President Trump's actions:
+> 
+> "You have to understand what Mr. Trump is doing. He's not acting crazy; he has a very precise strategy. His ultimate goal is China, not us. And in this Greenland story, what he's after is the route that passes over it, the one the Chinese would use. And they want to position themselves on Greenland because in the Bering Strait, territorial waters touch. It was Panama, it's the Aden Strait, it's the entrance to the Hormuz Strait, it's their line, piece by piece. And before they succeed, they have to bring Europe and Latin America to their knees. In Europe, there's resistance. In Latin America, there's resistance. But nobody can say how long it will hold."
+
+- **Tweet:** https://x.com/Osint613/status/2014642652767985856
+- **What:** French politician Jean-Luc Mélenchon's analysis of Trump's strategy focusing on China via strategic chokepoints (Greenland, Panama, Aden, Hormuz).
+## @nummanali - Shared Article
+> https://t.co/cQgr5MrztI
+
+- **Tweet:** https://x.com/nummanali/status/2014684862985175205
+- **Link:** https://x.com/i/article/2014647141281464321
+- **What:** Shared article link from X platform.
+## @MarioNawfal - US Weighing Complete Withdrawal from Syria
+> 🚨🇺🇸🇸🇾 U.S. WEIGHS COMPLETE WITHDRAWAL FROM SYRIA WHILE AL-SHARAA HAS HIS OWN PLANS NORTHEAST
+> 
+> Washington is considering pulling all its troops out of Syria, which would basically end a military presence that's been there for over a decade.
+> 
+> At the same time, Ahmed al-Sharaa is moving to take back control of the northeast which has been an area run by the U.S.-backed Kurdish forces (SDF).
+> 
+> This could seriously change how post-war Syria looks.
+
+- **Tweet:** https://x.com/MarioNawfal/status/2014685614998950337
+- **What:** Report that US considering complete withdrawal from Syria as Ahmed al-Sharaa moves to take back northeastern control from SDF.
+## @WW3_Monitor - Iran Carries Out First Execution of Protestor
+> Reports say that Iran has carried out its first execution of a protestor. The BBC reports Ali Rahbar, a sports coach from Mashhad, was executed yesterday morning, after he was arrested 10 days ago.
+
+- **Tweet:** https://x.com/WW3_Monitor/status/2014695096646557903
+- **What:** Report that Iran executed first protestor (Ali Rahbar, a sports coach from Mashhad) after 10 days of arrest.
 ## @RileyRalmuto - Digital Minds Governance Framework
 > I will be posting some documents soon:
 > 
@@ -442,6 +519,18 @@ Mais detalhes devem ser divulgados em breve pelo Marco Rubio.
 - **What:** Report from Corriere della Sera that Zelensky may offer to give up Donbas in exchange for $800 billion and security guarantees.
 
 # Wednesday, January 21, 2026
+## @KAGdrogo - Trump Destroys Great Reset, Bans Single-Family Home Purchases
+> Trump destroyed their Great Reset.
+> They wanted you to "own nothing and be happy"
+> 
+> He just told the WEF straight to their gremlin faces that he banned banks and institutions from buying single-family homes and America will never be a debt slave nation of renters.
+> 
+> The NWO is dead
+
+- **Tweet:** https://x.com/KAGdrogo/status/2014135388269584819
+- **Link:** https://twitter.com/KAGdrogo/status/2014135388269584819/video/1
+- **What:** Commentary on Trump banning institutional purchases of single-family homes, framing it as destroying the Great Reset and NWO agenda.
+---
 ## @iAnonPatriot - COMMANDER BOVINO ANTI-ICE RIOTERS
 > Commander Bovino gives anti-ICE rioters 3 warnings before launching gas into the crowd.. 
 He's out here having the time of his life.. 🤣🤣 https://t.co/JPMp6EuewZ
@@ -16405,6 +16494,31 @@ Video credit: CBS
 > It gives an attacker the ability to hop from container to host OS via runc.
 - **Tweet:** https://x.com/mattjay/status/1752805908235661811
 - **What:** Announcement of new runc container escape vulnerability allowing container-to-host OS escape
+---
+# Thursday, January 23, 2025
+## @jakebarber2025 - Full Public Disclosures on UAP Disclosure
+> Hello everyone - I'm pleased to finally bring you our full public disclosures. You are going to want to hear every bit of this.
+> 
+> Over the next several days, we expect to not only move the needle, but reach the tipping point.
+> 
+> This is a combined effort from all camps. There will be multiple releases.
+> 
+> Here is what you can expect in my full interview:
+> - My full background and grooming process
+> - An overview of the recovery process
+> - My attempts to catalyze disclosure through the DOPSR process
+> - Catastrophic disclosure vs. protecting America
+> - Wet works
+> - Proof that Congress has been intimidated
+> - Steven Greer
+> - Indonesia
+> - The danger of vilifying the Military Industrial Complex en masse
+> - The importance of love and optimism
+> - An introduction to Skywatcher, a preview of our experience (more coming soon), and our plan to scientifically validate the existence of UAPs in the sky
+
+- **Tweet:** https://x.com/jakebarber2025/status/1882654297818648953
+- **Link:** https://www.youtube.com/watch?si=H9ZxScipnIfT-aRZ&v=t37-SKj4rtY&feature=youtu.be
+- **What:** Announcement of upcoming full UAP disclosure interview covering background, recovery process, congressional intimidation, and scientific validation plans via Skywatcher.
 ---
 # Thursday, January 11, 2024
 ## @rez0__ - Invisible Prompt Injection
