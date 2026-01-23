@@ -1344,6 +1344,48 @@ OpenCode with Mini Max can be ~10x cheaper for bookmark processing.
 
 ---
 
+## Future: Backup & Restore Commands
+
+### Implemented (Automatic)
+- ✅ `backupBookmarks()` - Creates timestamped backup before every `run` and `reprocess`
+- ✅ Backup location: `.state/backups/bookmarks-YYYY-MM-DDTHH-MM-SS.md`
+- ✅ Retention: Keep all backups (no automatic cleanup)
+
+### Planned Commands
+
+#### `smaug backup`
+Manual backup command for on-demand backups.
+
+```bash
+npx smaug backup                    # Create timestamped backup
+npx smaug backup --name mybackup    # Create named backup
+```
+
+#### `smaug restore`
+Restore from a previous backup.
+
+```bash
+npx smaug restore                   # List available backups
+npx smaug restore --latest          # Restore most recent backup
+npx smaug restore --file <path>     # Restore specific backup
+npx smaug restore --date 2026-01-23 # Restore backup from specific date
+```
+
+#### `smaug backup --cleanup`
+Optional cleanup of old backups.
+
+```bash
+npx smaug backup --cleanup --keep 30    # Keep last 30 backups
+npx smaug backup --cleanup --days 90    # Keep backups from last 90 days
+```
+
+### Implementation Notes
+- Backup files are in `.gitignore` (`.state/` directory)
+- Each backup includes full `bookmarks.md` content
+- Consider adding backup metadata (entry count, date range) in filename or separate manifest
+
+---
+
 ## References
 
 - [OpenCode CLI Docs](https://opencode.ai/docs/cli)
