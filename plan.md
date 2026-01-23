@@ -1551,6 +1551,17 @@ Add to `smaug.config.json`:
 }
 ```
 
+### Integration with Media System
+
+Add media-related tags to taxonomy:
+
+| Tag | Auto-applied when |
+|-----|-------------------|
+| `[[Video]]` | Bookmark contains video content |
+| `[[Image]]` | Bookmark contains significant image |
+| `[[YouTube]]` | Link to YouTube video |
+| `[[Podcast]]` | Audio content (future) |
+
 ### Implementation Phases
 
 #### Phase 1: Core Tagging (MVP)
@@ -1584,6 +1595,189 @@ Add to `smaug.config.json`:
 For 3,032 bookmarks with hybrid approach:
 - ~2,500 tagged by keywords (free)
 - ~500 tagged by AI (~$0.25)
+
+---
+
+## Future: Media Handling System
+
+### Overview
+
+Download and archive media from bookmarks:
+- **Images** (embedded in tweets) → `knowledge/images/`
+- **Videos** (Twitter, YouTube, etc.) → `knowledge/videos/` via `yt-dlp`
+
+### Media Detection
+
+| Type | Detection Pattern | Action |
+|------|-------------------|--------|
+| Twitter image | `pic.twitter.com`, embedded media URLs | Download via direct URL |
+| Twitter video | Tweet contains video indicator | `yt-dlp` the tweet URL |
+| YouTube | `youtube.com`, `youtu.be` | `yt-dlp` the video |
+| Other video | `vimeo.com`, `tiktok.com`, etc. | `yt-dlp` (supports 1000+ sites) |
+
+### State Tracking
+
+New state file: `.state/media-state.json`
+
+```json
+{
+  "version": 1,
+  "lastRun": "2026-01-23T17:00:00.000Z",
+  "entries": {
+    "tweet_id_123": {
+      "tweetUrl": "https://x.com/user/status/123",
+      "mediaType": "image",
+      "status": "downloaded",
+      "localPath": "knowledge/images/user-123-001.jpg",
+      "downloadedAt": "2026-01-23T17:00:00.000Z"
+    },
+    "tweet_id_456": {
+      "tweetUrl": "https://x.com/user/status/456",
+      "mediaType": "video",
+      "status": "pending",
+      "sourceUrl": "https://x.com/user/status/456"
+    }
+  },
+  "stats": {
+    "images": { "total": 450, "downloaded": 200, "pending": 250, "failed": 0 },
+    "videos": { "total": 100, "downloaded": 20, "pending": 75, "failed": 5 }
+  }
+}
+```
+
+### CLI Commands
+
+```bash
+# Show media status
+npx smaug media --status
+
+# Download images only
+npx smaug media --images --limit 50
+
+# Download videos only (uses yt-dlp)
+npx smaug media --videos --limit 10
+
+# Download all media types
+npx smaug media --limit 50
+
+# Retry failed downloads
+npx smaug media --retry-failed
+
+# Download media for specific bookmark
+npx smaug media --tweet https://x.com/user/status/123
+```
+
+### Directory Structure
+
+```
+knowledge/
+├── images/
+│   ├── user1-tweetid-001.jpg
+│   ├── user1-tweetid-002.png
+│   └── ...
+├── videos/
+│   ├── user2-tweetid.mp4
+│   ├── youtube-videoid.mp4
+│   └── ...
+├── tools/
+│   └── ... (existing)
+└── articles/
+    └── ... (existing)
+```
+
+### File Naming Convention
+
+**Images:** `{author}-{tweet_id}-{index}.{ext}`
+- Example: `elonmusk-1234567890-001.jpg`
+
+**Videos:** `{author}-{tweet_id}.{ext}` or `{platform}-{video_id}.{ext}`
+- Example: `elonmusk-1234567890.mp4`
+- Example: `youtube-dQw4w9WgXcQ.mp4`
+
+### Bookmark Entry Update
+
+After downloading, update the bookmark entry:
+
+```markdown
+## @user - Tweet Title
+> Tweet text...
+
+- **Tweet:** https://x.com/user/status/123
+- **Tags:** [[Geopolitics]] [[Video]]
+- **Media:** [video](knowledge/videos/user-123.mp4)
+- **What:** Description
+```
+
+Or for images:
+```markdown
+- **Media:** [image](knowledge/images/user-123-001.jpg)
+```
+
+### Dependencies
+
+- **yt-dlp** - Required for video downloads (Twitter, YouTube, etc.)
+- **curl/wget** - For direct image downloads
+- **Twitter auth cookies** - Same cookies used for `bird` CLI
+
+### yt-dlp Integration
+
+```bash
+# Twitter video (uses cookies)
+yt-dlp --cookies-from-browser chrome \
+  -o "knowledge/videos/%(uploader)s-%(id)s.%(ext)s" \
+  "https://x.com/user/status/123"
+
+# YouTube video
+yt-dlp -o "knowledge/videos/youtube-%(id)s.%(ext)s" \
+  "https://youtube.com/watch?v=..."
+```
+
+### Implementation Phases
+
+#### Phase 1: Image Downloads
+- [ ] Detect image URLs in bookmarks
+- [ ] Download images to `knowledge/images/`
+- [ ] Update `media-state.json`
+- [ ] Add `**Media:**` line to bookmark entries
+- [ ] Add `--images` flag to CLI
+
+#### Phase 2: Video Downloads
+- [ ] Detect video content in bookmarks
+- [ ] Integrate `yt-dlp` for downloads
+- [ ] Handle Twitter videos (require auth cookies)
+- [ ] Handle YouTube and other platforms
+- [ ] Add `--videos` flag to CLI
+
+#### Phase 3: Advanced Features
+- [ ] Video transcription (whisper or API)
+- [ ] Image description via AI vision
+- [ ] Thumbnail generation for videos
+- [ ] Media gallery view
+
+### Configuration
+
+Add to `smaug.config.json`:
+
+```json
+{
+  "media": {
+    "enabled": true,
+    "autoDownloadOnRun": false,
+    "imageQuality": "original",
+    "videoQuality": "best",
+    "maxVideoSize": "500M",
+    "ytdlpPath": "yt-dlp",
+    "cookiesFrom": "chrome"
+  }
+}
+```
+
+### Questions to Resolve
+
+1. **Image quality**: Download original size or specific resolution?
+2. **Video quality**: Best quality, or cap at 1080p to save space?
+3. **Storage limits**: Set max file size or total storage limit?
+4. **Duplicate handling**: Skip if already downloaded, or re-download?
 
 ---
 
