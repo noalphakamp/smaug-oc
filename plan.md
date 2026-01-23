@@ -1386,6 +1386,207 @@ npx smaug backup --cleanup --days 90    # Keep backups from last 90 days
 
 ---
 
+## Future: Subject Tagging System
+
+### Overview
+
+Automatically categorize bookmarks by subject/topic (e.g., Geopolitics, AI, UAP, Security, Crypto). Tags enable filtering, searching, and organizing the bookmark archive.
+
+### Design Decisions
+
+| Aspect | Decision | Reasoning |
+|--------|----------|-----------|
+| **Tag Location** | Add `**Tags:** [[Tag1]] [[Tag2]]` line to bookmark entries | Obsidian-compatible, searchable, keeps data with entry |
+| **Categorization Method** | Hybrid (keyword pre-filter + AI refinement) | Keywords are fast/free for obvious cases; AI handles ambiguous ones |
+| **When to Tag** | Separate `smaug tag` command + optional during `run` | Allows batch tagging of existing bookmarks |
+| **Tag Granularity** | Start with 10-15 broad categories | Can split later; easier to merge than subdivide |
+| **Tag Index** | Optional tag index files in `tags/` directory | Enables browsing by topic |
+
+### Proposed Tag Taxonomy
+
+| Tag | Keywords/Patterns | Description |
+|-----|-------------------|-------------|
+| `[[Geopolitics]]` | iran, ukraine, russia, china, nato, military, war, sanctions, diplomacy | International relations, conflicts, military |
+| `[[AI]]` | llm, gpt, claude, openai, anthropic, model, training, inference, neural | AI/ML technology and research |
+| `[[AI-Tools]]` | github.com, tool, cli, library, framework, sdk, api | AI-related tools and software |
+| `[[UAP]]` | uap, ufo, drone, orb, sighting, disclosure, congress, pentagon, nhi | Unidentified aerial phenomena |
+| `[[Security]]` | hack, breach, vulnerability, exploit, malware, ransomware, cve | Cybersecurity, hacking, vulnerabilities |
+| `[[Crypto]]` | bitcoin, ethereum, crypto, blockchain, defi, nft, wallet | Cryptocurrency and blockchain |
+| `[[Science]]` | research, study, paper, discovery, nasa, space, physics | Scientific research and discoveries |
+| `[[Tech]]` | startup, product, launch, apple, google, microsoft | Technology industry news |
+| `[[Media]]` | video, podcast, interview, documentary | Media content (videos, podcasts) |
+| `[[Opinion]]` | thread, take, rant, hot take, unpopular opinion | Commentary and opinion pieces |
+
+### State Tracking
+
+New state file: `.state/tag-state.json`
+
+```json
+{
+  "version": 1,
+  "lastRun": "2026-01-23T17:00:00.000Z",
+  "taxonomy": {
+    "Geopolitics": { "keywords": ["iran", "ukraine", ...], "count": 450 },
+    "AI": { "keywords": ["llm", "gpt", ...], "count": 380 },
+    ...
+  },
+  "entries": {
+    "tweet_id_123": {
+      "status": "tagged",
+      "tags": ["Geopolitics", "UAP"],
+      "method": "keyword",
+      "taggedAt": "2026-01-23T17:00:00.000Z"
+    },
+    "tweet_id_456": {
+      "status": "pending",
+      "suggestedTags": ["AI"],
+      "confidence": 0.3,
+      "needsAI": true
+    }
+  },
+  "stats": {
+    "total": 3032,
+    "tagged": 2500,
+    "pending": 500,
+    "untaggable": 32
+  }
+}
+```
+
+### CLI Commands
+
+```bash
+# Show tagging status
+npx smaug tag --status
+
+# Tag using keywords only (fast, free)
+npx smaug tag --keywords --limit 100
+
+# Tag using AI (slower, costs tokens)
+npx smaug tag --ai --limit 50
+
+# Tag using hybrid (keywords first, AI for uncertain)
+npx smaug tag --limit 100
+
+# Force re-tag all entries
+npx smaug tag --force --limit 100
+
+# Tag specific entries by pattern
+npx smaug tag --match "drone|uap|ufo"
+
+# List entries by tag
+npx smaug tag --list Geopolitics
+
+# Show tag statistics
+npx smaug tag --stats
+```
+
+### Workflow
+
+#### Phase 1: Keyword Tagging (Fast Pass)
+
+1. Load bookmark entries from `bookmarks.md`
+2. For each entry, check text against keyword patterns
+3. If **high confidence** (multiple keyword matches): assign tags immediately
+4. If **low confidence** (single weak match or none): mark as `needsAI: true`
+5. Update `tag-state.json`
+6. Add `**Tags:**` line to matching entries in `bookmarks.md`
+
+#### Phase 2: AI Tagging (Refinement Pass)
+
+1. Load entries marked `needsAI: true` from state
+2. Batch entries (e.g., 20 at a time) and send to AI with:
+   - Entry text
+   - Available tags and descriptions
+   - Instructions to assign 1-3 most relevant tags
+3. Parse AI response and update entries
+4. Update `tag-state.json` and `bookmarks.md`
+
+### Entry Format (After Tagging)
+
+```markdown
+## @someuser - Tweet Title
+> Tweet text content here...
+
+- **Tweet:** https://x.com/someuser/status/123
+- **Tags:** [[Geopolitics]] [[UAP]]
+- **What:** Description of the tweet content
+```
+
+### Tag Index Files (Optional)
+
+Create `tags/geopolitics.md`:
+
+```markdown
+# Geopolitics
+
+Bookmarks related to international relations, military conflicts, and diplomacy.
+
+## Recent Entries
+
+- [[2026-01-23]] @user1 - Title about Iran
+- [[2026-01-22]] @user2 - NATO response to...
+...
+```
+
+### Configuration
+
+Add to `smaug.config.json`:
+
+```json
+{
+  "tagging": {
+    "enabled": true,
+    "autoTagOnRun": false,
+    "taxonomy": "default",
+    "customTags": {
+      "MyTopic": {
+        "keywords": ["keyword1", "keyword2"],
+        "description": "Custom topic description"
+      }
+    },
+    "aiThreshold": 0.5,
+    "createIndexFiles": false
+  }
+}
+```
+
+### Implementation Phases
+
+#### Phase 1: Core Tagging (MVP)
+- [ ] Add `smaug tag --status` command
+- [ ] Implement keyword-based tagging
+- [ ] Create `tag-state.json` tracking
+- [ ] Update `bookmarks.md` with Tags lines
+- [ ] Add `--limit` support
+
+#### Phase 2: AI Enhancement
+- [ ] Add AI tagging for uncertain entries
+- [ ] Implement batched AI requests
+- [ ] Add confidence scoring
+- [ ] Support `--ai` and `--keywords` flags
+
+#### Phase 3: Advanced Features
+- [ ] Tag index file generation
+- [ ] Custom taxonomy support
+- [ ] Auto-tagging during `run`
+- [ ] Tag statistics and analytics
+- [ ] Tag-based search/filter
+
+### Cost Estimation
+
+| Method | Speed | Cost | Accuracy |
+|--------|-------|------|----------|
+| Keywords only | ~1000/sec | Free | 70-80% |
+| AI only | ~20/min | ~$0.50/1000 | 95%+ |
+| Hybrid | ~100/min | ~$0.10/1000 | 90%+ |
+
+For 3,032 bookmarks with hybrid approach:
+- ~2,500 tagged by keywords (free)
+- ~500 tagged by AI (~$0.25)
+
+---
+
 ## References
 
 - [OpenCode CLI Docs](https://opencode.ai/docs/cli)
