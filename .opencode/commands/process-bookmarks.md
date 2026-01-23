@@ -42,8 +42,7 @@ TodoWrite({ todos: [
   {content: "Process bookmark 1", id: "2", priority: "high", status: "pending"},
   {content: "Process bookmark 2", id: "3", priority: "high", status: "pending"},
   {content: "Clean up batch files if created", id: "4", priority: "high", status: "pending"},
-  {content: "Commit and push changes", id: "5", priority: "high", status: "pending"},
-  {content: "Return summary", id: "6", priority: "high", status: "pending"}
+  {content: "Return summary", id: "5", priority: "high", status: "pending"}
 ]})
 ```
 
@@ -55,8 +54,7 @@ TodoWrite({ todos: [
   {content: "Wait for all subagents to complete", id: "3", priority: "high", status: "pending"},
   {content: "Merge batch files into bookmarks.md", id: "4", priority: "high", status: "pending"},
   {content: "Clean up batch files only", id: "5", priority: "high", status: "pending"},
-  {content: "Commit and push changes", id: "6", priority: "high", status: "pending"},
-  {content: "Return summary", id: "7", priority: "high", status: "pending"}
+  {content: "Return summary", id: "6", priority: "high", status: "pending"}
 ]})
 ```
 
@@ -64,7 +62,7 @@ TodoWrite({ todos: [
 - Mark each step `in_progress` before starting (not implemented in TodoWrite, just track mentally)
 - Mark `completed` immediately after finishing
 - Only ONE task in_progress at a time
-- Never skip final steps (commit, summary)
+- Never skip the final summary step
 
 **CRITICAL for parallel processing:** Use OpenCode's subagent system to spawn multiple agents in parallel. Each writes to a batch file:
 
@@ -289,27 +287,11 @@ echo "Before: $BEFORE, After: $AFTER"
 
 Just focus on processing the bookmarks and writing the results.
 
-### 4. Commit and Push Changes
+### 4. DO NOT Commit or Push
 
-After all bookmarks are processed and filed, commit the changes:
+**IMPORTANT:** Do NOT run git commit or git push. The output files (bookmarks.md, knowledge/, .state/) are in .gitignore and should not be committed.
 
-```bash
-# Get today's date for commit message
-DATE=$(date +"%b %-d")
-
-# Stage all bookmark-related changes (use archiveFile path from config)
-git add "$ARCHIVE_FILE"  # The archiveFile path from config
-git add knowledge/
-
-# Commit with descriptive message
-git commit -m "Process N Twitter bookmarks from $DATE
-
-🤖 Generated with OpenCode (https://opencode.ai)
-
-Co-Authored-By: OpenAI Mini Max"
-```
-
-Replace "N" with actual count. If any knowledge files were created, mention them in the commit message body.
+Just process the bookmarks and return a summary.
 
 ### 5. Return Summary
 
@@ -318,8 +300,6 @@ Processed N bookmarks:
 - @author1: Tool Name → filed to knowledge/tools/tool-name.md
 - @author2: Article Title → filed to knowledge/articles/article-slug.md
 - @author3: Plain tweet → captured only
-
-Committed and pushed.
 ```
 
 ## Frontmatter Templates
