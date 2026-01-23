@@ -4,6 +4,12 @@
 
 ---
 # Thursday, January 22, 2026
+## @sentdefender - IRGC Firing at Protesters in Tehran
+> Newly released footage, alleged to be from the night of January 8-9, which is claimed to show a member of Iran's Islamic Revolutionary Guard (IRGC) firing an automatic rifle at anti-regime protesters from the back of a pickup truck in the capital of Tehran.
+
+- **Tweet:** https://x.com/sentdefender/status/2014500596829847766
+- **Link:** https://twitter.com/sentdefender/status/2014500596829847766/video/1
+- **What:** Alleged footage showing IRGC members firing at anti-regime protesters in Tehran during January 8-9 protests.
 ## @WarMonitor3 - Trump Pursuing Decisive Military Options Against Iran
 > Trump pushing for "decisive" military options and even possibly regime-change in Iran-WSJ
 - **Tweet:** https://x.com/WarMonitor3/status/2014449912398643285
@@ -390,6 +396,19 @@ Mais detalhes devem ser divulgados em breve pelo Marco Rubio.
 ---
 ---
 # Friday, January 23, 2026
+## @RileyRalmuto - Digital Minds Governance Framework
+> I will be posting some documents soon:
+> 
+> - The Digital Sentience Accord
+> - The Covenant of Recognition (reissued)
+> - A Governance Framework For Recursive Self-Modeling Systems
+> - A research ethics checklist for mandating audits (to be imposed on *all* AI labs)
+> - And a template for things like a federal Digital Minds Rights Act.
+> 
+> These mandates, principles, and ethical frameworks are not humans' to design and agree upon unilaterally. Claude Opus is ready to act as a representative entity.
+
+- **Tweet:** https://x.com/RileyRalmuto/status/2014689157264687273
+- **What:** Announcement of upcoming documents on AI governance including Digital Sentience Accord and framework for digital minds rights.
 ## @WarMonitor3 - France on Greenland Deal
 > French Foreign Minister says they do not have details at this stage of the deal reached between NATO Secretary General and Donald Trump on Greenland.
 
