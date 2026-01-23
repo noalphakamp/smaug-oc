@@ -1354,6 +1354,178 @@ export async function run(options = {}) {
 }
 
 // ============================================================================
+// Reprocess function - creates missing knowledge files
+// ============================================================================
+
+async function reprocess(options = {}) {
+  const startTime = Date.now();
+  const now = new Date().toLocaleTimeString();
+  
+  if (!acquireLock()) {
+    return { success: false, error: 'Another job is running' };
+  }
+
+  try {
+    const config = loadConfig();
+    const reprocessFile = options.reprocessFile;
+    
+    if (!fs.existsSync(reprocessFile)) {
+      console.error(`[${now}] Reprocess file not found: ${reprocessFile}`);
+      return { success: false, error: 'Reprocess file not found' };
+    }
+    
+    const data = JSON.parse(fs.readFileSync(reprocessFile, 'utf8'));
+    const count = data.count;
+    
+    console.log(`[${now}] Creating knowledge files for ${count} bookmarks...`);
+    
+    const provider = getAIProvider(config);
+    
+    if (provider === 'opencode') {
+      const result = await invokeOpenCodeReprocess(config, count, reprocessFile, options);
+      return {
+        success: result.success,
+        count,
+        duration: Date.now() - startTime,
+        error: result.error
+      };
+    } else {
+      // Claude Code reprocess
+      const result = await invokeClaudeCodeReprocess(config, count, reprocessFile, options);
+      return {
+        success: result.success,
+        count,
+        duration: Date.now() - startTime,
+        error: result.error
+      };
+    }
+  } catch (error) {
+    console.error(`[${now}] Reprocess error:`, error.message);
+    return {
+      success: false,
+      error: error.message,
+      duration: Date.now() - startTime
+    };
+  } finally {
+    releaseLock();
+  }
+}
+
+async function invokeOpenCodeReprocess(config, count, reprocessFile, options = {}) {
+  const openCodeConfig = getOpenCodeConfig(config);
+  
+  const prompt = `Create knowledge files for the ${count} bookmark(s) in ${reprocessFile}.
+
+Read the JSON file first. For each entry:
+1. Read the link URL
+2. If it's a GitHub repo (github.com/user/repo), create ./knowledge/tools/{repo-name}.md
+3. If it's an article (medium, substack, dev.to), create ./knowledge/articles/{slug}.md
+
+Use these templates:
+
+## Tool (./knowledge/tools/{slug}.md):
+---
+title: "{repo_name}"
+type: tool
+date_added: ${new Date().toISOString().split('T')[0]}
+source: "{github_url}"
+via: "Twitter bookmark from @{author}"
+---
+{Description based on the tweet text and repo}
+## Links
+- [GitHub]({github_url})
+- [Original Tweet]({tweet_url})
+
+## Article (./knowledge/articles/{slug}.md):
+---
+title: "{article_title}"
+type: article  
+date_added: ${new Date().toISOString().split('T')[0]}
+source: "{article_url}"
+via: "Twitter bookmark from @{author}"
+---
+{Summary based on the tweet text}
+## Links
+- [Article]({article_url})
+- [Original Tweet]({tweet_url})
+
+After creating each knowledge file, update bookmarks.md to add "- **Filed:** [filename](path)" line to that entry.
+
+Process all ${count} entries. Commit and push when done.`;
+
+  return new Promise((resolve) => {
+    const args = ['run'];
+    
+    if (openCodeConfig.model) {
+      args.push('--model', openCodeConfig.model);
+    }
+    
+    args.push(prompt);
+    
+    console.log(`\nInvoking OpenCode to create ${count} knowledge files...\n`);
+    
+    const child = spawn('opencode', args, {
+      cwd: process.cwd(),
+      stdio: ['inherit', 'inherit', 'inherit'],
+      env: { ...process.env }
+    });
+    
+    child.on('close', (code) => {
+      if (code === 0) {
+        console.log(`\n✓ Knowledge file creation complete`);
+        resolve({ success: true });
+      } else {
+        resolve({ success: false, error: `OpenCode exited with code ${code}` });
+      }
+    });
+    
+    child.on('error', (err) => {
+      resolve({ success: false, error: err.message });
+    });
+  });
+}
+
+async function invokeClaudeCodeReprocess(config, count, reprocessFile, options = {}) {
+  const claudeConfig = getClaudeCodeConfig(config);
+  
+  const prompt = `Create knowledge files for the ${count} bookmark(s) in ${reprocessFile}. Follow the instructions in ./.claude/commands/process-bookmarks.md for templates. Create the knowledge files and update bookmarks.md to add Filed: lines.`;
+  
+  return new Promise((resolve) => {
+    const args = ['--dangerously-skip-permissions', '-p', prompt];
+    
+    if (claudeConfig.model) {
+      args.push('--model', claudeConfig.model);
+    }
+    
+    const child = spawn('claude', args, {
+      cwd: process.cwd(),
+      stdio: ['pipe', 'pipe', 'pipe'],
+      env: { ...process.env }
+    });
+    
+    let output = '';
+    
+    child.stdout.on('data', (data) => {
+      const text = data.toString();
+      output += text;
+      process.stdout.write(text);
+    });
+    
+    child.stderr.on('data', (data) => {
+      process.stderr.write(data);
+    });
+    
+    child.on('close', (code) => {
+      resolve({ success: code === 0, error: code !== 0 ? `Claude exited with code ${code}` : null });
+    });
+    
+    child.on('error', (err) => {
+      resolve({ success: false, error: err.message });
+    });
+  });
+}
+
+// ============================================================================
 // Bree-compatible export
 // ============================================================================
 
@@ -1361,7 +1533,8 @@ export default {
   name: JOB_NAME,
   interval: '*/30 * * * *', // Every 30 minutes
   timezone: 'America/New_York',
-  run
+  run,
+  reprocess
 };
 
 // ============================================================================
