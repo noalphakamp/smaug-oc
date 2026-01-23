@@ -4,6 +4,17 @@
 
 ---
 # Thursday, January 22, 2026
+## @FoxNews - Trump Warns Iran on Executions, US Fleet Heading to Region
+> PRESIDENT TRUMP says the US is watching Iran closely:
+>
+> "I said, if you hang those people, you're going to be hit harder than you've ever been hit. It will make what we did to your Iran nuclear look like peanuts."
+>
+> "And they actually said they canceled it, they didn't postpone it, they canceled it – so that was a good sign."
+>
+> "We have a massive fleet heading in that direction and maybe we won't have to use it, we'll see."
+
+- **Tweet:** https://x.com/FoxNews/status/2014525579047931930
+- **What:** Trump warns Iran of severe consequences for executions, reports Iran cancelled planned hangings, and confirms massive US fleet en route to the region.
 ## @UnoMasReactor - Nuclear Funding Bill Passes with Blowout Votes
 > Nuclear funding passed with blowout votes in Senate (82-14) and House (397-28)
 > 
@@ -423,6 +434,18 @@ Mais detalhes devem ser divulgados em breve pelo Marco Rubio.
 ---
 ---
 # Friday, January 23, 2026
+## @WarMonitor3 - Israel on High Alert for Large US Strike Campaign on Iran
+> Israel is on high alert in preparation for a large US strike campaign on Iran to set a chain reaction to topple the countries leadership.
+
+- **Tweet:** https://x.com/WarMonitor3/status/2014720906879180998
+- **What:** Report that Israel has elevated alert status in preparation for a large US strike campaign on Iran aimed at toppling the country's leadership.
+## @WW3_Monitor - USS Abraham Lincoln Enters Strike Range of Iran
+> BIG BREAKING NEWS
+>
+> The US Carrier USS Abraham Lincoln has entered strike range of Iran amid escalating tensions
+
+- **Tweet:** https://x.com/WW3_Monitor/status/2014695496254738705
+- **What:** Report that USS Abraham Lincoln aircraft carrier has entered strike range of Iran amid escalating tensions in the region.
 ## @Kekius_Sage - 3I/ATLAS Comet with Massive Dust Tail
 > 🚨: 3I/ATLAS is perfectly aligned with Earth & Jupiter right now – a once-in-a-lifetime event, and the latest images just revealed a massive dust tail!
 > 
