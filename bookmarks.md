@@ -1358,7 +1358,9 @@ It's time to get really loud! The truth is prevailing! Many thanks to our friend
 - **Link:** https://github.com/Riley-Coyote/hitchhikers-guide-to-x-algorithm
 > *Quoting @XEng:* We have open-sourced our new 𝕏 algorithm, powered by the same transformer architecture as xAI's Grok model.\n\nCheck it out here:  https://t.co/3WKwZkdgmB
 - **Quoted:** https://x.com/XEng/status/2013471689087086804
+- **Filed:** [hitchhikers-guide-to-x-algorithm.md](knowledge/tools/hitchhikers-guide-to-x-algorithm.md)
 ---
+
 ## @PjwSiebelt - Strategic Importance of Greenland
 > Iedereen heeft een menig over de situatie rondom Groenland. Volgens een zeer deskundige Amerikaanse vriend van mij komen de echte kwesties wat Groenland betreft in een notendop hierop neer:
 > 
@@ -1789,6 +1791,7 @@ Shockingingly, our "brilliant" NATO Ally, the United Kingdom, is currently plann
 - **Tweet:** https://x.com/victorialslocum/status/2013532993856340471
 - **What:** Introduces IntellyWeave, an open-source OSINT intelligence platform built on Elysia that uses AI agents for document analysis, entity extraction, geospatial mapping, and network visualization.
 - **Link:** https://github.com/vericle/intellyweave
+- **Filed:** [intellyweave.md](knowledge/tools/intellyweave.md)
 ## @IranObserver0 - Treasury Secretary Warns Europe Over Greenland
 > ⚡️BREAKING U.S. Treasury Secretary warns Europe over Greenland: 'Sit back, take a deep breath, The worst thing countries can do is to escalate against the United States'
 - **Tweet:** https://x.com/IranObserver0/status/2013521569084068041
@@ -4060,7 +4063,9 @@ PS: Initial iteration built with ralph scripts. Subsequent iterations built with
 - **What:** Ralph TUI launched - a terminal UI for orchestrating AI coding agents (Claude Code, OpenCode, etc.) to work through task lists autonomously.
 - **Link:** https://github.com/subsy/ralph-tui
 - **Quoted:** https://x.com/theplgeek/status/2010656497009578448
+- **Filed:** [ralph-tui.md](knowledge/tools/ralph-tui.md)
 ---
+
 ## @SawyerMerritt - Pentagon to start using xAI's Grok
 > NEWS: U.S. Secretary of War Pete Hegseth just announced that the Pentagon will start using @xAI's Grok later this month.
 "This integration will allow all military and civilian personnel to use xAI's capabilities at Impact Level 5, enabling the secure handling of Controlled Unclassified Information in daily workflows. Users will also gain access to real‑time global insights from the X platform, providing War Department personnel with a decisive information advantage."
@@ -4133,7 +4138,9 @@ The time is now.
 - **Tweet:** https://x.com/michaeldweiss/status/2010816360058638629
 - **What:** Exclusive report that the U.S. has been testing a device captured by Special Forces that is linked to Havana Syndrome, according to four sources.
 - **Link:** https://sashaingber.substack.com/p/exclusive-us-has-been-testing-a-captured
+- **Filed:** [exclusive-us-has-been-testing-a-captured.md](knowledge/articles/exclusive-us-has-been-testing-a-captured.md)
 ---
+
 ## @AlexanderPayton - Iranian Ship Seizure Analysis
 > The Iranian ship en route to Venezuela was carrying drones. Our adversaries have been setting up a base for drone warfare right on our doorstep, putting Guantanamo, Puerto Rico, and the Panama Canal all within easy reach. Oreshnik missiles like Russia said they would send penetrate even deeper. This is the kind of preparation they were planning to rely on in the event of war over Taiwan, and taking it out has made the possibility of war more remote.
 >
@@ -4197,7 +4204,9 @@ The time is now.
 - **Tweet:** https://x.com/scaling01/status/2010748516788777445
 - **What:** DeepSeek releases Engram, a new memory module for LLMs that uses hashed N-gram embeddings for O(1) lookup-style conditional memory, making models effectively deeper for reasoning tasks.
 - **Link:** https://github.com/deepseek-ai/Engram/blob/main/Engram_paper.pdf
+- **Filed:** [Engram.md](knowledge/tools/Engram.md)
 ---
+
 ## @UK_REPT - Iran Conflict Update
 > NEW 🇮🇷 — The first wave in Iran has ended. Now the second wave is beginning.
 - **Tweet:** https://x.com/UK_REPT/status/2010743214773596590
