@@ -179,14 +179,22 @@ Don't use generic titles like "Article" or "Tweet". Based on the content:
 - Reply threads: Include parent context in the summary
 - Plain tweets: Use the key point being made
 
-#### b. Categorize using the categories config
+#### b. Categorize and file (REQUIRED for matching URLs!)
 
-Match each bookmark's links against category patterns (check `match` arrays). Use the first matching category, or fall back to `tweet`.
+**YOU MUST check each bookmark's links and create knowledge files for matches:**
 
-**For each action type:**
-- `file`: Create a separate file in the category's folder using its template
-- `capture`: Just add to bookmarks.md (no separate file)
-- `transcribe`: Add to bookmarks.md with a "Needs transcript" flag, optionally create placeholder in folder
+| URL Pattern | Action | Create File At |
+|-------------|--------|----------------|
+| github.com | **MUST file** | ./knowledge/tools/{repo-name}.md |
+| medium.com, substack.com, dev.to | **MUST file** | ./knowledge/articles/{slug}.md |
+| youtube.com, youtu.be | transcribe flag | (optional placeholder) |
+| Other URLs | capture only | No file needed |
+
+**For each `file` action:**
+1. Create the knowledge file using the template (see Frontmatter Templates section)
+2. Add `- **Filed:** [{filename}]({path})` to the bookmark entry
+
+**DO NOT skip filing for GitHub repos or articles.** This is a key feature.
 
 **Special handling:**
 - Quote tweets: Include quoted tweet context in entry
@@ -466,12 +474,22 @@ Task({
 
 **Subagent prompt template:**
 ```
-Process these bookmarks and write ONLY the markdown entries (no date headers) to .state/batch-{N}.md
+Process these bookmarks. You have TWO jobs:
+
+## JOB 1: Write batch file
+Write markdown entries to .state/batch-{N}.md (no date headers)
+
+## JOB 2: Create knowledge files (REQUIRED for matching URLs!)
+For EACH bookmark with these URLs, you MUST create a knowledge file:
+- github.com → Create ./knowledge/tools/{repo-name}.md
+- medium.com, substack.com, dev.to → Create ./knowledge/articles/{slug}.md
+
+Use the templates at the end of this prompt.
 
 Bookmarks to process (in order - oldest first):
 {JSON array of 5-10 bookmarks}
 
-For each bookmark, write an entry in this format:
+## Batch file entry format:
 ---
 DATE: {bookmark.date}
 ## @{author} - {title}
@@ -479,10 +497,36 @@ DATE: {bookmark.date}
 
 - **Tweet:** {url}
 - **Tags:** [[tag1]] [[tag2]] (if tags exist)
+- **Filed:** [{filename}]({path}) ← ADD THIS if you created a knowledge file!
 - **What:** {description}
 
-Also create knowledge files (./knowledge/tools/*.md, ./knowledge/articles/*.md) as needed.
-DO NOT touch bookmarks.md - only write to .state/batch-{N}.md
+## Tool template (./knowledge/tools/{slug}.md):
+---
+title: "{repo_name}"
+type: tool
+date_added: {YYYY-MM-DD}
+source: "{github_url}"
+via: "Twitter bookmark from @{author}"
+---
+{Description of what the tool does}
+## Links
+- [GitHub]({github_url})
+- [Original Tweet]({tweet_url})
+
+## Article template (./knowledge/articles/{slug}.md):
+---
+title: "{article_title}"
+type: article
+date_added: {YYYY-MM-DD}
+source: "{article_url}"
+via: "Twitter bookmark from @{author}"
+---
+{Summary of the article}
+## Links
+- [Article]({article_url})
+- [Original Tweet]({tweet_url})
+
+DO NOT touch bookmarks.md - only write to .state/batch-{N}.md and knowledge/ files
 ```
 
 **Phase 2: Sequential merge (main agent combines batches)**
