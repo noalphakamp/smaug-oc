@@ -307,6 +307,114 @@ async function main() {
       break;
     }
 
+    case 'reprocess': {
+      // Reprocess bookmarks that are missing knowledge files
+      const config = loadConfig();
+      const trackTokens = args.includes('--track-tokens') || args.includes('-t');
+      
+      // Parse --limit flag
+      const limitIdx = args.findIndex(a => a === '--limit' || a === '-l');
+      let limit = null;
+      if (limitIdx !== -1 && args[limitIdx + 1]) {
+        limit = parseInt(args[limitIdx + 1], 10);
+        if (isNaN(limit) || limit <= 0) {
+          console.error('Invalid --limit value. Must be a positive number.');
+          process.exit(1);
+        }
+      }
+
+      if (!fs.existsSync(config.archiveFile)) {
+        console.log('No bookmarks.md found. Run `smaug run` first.');
+        process.exit(0);
+      }
+
+      const content = fs.readFileSync(config.archiveFile, 'utf8');
+      
+      // Find entries with GitHub/article links but no Filed: line
+      const entryPattern = /## @[\s\S]*?(?=\n## @|\n# |\n---\n# |$)/g;
+      const entries = content.match(entryPattern) || [];
+      
+      const needsKnowledge = [];
+      const knowledgePatterns = [
+        /github\.com\/[\w-]+\/[\w-]+/i,
+        /medium\.com\//i,
+        /substack\.com\//i,
+        /dev\.to\//i
+      ];
+      
+      for (const entry of entries) {
+        const hasKnowledgeLink = knowledgePatterns.some(p => p.test(entry));
+        const hasFiled = /\*\*Filed:\*\*/i.test(entry);
+        
+        if (hasKnowledgeLink && !hasFiled) {
+          // Extract key info from the entry
+          const authorMatch = entry.match(/## @(\w+)/);
+          const linkMatch = entry.match(/\*\*Link:\*\*\s*(https?:\/\/[^\s\n]+)/);
+          const tweetMatch = entry.match(/\*\*Tweet:\*\*\s*(https?:\/\/[^\s\n]+)/);
+          const textMatch = entry.match(/^## @\w+[^\n]*\n>\s*([^\n]+)/m);
+          
+          if (authorMatch && (linkMatch || tweetMatch)) {
+            needsKnowledge.push({
+              author: authorMatch[1],
+              link: linkMatch ? linkMatch[1] : null,
+              tweetUrl: tweetMatch ? tweetMatch[1] : null,
+              text: textMatch ? textMatch[1].slice(0, 200) : '',
+              fullEntry: entry.trim()
+            });
+          }
+        }
+      }
+      
+      if (needsKnowledge.length === 0) {
+        console.log('All bookmarks with GitHub/article links already have knowledge files.');
+        process.exit(0);
+      }
+      
+      const toProcess = limit ? needsKnowledge.slice(0, limit) : needsKnowledge;
+      
+      console.log(`Found ${needsKnowledge.length} bookmarks needing knowledge files.`);
+      if (limit) {
+        console.log(`Processing ${toProcess.length} (limited by --limit ${limit})`);
+      }
+      
+      // Write to temp file for AI processing
+      const reprocessFile = path.join(path.dirname(config.pendingFile), 'reprocess-bookmarks.json');
+      fs.writeFileSync(reprocessFile, JSON.stringify({
+        count: toProcess.length,
+        total: needsKnowledge.length,
+        bookmarks: toProcess
+      }, null, 2));
+      
+      console.log(`\nWrote ${toProcess.length} entries to ${reprocessFile}`);
+      console.log('\nSample entries:');
+      for (const b of toProcess.slice(0, 3)) {
+        console.log(`  • @${b.author}: ${b.link || b.tweetUrl}`);
+      }
+      if (toProcess.length > 3) {
+        console.log(`  ... and ${toProcess.length - 3} more`);
+      }
+      
+      // Invoke AI to create knowledge files
+      console.log('\nInvoking AI to create knowledge files...\n');
+      
+      try {
+        const jobPath = path.join(path.dirname(fileURLToPath(import.meta.url)), 'job.js');
+        const jobModule = await import(pathToFileURL(jobPath).href);
+        const result = await jobModule.default.reprocess({ trackTokens, reprocessFile });
+        
+        // Clean up temp file on success
+        if (result.success && fs.existsSync(reprocessFile)) {
+          fs.unlinkSync(reprocessFile);
+        }
+        
+        process.exit(result.success ? 0 : 1);
+      } catch (err) {
+        console.error('Failed to reprocess:', err.message);
+        process.exit(1);
+      }
+      break;
+    }
+
     case 'status': {
       const config = loadConfig();
 
@@ -355,6 +463,8 @@ Commands:
   fetch --force  Re-fetch even if already archived
   fetch --source <source>  Fetch from: bookmarks, likes, or both
   fetch --media  EXPERIMENTAL: Include media attachments
+  reprocess      Create missing knowledge files for processed bookmarks
+  reprocess --limit N  Reprocess only N bookmarks
   process        Show pending tweets
   status         Show current status
 
