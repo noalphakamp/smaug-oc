@@ -1412,8 +1412,37 @@ async function reprocess(options = {}) {
 }
 
 async function invokeOpenCodeReprocess(config, count, reprocessFile, options = {}) {
-  const openCodeConfig = getOpenCodeConfig(config);
-  
+  const ocConfig = getOpenCodeConfig(config);
+  const timeout = config.claudeTimeout || 900000;
+  const trackTokens = options.trackTokens || false;
+
+  // Find opencode binary (same as invokeOpenCode)
+  let opencodePath = 'opencode';
+  const possiblePaths = [
+    '/usr/local/bin/opencode',
+    '/opt/homebrew/bin/opencode',
+    path.join(process.env.HOME || '', '.local/bin/opencode'),
+  ];
+  for (const p of possiblePaths) {
+    if (fs.existsSync(p)) {
+      opencodePath = p;
+      break;
+    }
+  }
+  if (opencodePath === 'opencode') {
+    try {
+      opencodePath = execSync('which opencode', { encoding: 'utf8' }).trim() || 'opencode';
+    } catch {
+      // which failed, stick with 'opencode'
+    }
+  }
+
+  // Simple dragon header for reprocess
+  console.log(`
+   🐉 SMAUG Reprocess Mode
+   Creating ${count} knowledge files...
+`);
+
   const prompt = `Create knowledge files for the ${count} bookmark(s) in ${reprocessFile}.
 
 Read the JSON file first. For each entry:
@@ -1439,7 +1468,7 @@ via: "Twitter bookmark from @{author}"
 ## Article (./knowledge/articles/{slug}.md):
 ---
 title: "{article_title}"
-type: article  
+type: article
 date_added: ${new Date().toISOString().split('T')[0]}
 source: "{article_url}"
 via: "Twitter bookmark from @{author}"
@@ -1451,35 +1480,133 @@ via: "Twitter bookmark from @{author}"
 
 After creating each knowledge file, update bookmarks.md to add "- **Filed:** [filename](path)" line to that entry.
 
-Process all ${count} entries. Commit and push when done.`;
+DO NOT commit or push - these files are in .gitignore.
+
+Process all ${count} entries.`;
 
   return new Promise((resolve) => {
-    const args = ['run'];
-    
-    if (openCodeConfig.model) {
-      args.push('--model', openCodeConfig.model);
-    }
-    
-    args.push(prompt);
-    
-    console.log(`\nInvoking OpenCode to create ${count} knowledge files...\n`);
-    
-    const child = spawn('opencode', args, {
-      cwd: process.cwd(),
-      stdio: ['inherit', 'inherit', 'inherit'],
-      env: { ...process.env }
+    const args = [
+      'run',
+      '--format', 'json',
+      '--model', ocConfig.model,
+      '--',
+      prompt
+    ];
+
+    // Ensure PATH includes common node locations
+    const nodePaths = [
+      '/usr/local/bin',
+      '/opt/homebrew/bin',
+      process.env.NVM_BIN,
+      path.join(process.env.HOME || '', '.local/bin'),
+      path.join(process.env.HOME || '', '.bun/bin'),
+    ];
+    const enhancedPath = [...nodePaths, process.env.PATH || ''].join(':');
+
+    const cleanEnv = { ...process.env };
+
+    const proc = spawn(opencodePath, args, {
+      cwd: config.projectRoot || process.cwd(),
+      env: {
+        ...cleanEnv,
+        PATH: enhancedPath,
+        FORCE_COLOR: '1',
+        TERM: process.env.TERM || 'xterm-256color',
+      },
+      stdio: ['pipe', 'pipe', 'pipe'],
     });
-    
-    child.on('close', (code) => {
-      if (code === 0) {
-        console.log(`\n✓ Knowledge file creation complete`);
-        resolve({ success: true });
-      } else {
-        resolve({ success: false, error: `OpenCode exited with code ${code}` });
+
+    let stdoutBuffer = '';
+    let stderrBuffer = '';
+    let filesCreated = 0;
+    let tokenUsage = { input: 0, output: 0, cacheRead: 0, cacheWrite: 0 };
+    const shownMessages = new Set();
+
+    const handleJsonLine = (line) => {
+      try {
+        const event = JSON.parse(line);
+        
+        // Handle different event types (same as invokeOpenCode)
+        if (event.type === 'event' && event.event) {
+          const evt = event.event;
+          
+          if (evt.type === 'assistant' && evt.message?.content) {
+            for (const block of evt.message.content) {
+              if (block.type === 'text' && block.text) {
+                // Show progress
+                if (block.text.includes('knowledge/')) {
+                  filesCreated++;
+                  process.stdout.write(`\r   📁 Created ${filesCreated} knowledge file(s)...`);
+                }
+              }
+              if (block.type === 'tool_use') {
+                const toolName = block.name;
+                if (toolName === 'write' || toolName === 'Write') {
+                  filesCreated++;
+                  process.stdout.write(`\r   📁 Created ${filesCreated} knowledge file(s)...`);
+                }
+              }
+            }
+          }
+          
+          if (evt.type === 'usage' && evt.usage) {
+            tokenUsage.input += evt.usage.input_tokens || 0;
+            tokenUsage.output += evt.usage.output_tokens || 0;
+            tokenUsage.cacheRead += evt.usage.cache_read_input_tokens || 0;
+            tokenUsage.cacheWrite += evt.usage.cache_creation_input_tokens || 0;
+          }
+        }
+      } catch {
+        // Not JSON, ignore
+      }
+    };
+
+    proc.stdout.on('data', (data) => {
+      stdoutBuffer += data.toString();
+      const lines = stdoutBuffer.split('\n');
+      stdoutBuffer = lines.pop() || '';
+      for (const line of lines) {
+        if (line.trim()) handleJsonLine(line.trim());
       }
     });
-    
-    child.on('error', (err) => {
+
+    proc.stderr.on('data', (data) => {
+      stderrBuffer += data.toString();
+    });
+
+    // Timeout handling
+    const timeoutId = setTimeout(() => {
+      console.log(`\n\n   ⏰ Timeout reached after ${Math.round(timeout / 60000)} minutes`);
+      proc.kill('SIGTERM');
+    }, timeout);
+
+    proc.on('close', (code) => {
+      clearTimeout(timeoutId);
+      
+      // Process remaining buffer
+      if (stdoutBuffer.trim()) handleJsonLine(stdoutBuffer.trim());
+      
+      console.log(`\n\n   ✓ Reprocess complete - ${filesCreated} files created`);
+      
+      if (trackTokens && (tokenUsage.input > 0 || tokenUsage.output > 0)) {
+        console.log(`\n   📊 Token Usage:`);
+        console.log(`      Input:  ${tokenUsage.input.toLocaleString()}`);
+        console.log(`      Output: ${tokenUsage.output.toLocaleString()}`);
+        if (tokenUsage.cacheRead > 0) {
+          console.log(`      Cache Read: ${tokenUsage.cacheRead.toLocaleString()}`);
+        }
+      }
+      
+      resolve({ 
+        success: code === 0 || filesCreated > 0,
+        filesCreated,
+        tokenUsage
+      });
+    });
+
+    proc.on('error', (err) => {
+      clearTimeout(timeoutId);
+      console.error(`\n   ❌ OpenCode error: ${err.message}`);
       resolve({ success: false, error: err.message });
     });
   });
@@ -1488,7 +1615,7 @@ Process all ${count} entries. Commit and push when done.`;
 async function invokeClaudeCodeReprocess(config, count, reprocessFile, options = {}) {
   const claudeConfig = getClaudeCodeConfig(config);
   
-  const prompt = `Create knowledge files for the ${count} bookmark(s) in ${reprocessFile}. Follow the instructions in ./.claude/commands/process-bookmarks.md for templates. Create the knowledge files and update bookmarks.md to add Filed: lines.`;
+  const prompt = `Create knowledge files for the ${count} bookmark(s) in ${reprocessFile}. Follow the instructions in ./.claude/commands/process-bookmarks.md for templates. Create the knowledge files and update bookmarks.md to add Filed: lines. DO NOT commit or push - these files are in .gitignore.`;
   
   return new Promise((resolve) => {
     const args = ['--dangerously-skip-permissions', '-p', prompt];
@@ -1499,20 +1626,8 @@ async function invokeClaudeCodeReprocess(config, count, reprocessFile, options =
     
     const child = spawn('claude', args, {
       cwd: process.cwd(),
-      stdio: ['pipe', 'pipe', 'pipe'],
+      stdio: ['inherit', 'inherit', 'inherit'],
       env: { ...process.env }
-    });
-    
-    let output = '';
-    
-    child.stdout.on('data', (data) => {
-      const text = data.toString();
-      output += text;
-      process.stdout.write(text);
-    });
-    
-    child.stderr.on('data', (data) => {
-      process.stderr.write(data);
     });
     
     child.on('close', (code) => {
