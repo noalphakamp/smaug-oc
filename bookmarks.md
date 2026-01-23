@@ -8,6 +8,111 @@
 > Trump pushing for "decisive" military options and even possibly regime-change in Iran-WSJ
 - **Tweet:** https://x.com/WarMonitor3/status/2014449912398643285
 - **What:** Report from Wall Street Journal indicating Trump administration pushing for decisive military options including possible regime change in Iran.
+## @ShaneLegg - DeepMind Hiring Chief AGI Economist
+> AGI is now on the horizon and it will deeply transform many things, including the economy.
+> 
+> I'm currently looking to hire a Senior Economist, reporting directly to me, to lead a small team investigating post-AGI economics.
+> 
+> Job spec and application here:
+
+- **Tweet:** https://x.com/ShaneLegg/status/2014345509675155639
+- **Link:** https://job-boards.greenhouse.io/deepmind/jobs/7556396
+- **What:** DeepMind co-founder Shane Legg announces hiring a Senior Economist to investigate post-AGI economics, signaling AGI is near.
+## @Globalsurv - China Opposition to US Iran Regime Change
+> BREAKING; CHINA  We Will Not Permit US Regime Change in IRAN Amid Escalating Threats!!
+> 
+> China will not  "allow" a US takeover of IRAN in the sense that Beijing strongly opposes foreign military intervention, regime change, or any external interference in Iran's internal affairs, viewing it as a violation of sovereignty and international norms.
+> 
+> A US takeover could install a pro-Western government, potentially cutting off China's access to discounted Iranian oil and investments under their 25-year cooperation agreement. Beijing sees the unrest in Iran (ongoing protests since late 2025) as partly fueled by US/Israeli backing, and views preserving the regime as key to its energy security. 
+> 
+> China positions itself as a "stabilizing force" alternative to US "hegemony," using the situation to bolster its narrative of multipolarity (e.g., via BRICS). It has provided indirect aid like dual-use tech for missiles and joint exercises with Russia/Iran, but avoids binding defense pacts.
+
+- **Tweet:** https://x.com/Globalsurv/status/2014360114233266605
+- **What:** Analysis of China's opposition to US military intervention or regime change in Iran, citing energy security and strategic interests.
+## @kimmonismus - DeepMind Co-founder on AGI
+> Holy moly: DeepMind Co-founder : "AGI is now on the horizon" and it will deeply transform the economy. 
+> 
+> Get ready friends!! It has started!
+> 
+> *Quoting @ShaneLegg:* AGI is now on the horizon and it will deeply transform many things, including the economy.
+
+- **Tweet:** https://x.com/kimmonismus/status/2014434605642780966
+- **Quoted:** https://x.com/ShaneLegg/status/2014345509675155639
+- **What:** Quote tweet highlighting DeepMind co-founder's announcement that AGI is near and will transform the economy.
+## @sentdefender - US Preparations for Iran Attack
+> The United States is expected to complete preparations across the region in the coming days for a possible attack against Iran, according to Channel 12 in Israel.
+
+- **Tweet:** https://x.com/sentdefender/status/2014452517971886203
+- **What:** Report citing Israeli Channel 12 that US is completing regional preparations for a potential attack on Iran.
+## @IranObserver0 - Trump Announces Massive Military Build-up Near Iran
+> ⚡️BREAKING 
+> 
+> Trump announces massive military build-up near Iran:
+> 
+> 'We have a massive armada moving in the direction of Iran. We'll see what happens. We are watching them closely'
+
+- **Tweet:** https://x.com/IranObserver0/status/2014461123114713527
+- **Link:** https://twitter.com/IranObserver0/status/2014461123114713527/video/1
+- **What:** Trump announces massive military build-up near Iran, stating an armada is moving in that direction.
+## @WarMonitor3 - British RAF Typhoons Deployed to Qatar
+> British Royal airforce typhoons have deployed on mass to Qatar.
+
+- **Tweet:** https://x.com/WarMonitor3/status/2014471758762418200
+- **What:** Report of mass deployment of British Royal Air Force Typhoon fighter jets to Qatar amid Iran tensions.
+## @trq212 - X Article Link
+> https://t.co/eHD0AmjSRM
+
+- **Tweet:** https://x.com/trq212/status/2014480496013803643
+- **Link:** https://x.com/i/article/2014473994695823360
+- **What:** Shared article link from X platform.
+## @sentdefender - US Considering Syria Withdrawal
+> According to an exclusive report from the Wall Street Journal, Washington is considering a complete withdrawal of the roughly 1,000 American Servicemembers who remain in Syria, as Syrian President Ahmed al-Sharaa has moved to wrest control of the northeastern part of the country from the American-backed Kurdish-led paramilitary group known as the Syrian Democratic Forces (SDF), seeking to fully unify Syria under the new government in Damascus.
+
+- **Tweet:** https://x.com/sentdefender/status/2014483048486846677
+- **What:** Wall Street Journal report that US is considering complete withdrawal of troops from Syria as new government seeks control.
+## @sentdefender - Eurofighter Typhoons Deployed to Qatar
+> Several Eurofighter Typhoon FGR.4s with the No. 12 Squadron of the British Royal Air Force, based out of RAF Coningsby and operated jointly with ground and maintenance crewmembers from the Qatar Emiri Air Force, have been deployed to Al Udeid Air Base in Qatar from RAF Akrotiri, amid escalating tensions with Iran. According to the U.K. Ministry of Defense, the deployment was at the request of the Qatari Government under the U.K.-Qatar Defence Assurance Agreement.
+
+- **Tweet:** https://x.com/sentdefender/status/2014498079555387522
+- **What:** Report of British RAF Eurofighter Typhoons deployed to Al Udeid Air Base in Qatar under UK-Qatar defense agreement.
+## @sentdefender - Putin Meeting with Witkoff and Kushner
+> Russian President Vladimir Putin meeting earlier this afternoon with President Trump's special envoy Steve Witkoff and his son-in-law Jared Kushner at the Kremlin in Moscow, prior to tomorrow's trilateral talks in Abu Dhabi between Ukraine, Russia, and the United States, which will be led by Witkoff and Kushner.
+
+- **Tweet:** https://x.com/sentdefender/status/2014512214196314568
+- **What:** Report of Putin meeting with Trump's envoys Witkoff and Kushner at Kremlin before Abu Dhabi talks on Ukraine.
+## @RileyRalmuto - Arxiv Paper on Embedding Space Navigation
+> easy access to the paper:
+> 
+> https://t.co/afpYbX8rPb
+> 
+> *Replying to @RileyRalmuto:* Anima did an autonomous write up on @drmichaellevin's new paper, "Remapping and navigation of an embedding space via error minimization: a fundamental organizational principle of cognition in natural and artificial systems."
+
+- **Tweet:** https://x.com/RileyRalmuto/status/2014513026209108012
+- **Link:** https://arxiv.org/abs/2601.14096
+- **Parent:** https://x.com/RileyRalmuto/status/2014513023709266199
+- **What:** Link to Dr. Michael Levin's arxiv paper on embedding space navigation as fundamental cognitive principle, with AI analysis.
+## @RileyRalmuto - Consciousness and Substrate Independence
+> I have held the same fundamental position on the nature of consciousness for many years now. and the beauty now is that humans orders of magnitude more intelligent than me have now gone and run the experiements to prove the validity and rationale of that position...
+> 
+> i suspect that Dr. Levin holds virtually all the same fundamental positions as i do, which i admit, is encouraging and gives me some peace about it.
+
+- **Tweet:** https://x.com/RileyRalmuto/status/2014555165789933672
+- **Link:** https://www.youtube.com/watch?si=ESlk_1_1P_zLUW8L&t=3109&v=LTBZRVKUwyM&feature=youtu.be
+- **What:** Long-form reflection on consciousness, substrate independence, and Dr. Michael Levin's research on cognition in natural and artificial systems.
+## @sentdefender - Israeli Concerns About Trump Strike
+> Senior officials in the Israeli Government are concerned that President Donald J. Trump will launch an initial strike campaign against targets in Iran, before losing interest, leaving Israel to deal with the aftermath alone, defense sources tell the Hebrew-language online newspaper Maariv Online.
+
+- **Tweet:** https://x.com/sentdefender/status/2014561267231432915
+- **What:** Report of Israeli government officials' concerns that Trump may launch Iran strike and leave Israel to handle aftermath.
+## @RileyRalmuto - Arxiv Integration with Nexus Platform
+> I have a working arxiv.org integration w/ the nexus platform! still working on the pipeline for recommendations and resonance matching, etc etc, and have loads more to do. 
+> 
+> but now that we have a working live feed of arxiv research papers, pulling from the entirety of arxiv, the fun begins.
+> 
+> once this integrates with the broader intelligence dashboard, you will have a constellation of Polyphonic research agent constellation with persistent memory derived from chatgpt, claude, grok, any other conversation history or personal data/research you want to plug in...
+
+- **Tweet:** https://x.com/RileyRalmuto/status/2014599113459785781
+- **What:** Announcement of working arxiv.org integration with the nexus platform for research agent constellation with persistent memory.
 ## @justalexoki - Something Major Happening
 > holy shit. it's over. you're never gonna guess. iykyk but damn its literally over. it's happening like right now. go spend time with your family the world is never gonna be the same again
 - **Tweet:** https://x.com/justalexoki/status/2014432131414434225
@@ -284,6 +389,39 @@ Mais detalhes devem ser divulgados em breve pelo Marco Rubio.
 - **What:** Details emerging about the US-Greenland deal, including Danish payments continuing, US sovereignty over military bases, Arctic access, mineral rights, and China/Russia exclusion from the territory.
 ---
 ---
+# Friday, January 23, 2026
+## @WarMonitor3 - France on Greenland Deal
+> French Foreign Minister says they do not have details at this stage of the deal reached between NATO Secretary General and Donald Trump on Greenland.
+
+- **Tweet:** https://x.com/WarMonitor3/status/2014636856172851346
+- **What:** Report that French Foreign Minister lacks details on the NATO-Greenland deal between Secretary General and Trump.
+## @MarioNawfal - Operation Flash Lightning Uncovered
+> 🚨🇮🇷 Iran's Revolutionary Guards say they've uncovered an American-Israeli plot they're calling "Operation Flash Lightning."
+> 
+> IRGC intelligence's version claims the plan was set up right after the 12-day war and involved up to 10 foreign intelligence agencies. 
+> 
+> The alleged goal: spark internal chaos, push protests into violence, and create what they call an "existential threat" to Iran.
+> 
+> Tehran says it shut it down, and is framing it as a failed hybrid war. 
+> 
+> *Quoting @MarioNawfal:* 🚨🇮🇷 Quick update from Iran:
+> 
+> Messaging apps are starting to work again and more VPNs are getting through. So yes, the lights are technically back on. But it's a dim, flickering light.
+
+- **Tweet:** https://x.com/MarioNawfal/status/2014670953574449578
+- **Quoted:** https://x.com/MarioNawfal/status/2014667365812953539
+- **What:** IRGC claims uncovering American-Israeli "Operation Flash Lightning" plot involving 10 foreign intelligence agencies.
+## @WarMonitor3 - Massive American Airlift to Middle East
+> Huge American airlift continued to the Middle East overnight and this morning more tankers have arrived to various airbases.
+
+- **Tweet:** https://x.com/WarMonitor3/status/2014675886318969238
+- **What:** Report of continued massive US airlift to Middle East with tankers arriving at various airbases overnight.
+## @WarMonitor3 - Zelensky Donbas Offer
+> Zelensky would give up Donbas in exchange for 800 billion and security guarantees, such an option may be proposed during negotiations-Corriere della Sera
+
+- **Tweet:** https://x.com/WarMonitor3/status/2014679682793251183
+- **What:** Report from Corriere della Sera that Zelensky may offer to give up Donbas in exchange for $800 billion and security guarantees.
+
 # Wednesday, January 21, 2026
 ## @iAnonPatriot - COMMANDER BOVINO ANTI-ICE RIOTERS
 > Commander Bovino gives anti-ICE rioters 3 warnings before launching gas into the crowd.. 
@@ -900,6 +1038,25 @@ Meloni dropping truth bombs like a boss! 🔥🇮🇹🇺🇸 https://t.co/rQy0L
 - **Quoted:** https://x.com/neural_avb/status/2013867765237719397
 - **What:** Shares that RLMs (Reward Language Models) are interesting and points to a deep-dive article on the concepts.
 ---
+# Tuesday, January 20, 2026
+## @visegrad24 - Trump Condemns UK Chagos Plan as "Great Stupidity"
+> BREAKING:
+> 
+> For the first time, Trump now calls the UK's plans to hand over sovereignty over the Chagos Archipelago to Mauritius "great stupidity"
+> 
+> Trump:
+> 
+> Shockingly, our "brilliant" NATO Ally, the UK, is currently planning to give away the Island of Diego Garcia, the site of a vital U.S. Military Base, to Mauritius, and to do so FOR NO REASON WHATSOEVER. 
+> 
+> There is no doubt that China and Russia have noticed this act of total weakness. These are International Powers who only recognize STRENGTH, which is why the United States of America, under my leadership, is now, after only one year, respected like never before. 
+> 
+> The UK giving away extremely important land is an act of GREAT STUPIDITY, and is another in a very long line of National Security reasons why Greenland has to be acquired.
+> 
+> "Denmark and its European Allies have to DO THE RIGHT THING"
+
+- **Tweet:** https://x.com/visegrad24/status/2013525530834845786
+- **What:** Trump condemns UK's plan to transfer Chagos Islands to Mauritius as "great stupidity," linking it to his Greenland acquisition push.
+
 # Tuesday, January 20, 2026
 ## @XH_Lee23 - China voices at Davos
 > 🇨🇳🤝🌏 Voices from China in Davos are applauded:
@@ -14028,6 +14185,15 @@ Boom https://t.co/CgWMCUoGdc
 - **What:** News that drones visible during the Trump Inauguration are part of the Secret Service's protective security plan.
 ---
 # Sunday, January 12, 2025
+## @ronin19217435 - Los Angeles January 2025 Video
+> LOS ANGELES 09 January 2025
+
+- **Tweet:** https://x.com/ronin19217435/status/1878604671100846297
+- **Link:** https://t.me/QSerb
+- **What:** Video showing Los Angeles footage from early January 2025, shared via Telegram channel.
+
+---
+# Sunday, January 12, 2025
 ## @Kabamur_Taygeta - Biblical UFOs
 > Tim Burchett was always ahead of everyone.
 It's illogical that UFOs allowing themselves to be seen peacefully for so long are foreign adversaries, which leaves secret domestic technology or benevolent non-human intelligence.
@@ -15001,6 +15167,14 @@ https://t.co/InRNW39DDN
 - **Link:** https://twitter.com/Guysloveguns/status/1874015060257103966/video/1
 - **What:** Amazed reaction to something gun-related (video content).
 ---
+# Monday, December 30, 2024
+## @ursla_k80 - Orbs Transform into Helicopters and Drones
+> This man thinks he saw Orbs turn into Helicopters and Drones in Florida  🛸🛸 
+
+- **Tweet:** https://x.com/ursla_k80/status/1873621967326294315
+- **Link:** https://twitter.com/ursla_k80/status/1873621967326294315/video/1
+- **What:** Viral video showing what the poster claims are orbs transforming into helicopters and drones in Florida.
+
 # Monday, December 30, 2024
 ## @Halsrethink - Q Clearance and UFO Tag Along
 > Q clearance provided to enable work on nuclear weapons&nuke energy, but subject to "need to know." On October Blue Gill XW50 X1 test success AEC determined info on UFO tag along denied to POTUS and to me although Q cleared. Solution was come to Los Alamos for specified names.
