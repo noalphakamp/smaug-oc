@@ -311,6 +311,9 @@ async function main() {
       // Reprocess bookmarks that are missing knowledge files
       const config = loadConfig();
       const trackTokens = args.includes('--track-tokens') || args.includes('-t');
+      const showStatus = args.includes('--status') || args.includes('-s');
+      const forceReprocess = args.includes('--force') || args.includes('-f');
+      const resetState = args.includes('--reset');
       
       // Parse --limit flag
       const limitIdx = args.findIndex(a => a === '--limit' || a === '-l');
@@ -328,88 +331,120 @@ async function main() {
         process.exit(0);
       }
 
-      const content = fs.readFileSync(config.archiveFile, 'utf8');
+      // Load job module for state functions
+      const jobPath = path.join(path.dirname(fileURLToPath(import.meta.url)), 'job.js');
+      const jobModule = await import(pathToFileURL(jobPath).href);
       
-      // Find entries with GitHub/article links but no Filed: line
-      const entryPattern = /## @[\s\S]*?(?=\n## @|\n# |\n---\n# |$)/g;
-      const entries = content.match(entryPattern) || [];
+      // Load and sync state
+      let state = jobModule.default.loadReprocessState(config);
       
-      const needsKnowledge = [];
-      const knowledgePatterns = [
-        /github\.com\/[\w-]+\/[\w-]+/i,
-        /medium\.com\//i,
-        /substack\.com\//i,
-        /dev\.to\//i
-      ];
-      
-      for (const entry of entries) {
-        const hasKnowledgeLink = knowledgePatterns.some(p => p.test(entry));
-        const hasFiled = /\*\*Filed:\*\*/i.test(entry);
-        
-        if (hasKnowledgeLink && !hasFiled) {
-          // Extract key info from the entry
-          const authorMatch = entry.match(/## @(\w+)/);
-          const linkMatch = entry.match(/\*\*Link:\*\*\s*(https?:\/\/[^\s\n]+)/);
-          const tweetMatch = entry.match(/\*\*Tweet:\*\*\s*(https?:\/\/[^\s\n]+)/);
-          const textMatch = entry.match(/^## @\w+[^\n]*\n>\s*([^\n]+)/m);
-          
-          if (authorMatch && (linkMatch || tweetMatch)) {
-            needsKnowledge.push({
-              author: authorMatch[1],
-              link: linkMatch ? linkMatch[1] : null,
-              tweetUrl: tweetMatch ? tweetMatch[1] : null,
-              text: textMatch ? textMatch[1].slice(0, 200) : '',
-              fullEntry: entry.trim()
-            });
-          }
-        }
-      }
-      
-      if (needsKnowledge.length === 0) {
-        console.log('All bookmarks with GitHub/article links already have knowledge files.');
+      // Handle --reset
+      if (resetState) {
+        state = {
+          version: 1,
+          lastRun: null,
+          currentJob: null,
+          entries: {},
+          stats: { total: 0, completed: 0, failed: 0, pending: 0, in_progress: 0, skipped: 0 }
+        };
+        jobModule.default.saveReprocessState(config, state);
+        console.log('Reprocess state has been reset.');
         process.exit(0);
       }
       
-      const toProcess = limit ? needsKnowledge.slice(0, limit) : needsKnowledge;
+      // Sync state with current bookmarks.md
+      state = jobModule.default.syncReprocessState(config, state);
+      jobModule.default.saveReprocessState(config, state);
       
-      console.log(`Found ${needsKnowledge.length} bookmarks needing knowledge files.`);
-      if (limit) {
-        console.log(`Processing ${toProcess.length} (limited by --limit ${limit})`);
+      // Handle --status
+      if (showStatus) {
+        console.log(jobModule.default.formatReprocessStatus(state));
+        process.exit(0);
       }
+      
+      // Check for interrupted job
+      if (state.currentJob && !forceReprocess) {
+        const inProgressCount = state.stats.in_progress;
+        if (inProgressCount > 0) {
+          console.log(`⚠️  Previous job was interrupted. ${inProgressCount} entries were in progress.`);
+          console.log('   They will be included in this run.\n');
+        }
+      }
+      
+      // Get entries to process
+      const entriesToProcess = jobModule.default.getEntriesToProcess(state, { force: forceReprocess, limit });
+      
+      if (entriesToProcess.length === 0) {
+        console.log(jobModule.default.formatReprocessStatus(state));
+        process.exit(0);
+      }
+      
+      // Show startup status
+      console.log('🐉 SMAUG Reprocess Mode\n');
+      console.log(`Status: ${state.stats.completed} completed, ${state.stats.failed} failed, ${state.stats.pending} pending`);
+      if (forceReprocess) {
+        console.log('Mode: --force (reprocessing all entries)');
+      }
+      console.log(`Processing: ${entriesToProcess.length} entries${limit ? ` (limited by --limit ${limit})` : ''}\n`);
+      
+      console.log('Entries to process:');
+      for (let i = 0; i < Math.min(entriesToProcess.length, 5); i++) {
+        const e = entriesToProcess[i];
+        const statusNote = e.status === 'failed' ? ` (retry #${e.attempts || 1})` : 
+                          e.status === 'in_progress' ? ' (resuming)' : '';
+        console.log(`  ${i + 1}. @${e.author}: ${e.link.slice(0, 50)}...${statusNote}`);
+      }
+      if (entriesToProcess.length > 5) {
+        console.log(`  ... and ${entriesToProcess.length - 5} more`);
+      }
+      console.log('');
+      
+      // Mark entries as in_progress and save state
+      state = jobModule.default.markEntriesInProgress(state, entriesToProcess);
+      jobModule.default.saveReprocessState(config, state);
       
       // Write to temp file for AI processing
       const reprocessFile = path.join(path.dirname(config.pendingFile), 'reprocess-bookmarks.json');
       fs.writeFileSync(reprocessFile, JSON.stringify({
-        count: toProcess.length,
-        total: needsKnowledge.length,
-        bookmarks: toProcess
+        count: entriesToProcess.length,
+        total: state.stats.total,
+        bookmarks: entriesToProcess.map(e => ({
+          author: e.author,
+          link: e.link,
+          tweetUrl: e.tweetUrl,
+          text: e.text || ''
+        }))
       }, null, 2));
       
-      console.log(`\nWrote ${toProcess.length} entries to ${reprocessFile}`);
-      console.log('\nSample entries:');
-      for (const b of toProcess.slice(0, 3)) {
-        console.log(`  • @${b.author}: ${b.link || b.tweetUrl}`);
-      }
-      if (toProcess.length > 3) {
-        console.log(`  ... and ${toProcess.length - 3} more`);
-      }
-      
-      // Invoke AI to create knowledge files
-      console.log('\nInvoking AI to create knowledge files...\n');
-      
       try {
-        const jobPath = path.join(path.dirname(fileURLToPath(import.meta.url)), 'job.js');
-        const jobModule = await import(pathToFileURL(jobPath).href);
         const result = await jobModule.default.reprocess({ trackTokens, reprocessFile });
         
-        // Clean up temp file on success
-        if (result.success && fs.existsSync(reprocessFile)) {
+        // Verify and update state after processing
+        state = jobModule.default.loadReprocessState(config);
+        state = jobModule.default.verifyAndUpdateState(config, state);
+        jobModule.default.saveReprocessState(config, state);
+        
+        // Show final status
+        console.log('\n' + jobModule.default.formatReprocessStatus(state));
+        
+        // Clean up temp file
+        if (fs.existsSync(reprocessFile)) {
           fs.unlinkSync(reprocessFile);
         }
         
         process.exit(result.success ? 0 : 1);
       } catch (err) {
         console.error('Failed to reprocess:', err.message);
+        
+        // Still try to update state on error
+        try {
+          state = jobModule.default.loadReprocessState(config);
+          state = jobModule.default.verifyAndUpdateState(config, state);
+          jobModule.default.saveReprocessState(config, state);
+        } catch (e) {
+          // Ignore state save errors
+        }
+        
         process.exit(1);
       }
       break;
@@ -464,7 +499,10 @@ Commands:
   fetch --source <source>  Fetch from: bookmarks, likes, or both
   fetch --media  EXPERIMENTAL: Include media attachments
   reprocess      Create missing knowledge files for processed bookmarks
-  reprocess --limit N  Reprocess only N bookmarks
+  reprocess --limit N  Process only N entries
+  reprocess --status   Show reprocess status (no processing)
+  reprocess --force    Reprocess all entries including completed
+  reprocess --reset    Reset reprocess state (mark all as pending)
   process        Show pending tweets
   status         Show current status
 

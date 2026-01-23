@@ -100,6 +100,333 @@ function backupBookmarks(config) {
 }
 
 // ============================================================================
+// Reprocess State Management
+// ============================================================================
+
+const MAX_RETRY_ATTEMPTS = 5;
+
+function getReprocessStatePath(config) {
+  const stateDir = path.dirname(config.pendingFile);
+  return path.join(stateDir, 'reprocess-state.json');
+}
+
+function loadReprocessState(config) {
+  const statePath = getReprocessStatePath(config);
+  
+  if (fs.existsSync(statePath)) {
+    try {
+      return JSON.parse(fs.readFileSync(statePath, 'utf8'));
+    } catch (e) {
+      console.warn('[reprocess] Invalid state file, creating new one');
+    }
+  }
+  
+  return {
+    version: 1,
+    lastRun: null,
+    currentJob: null,
+    entries: {},
+    stats: {
+      total: 0,
+      completed: 0,
+      failed: 0,
+      pending: 0,
+      in_progress: 0,
+      skipped: 0
+    }
+  };
+}
+
+function saveReprocessState(config, state) {
+  const statePath = getReprocessStatePath(config);
+  
+  // Recalculate stats
+  const entries = Object.values(state.entries);
+  state.stats = {
+    total: entries.length,
+    completed: entries.filter(e => e.status === 'completed').length,
+    failed: entries.filter(e => e.status === 'failed').length,
+    pending: entries.filter(e => e.status === 'pending').length,
+    in_progress: entries.filter(e => e.status === 'in_progress').length,
+    skipped: entries.filter(e => e.status === 'skipped').length
+  };
+  
+  fs.writeFileSync(statePath, JSON.stringify(state, null, 2));
+}
+
+function syncReprocessState(config, state) {
+  // Scan bookmarks.md for entries needing knowledge files
+  const archiveFile = config.archiveFile;
+  if (!fs.existsSync(archiveFile)) {
+    return state;
+  }
+  
+  const content = fs.readFileSync(archiveFile, 'utf8');
+  
+  // Find entries with GitHub/article links but no Filed: line
+  const entryPattern = /## @[\s\S]*?(?=\n## @|\n# |\n---\n# |$)/g;
+  const entries = content.match(entryPattern) || [];
+  
+  const knowledgePatterns = [
+    { pattern: /github\.com\/[\w-]+\/[\w-]+/i, type: 'github' },
+    { pattern: /medium\.com\//i, type: 'article' },
+    { pattern: /substack\.com\//i, type: 'article' },
+    { pattern: /dev\.to\//i, type: 'article' }
+  ];
+  
+  const foundLinks = new Set();
+  
+  for (const entry of entries) {
+    // Check if has knowledge-worthy link
+    let matchedLink = null;
+    let linkType = null;
+    
+    for (const { pattern, type } of knowledgePatterns) {
+      const linkMatch = entry.match(/\*\*Link:\*\*\s*(https?:\/\/[^\s\n]+)/);
+      if (linkMatch && pattern.test(linkMatch[1])) {
+        matchedLink = linkMatch[1];
+        linkType = type;
+        break;
+      }
+    }
+    
+    if (!matchedLink) continue;
+    
+    foundLinks.add(matchedLink);
+    
+    // Check if already has Filed: line
+    const hasFiled = /\*\*Filed:\*\*/i.test(entry);
+    
+    // Extract metadata
+    const authorMatch = entry.match(/## @(\w+)/);
+    const tweetMatch = entry.match(/\*\*Tweet:\*\*\s*(https?:\/\/[^\s\n]+)/);
+    const textMatch = entry.match(/^## @\w+[^\n]*\n>\s*([^\n]+)/m);
+    
+    // If not in state, add as pending
+    if (!state.entries[matchedLink]) {
+      state.entries[matchedLink] = {
+        author: authorMatch ? authorMatch[1] : 'unknown',
+        tweetUrl: tweetMatch ? tweetMatch[1] : null,
+        text: textMatch ? textMatch[1].slice(0, 100) : '',
+        type: linkType,
+        status: hasFiled ? 'completed' : 'pending',
+        addedAt: new Date().toISOString(),
+        attempts: 0
+      };
+    } else if (hasFiled && state.entries[matchedLink].status !== 'completed') {
+      // Entry now has Filed: line, mark as completed
+      state.entries[matchedLink].status = 'completed';
+      state.entries[matchedLink].processedAt = new Date().toISOString();
+    }
+  }
+  
+  // Mark entries no longer in bookmarks.md as removed (but keep in state for history)
+  for (const link of Object.keys(state.entries)) {
+    if (!foundLinks.has(link) && state.entries[link].status !== 'completed') {
+      state.entries[link].status = 'removed';
+    }
+  }
+  
+  return state;
+}
+
+function getEntriesToProcess(state, options = {}) {
+  const { force = false, limit = null } = options;
+  
+  const entries = [];
+  
+  for (const [link, entry] of Object.entries(state.entries)) {
+    // Skip removed entries
+    if (entry.status === 'removed') continue;
+    
+    // With --force, include everything except removed
+    if (force) {
+      if (entry.status !== 'removed') {
+        entries.push({ link, ...entry });
+      }
+      continue;
+    }
+    
+    // Normal mode: include pending, in_progress, and failed (under max attempts)
+    if (entry.status === 'pending' || entry.status === 'in_progress') {
+      entries.push({ link, ...entry });
+    } else if (entry.status === 'failed' && (entry.attempts || 0) < MAX_RETRY_ATTEMPTS) {
+      entries.push({ link, ...entry });
+    }
+    // Skip completed and skipped
+  }
+  
+  // Sort: in_progress first (resume), then failed (retry), then pending
+  entries.sort((a, b) => {
+    const order = { in_progress: 0, failed: 1, pending: 2, completed: 3 };
+    return (order[a.status] || 99) - (order[b.status] || 99);
+  });
+  
+  // Apply limit
+  if (limit && limit > 0) {
+    return entries.slice(0, limit);
+  }
+  
+  return entries;
+}
+
+function markEntriesInProgress(state, entries) {
+  const now = new Date().toISOString();
+  
+  state.currentJob = {
+    startedAt: now,
+    entries: entries.map(e => e.link),
+    count: entries.length
+  };
+  
+  for (const entry of entries) {
+    if (state.entries[entry.link]) {
+      state.entries[entry.link].status = 'in_progress';
+      state.entries[entry.link].startedAt = now;
+      state.entries[entry.link].attempts = (state.entries[entry.link].attempts || 0) + 1;
+    }
+  }
+  
+  return state;
+}
+
+function verifyAndUpdateState(config, state) {
+  const archiveFile = config.archiveFile;
+  const content = fs.existsSync(archiveFile) ? fs.readFileSync(archiveFile, 'utf8') : '';
+  const now = new Date().toISOString();
+  
+  // Check each in_progress entry
+  for (const [link, entry] of Object.entries(state.entries)) {
+    if (entry.status !== 'in_progress') continue;
+    
+    // Check if Filed: line exists for this entry
+    // We look for the link in a Filed: line
+    const fileSlug = link.split('/').pop().replace(/[^a-zA-Z0-9-]/g, '');
+    const hasFiledLine = content.includes(`**Filed:**`) && 
+      (content.includes(link) || content.includes(fileSlug));
+    
+    // Check if knowledge file exists
+    const knowledgeDir = entry.type === 'github' ? 'knowledge/tools' : 'knowledge/articles';
+    const knowledgeFiles = fs.existsSync(knowledgeDir) ? fs.readdirSync(knowledgeDir) : [];
+    const hasKnowledgeFile = knowledgeFiles.some(f => 
+      f.toLowerCase().includes(fileSlug.toLowerCase().slice(0, 20))
+    );
+    
+    if (hasFiledLine || hasKnowledgeFile) {
+      // Success
+      state.entries[link].status = 'completed';
+      state.entries[link].processedAt = now;
+      delete state.entries[link].startedAt;
+      delete state.entries[link].error;
+    } else {
+      // Failed
+      state.entries[link].status = 'failed';
+      state.entries[link].lastAttemptAt = now;
+      state.entries[link].error = 'Knowledge file or Filed line not created';
+      delete state.entries[link].startedAt;
+      
+      // Check if max attempts reached
+      if ((state.entries[link].attempts || 0) >= MAX_RETRY_ATTEMPTS) {
+        state.entries[link].status = 'skipped';
+        state.entries[link].error = `Max attempts (${MAX_RETRY_ATTEMPTS}) reached`;
+      }
+    }
+  }
+  
+  // Clear current job
+  state.currentJob = null;
+  state.lastRun = now;
+  
+  return state;
+}
+
+function formatReprocessStatus(state) {
+  const lines = [];
+  
+  lines.push('🐉 Reprocess Status\n');
+  lines.push(`Last run: ${state.lastRun ? new Date(state.lastRun).toLocaleString() : 'Never'}`);
+  lines.push('');
+  lines.push('Summary:');
+  lines.push(`  ✓ Completed:    ${state.stats.completed}`);
+  lines.push(`  ✗ Failed:       ${state.stats.failed}`);
+  lines.push(`  ⏳ Pending:      ${state.stats.pending}`);
+  lines.push(`  🔄 In Progress:  ${state.stats.in_progress}`);
+  if (state.stats.skipped > 0) {
+    lines.push(`  ⏭ Skipped:      ${state.stats.skipped}`);
+  }
+  lines.push(`  ─────────────────`);
+  lines.push(`  Total:          ${state.stats.total}`);
+  
+  // Show in_progress entries (potential interrupted job)
+  const inProgress = Object.entries(state.entries)
+    .filter(([_, e]) => e.status === 'in_progress');
+  if (inProgress.length > 0) {
+    lines.push('');
+    lines.push('In Progress (interrupted?):');
+    for (const [link, entry] of inProgress) {
+      lines.push(`  • @${entry.author}: ${link.slice(0, 60)}...`);
+      lines.push(`    Started: ${new Date(entry.startedAt).toLocaleString()}`);
+    }
+  }
+  
+  // Show failed entries
+  const failed = Object.entries(state.entries)
+    .filter(([_, e]) => e.status === 'failed');
+  if (failed.length > 0) {
+    lines.push('');
+    lines.push('Failed:');
+    for (const [link, entry] of failed.slice(0, 5)) {
+      lines.push(`  • @${entry.author}: ${link.slice(0, 50)}...`);
+      lines.push(`    ${entry.error || 'Unknown error'} (${entry.attempts || 1} attempts)`);
+    }
+    if (failed.length > 5) {
+      lines.push(`  ... and ${failed.length - 5} more`);
+    }
+  }
+  
+  // Show pending entries
+  const pending = Object.entries(state.entries)
+    .filter(([_, e]) => e.status === 'pending');
+  if (pending.length > 0) {
+    lines.push('');
+    lines.push('Pending:');
+    for (const [link, entry] of pending.slice(0, 5)) {
+      lines.push(`  • @${entry.author}: ${link.slice(0, 60)}...`);
+    }
+    if (pending.length > 5) {
+      lines.push(`  ... and ${pending.length - 5} more`);
+    }
+  }
+  
+  // Show skipped entries
+  const skipped = Object.entries(state.entries)
+    .filter(([_, e]) => e.status === 'skipped');
+  if (skipped.length > 0) {
+    lines.push('');
+    lines.push(`Skipped (max ${MAX_RETRY_ATTEMPTS} attempts):`);
+    for (const [link, entry] of skipped.slice(0, 3)) {
+      lines.push(`  • @${entry.author}: ${link.slice(0, 60)}...`);
+    }
+    if (skipped.length > 3) {
+      lines.push(`  ... and ${skipped.length - 3} more`);
+    }
+  }
+  
+  if (state.stats.pending > 0 || state.stats.failed > 0 || state.stats.in_progress > 0) {
+    lines.push('');
+    lines.push("Run 'npx smaug reprocess --limit 5' to continue processing.");
+  } else if (state.stats.total === 0) {
+    lines.push('');
+    lines.push('No entries found needing knowledge files.');
+  } else {
+    lines.push('');
+    lines.push('All entries processed!');
+  }
+  
+  return lines.join('\n');
+}
+
+// ============================================================================
 // Claude Code Invocation
 // ============================================================================
 
@@ -1600,7 +1927,15 @@ export default {
   interval: '*/30 * * * *', // Every 30 minutes
   timezone: 'America/New_York',
   run,
-  reprocess
+  reprocess,
+  // Reprocess state management exports
+  loadReprocessState,
+  saveReprocessState,
+  syncReprocessState,
+  getEntriesToProcess,
+  markEntriesInProgress,
+  verifyAndUpdateState,
+  formatReprocessStatus
 };
 
 // ============================================================================
