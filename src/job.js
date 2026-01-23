@@ -163,37 +163,33 @@ function syncReprocessState(config, state) {
   
   const content = fs.readFileSync(archiveFile, 'utf8');
   
-  // Find entries with GitHub/article links but no Filed: line
+  // Find all bookmark entries
   const entryPattern = /## @[\s\S]*?(?=\n## @|\n# |\n---\n# |$)/g;
   const entries = content.match(entryPattern) || [];
   
+  // Patterns for knowledge-worthy URLs
   const knowledgePatterns = [
-    { pattern: /github\.com\/[\w-]+\/[\w-]+/i, type: 'github' },
-    { pattern: /medium\.com\//i, type: 'article' },
-    { pattern: /substack\.com\//i, type: 'article' },
-    { pattern: /dev\.to\//i, type: 'article' }
+    { pattern: /github\.com\/[\w-]+\/[\w-]+(?:\/[^\s\n)\]]*)?/gi, type: 'github' },
+    { pattern: /[\w-]+\.medium\.com\/[^\s\n)\]]+/gi, type: 'article' },
+    { pattern: /medium\.com\/@?[\w-]+\/[^\s\n)\]]+/gi, type: 'article' },
+    { pattern: /[\w-]+\.substack\.com\/p\/[^\s\n)\]]+/gi, type: 'article' },
+    { pattern: /substack\.com\/[^\s\n)\]]+/gi, type: 'article' },
+    { pattern: /dev\.to\/[\w-]+\/[^\s\n)\]]+/gi, type: 'article' }
+  ];
+  
+  // URLs to ignore (not actual content)
+  const ignorePatterns = [
+    /github\.com\/.*\/commit\//i,  // Individual commits
+    /github\.com\/.*\/issues\//i,  // Issues
+    /github\.com\/.*\/pull\//i,    // PRs
+    /t\.co\//i,                    // Twitter shortened links
+    /x\.com\//i,                   // Twitter/X links
+    /twitter\.com\//i              // Twitter links
   ];
   
   const foundLinks = new Set();
   
   for (const entry of entries) {
-    // Check if has knowledge-worthy link
-    let matchedLink = null;
-    let linkType = null;
-    
-    for (const { pattern, type } of knowledgePatterns) {
-      const linkMatch = entry.match(/\*\*Link:\*\*\s*(https?:\/\/[^\s\n]+)/);
-      if (linkMatch && pattern.test(linkMatch[1])) {
-        matchedLink = linkMatch[1];
-        linkType = type;
-        break;
-      }
-    }
-    
-    if (!matchedLink) continue;
-    
-    foundLinks.add(matchedLink);
-    
     // Check if already has Filed: line
     const hasFiled = /\*\*Filed:\*\*/i.test(entry);
     
@@ -202,21 +198,69 @@ function syncReprocessState(config, state) {
     const tweetMatch = entry.match(/\*\*Tweet:\*\*\s*(https?:\/\/[^\s\n]+)/);
     const textMatch = entry.match(/^## @\w+[^\n]*\n>\s*([^\n]+)/m);
     
-    // If not in state, add as pending
-    if (!state.entries[matchedLink]) {
-      state.entries[matchedLink] = {
-        author: authorMatch ? authorMatch[1] : 'unknown',
-        tweetUrl: tweetMatch ? tweetMatch[1] : null,
-        text: textMatch ? textMatch[1].slice(0, 100) : '',
-        type: linkType,
-        status: hasFiled ? 'completed' : 'pending',
-        addedAt: new Date().toISOString(),
-        attempts: 0
-      };
-    } else if (hasFiled && state.entries[matchedLink].status !== 'completed') {
-      // Entry now has Filed: line, mark as completed
-      state.entries[matchedLink].status = 'completed';
-      state.entries[matchedLink].processedAt = new Date().toISOString();
+    // First check the **Link:** field (preferred, already extracted)
+    const linkFieldMatch = entry.match(/\*\*Link:\*\*\s*(https?:\/\/[^\s\n]+)/);
+    
+    // Collect all potential knowledge-worthy URLs from the entire entry
+    const potentialLinks = [];
+    
+    // Check Link field first
+    if (linkFieldMatch) {
+      potentialLinks.push({ url: linkFieldMatch[1], source: 'link_field' });
+    }
+    
+    // Also scan the entire entry text for URLs
+    for (const { pattern, type } of knowledgePatterns) {
+      const matches = entry.matchAll(pattern);
+      for (const match of matches) {
+        // Clean up the URL (remove trailing punctuation)
+        let url = match[0].replace(/[.,;:!?)>\]]+$/, '');
+        
+        // Ensure it starts with https://
+        if (!url.startsWith('http')) {
+          url = 'https://' + url;
+        }
+        
+        potentialLinks.push({ url, type, source: 'text' });
+      }
+    }
+    
+    // Process each potential link
+    for (const { url, type: urlType, source } of potentialLinks) {
+      // Skip ignored patterns
+      if (ignorePatterns.some(p => p.test(url))) {
+        continue;
+      }
+      
+      // Determine type if not already set
+      let linkType = urlType;
+      if (!linkType) {
+        if (/github\.com/i.test(url)) linkType = 'github';
+        else if (/medium\.com/i.test(url)) linkType = 'article';
+        else if (/substack\.com/i.test(url)) linkType = 'article';
+        else if (/dev\.to/i.test(url)) linkType = 'article';
+        else continue; // Skip if we can't determine type
+      }
+      
+      foundLinks.add(url);
+      
+      // If not in state, add as pending (or completed if has Filed)
+      if (!state.entries[url]) {
+        state.entries[url] = {
+          author: authorMatch ? authorMatch[1] : 'unknown',
+          tweetUrl: tweetMatch ? tweetMatch[1] : null,
+          text: textMatch ? textMatch[1].slice(0, 100) : '',
+          type: linkType,
+          source: source, // Track where we found it
+          status: hasFiled ? 'completed' : 'pending',
+          addedAt: new Date().toISOString(),
+          attempts: 0
+        };
+      } else if (hasFiled && state.entries[url].status !== 'completed') {
+        // Entry now has Filed: line, mark as completed
+        state.entries[url].status = 'completed';
+        state.entries[url].processedAt = new Date().toISOString();
+      }
     }
   }
   
