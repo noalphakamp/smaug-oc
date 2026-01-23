@@ -62,6 +62,44 @@ function releaseLock() {
 }
 
 // ============================================================================
+// Backup Management - Creates timestamped backups before processing
+// ============================================================================
+
+function backupBookmarks(config) {
+  const archiveFile = config.archiveFile;
+  
+  // Skip if bookmarks.md doesn't exist or is empty
+  if (!fs.existsSync(archiveFile)) {
+    return null;
+  }
+  
+  const content = fs.readFileSync(archiveFile, 'utf8');
+  if (!content.trim()) {
+    return null;
+  }
+  
+  // Create backups directory
+  const stateDir = path.dirname(config.pendingFile);
+  const backupDir = path.join(stateDir, 'backups');
+  fs.mkdirSync(backupDir, { recursive: true });
+  
+  // Create timestamped backup filename
+  const now = new Date();
+  const timestamp = now.toISOString()
+    .replace(/[:.]/g, '-')
+    .slice(0, 19); // YYYY-MM-DDTHH-MM-SS
+  const backupPath = path.join(backupDir, `bookmarks-${timestamp}.md`);
+  
+  // Copy the file
+  fs.copyFileSync(archiveFile, backupPath);
+  
+  const entryCount = (content.match(/^## @/gm) || []).length;
+  console.log(`[backup] Created ${backupPath} (${entryCount} entries)`);
+  
+  return backupPath;
+}
+
+// ============================================================================
 // Claude Code Invocation
 // ============================================================================
 
@@ -1182,6 +1220,9 @@ export async function run(options = {}) {
     // Track IDs we're about to process
     const idsToProcess = pendingData.bookmarks.map(b => b.id);
 
+    // Backup bookmarks.md before processing
+    backupBookmarks(config);
+
     // Phase 2: AI analysis (if enabled)
     const provider = getAIProvider(config);
     const providerName = provider === 'opencode' ? 'OpenCode' : 'Claude Code';
@@ -1377,6 +1418,9 @@ async function reprocess(options = {}) {
     const data = JSON.parse(fs.readFileSync(reprocessFile, 'utf8'));
     const count = data.count;
     
+    // Backup bookmarks.md before processing
+    backupBookmarks(config);
+    
     console.log(`[${now}] Creating knowledge files for ${count} bookmarks...`);
     
     const provider = getAIProvider(config);
@@ -1414,9 +1458,8 @@ async function reprocess(options = {}) {
 async function invokeOpenCodeReprocess(config, count, reprocessFile, options = {}) {
   const ocConfig = getOpenCodeConfig(config);
   const timeout = config.claudeTimeout || 900000;
-  const trackTokens = options.trackTokens || false;
 
-  // Find opencode binary (same as invokeOpenCode)
+  // Find opencode binary
   let opencodePath = 'opencode';
   const possiblePaths = [
     '/usr/local/bin/opencode',
@@ -1437,7 +1480,6 @@ async function invokeOpenCodeReprocess(config, count, reprocessFile, options = {
     }
   }
 
-  // Simple dragon header for reprocess
   console.log(`
    🐉 SMAUG Reprocess Mode
    Creating ${count} knowledge files...
@@ -1487,91 +1529,18 @@ Process all ${count} entries.`;
   return new Promise((resolve) => {
     const args = [
       'run',
-      '--format', 'json',
       '--model', ocConfig.model,
-      '--',
       prompt
     ];
-
-    // Ensure PATH includes common node locations
-    const nodePaths = [
-      '/usr/local/bin',
-      '/opt/homebrew/bin',
-      process.env.NVM_BIN,
-      path.join(process.env.HOME || '', '.local/bin'),
-      path.join(process.env.HOME || '', '.bun/bin'),
-    ];
-    const enhancedPath = [...nodePaths, process.env.PATH || ''].join(':');
-
-    const cleanEnv = { ...process.env };
 
     const proc = spawn(opencodePath, args, {
       cwd: config.projectRoot || process.cwd(),
       env: {
-        ...cleanEnv,
-        PATH: enhancedPath,
+        ...process.env,
         FORCE_COLOR: '1',
         TERM: process.env.TERM || 'xterm-256color',
       },
-      stdio: ['pipe', 'pipe', 'pipe'],
-    });
-
-    let stdoutBuffer = '';
-    let stderrBuffer = '';
-    let filesCreated = 0;
-    let tokenUsage = { input: 0, output: 0, cacheRead: 0, cacheWrite: 0 };
-    const shownMessages = new Set();
-
-    const handleJsonLine = (line) => {
-      try {
-        const event = JSON.parse(line);
-        
-        // Handle different event types (same as invokeOpenCode)
-        if (event.type === 'event' && event.event) {
-          const evt = event.event;
-          
-          if (evt.type === 'assistant' && evt.message?.content) {
-            for (const block of evt.message.content) {
-              if (block.type === 'text' && block.text) {
-                // Show progress
-                if (block.text.includes('knowledge/')) {
-                  filesCreated++;
-                  process.stdout.write(`\r   📁 Created ${filesCreated} knowledge file(s)...`);
-                }
-              }
-              if (block.type === 'tool_use') {
-                const toolName = block.name;
-                if (toolName === 'write' || toolName === 'Write') {
-                  filesCreated++;
-                  process.stdout.write(`\r   📁 Created ${filesCreated} knowledge file(s)...`);
-                }
-              }
-            }
-          }
-          
-          if (evt.type === 'usage' && evt.usage) {
-            tokenUsage.input += evt.usage.input_tokens || 0;
-            tokenUsage.output += evt.usage.output_tokens || 0;
-            tokenUsage.cacheRead += evt.usage.cache_read_input_tokens || 0;
-            tokenUsage.cacheWrite += evt.usage.cache_creation_input_tokens || 0;
-          }
-        }
-      } catch {
-        // Not JSON, ignore
-      }
-    };
-
-    proc.stdout.on('data', (data) => {
-      stdoutBuffer += data.toString();
-      const lines = stdoutBuffer.split('\n');
-      stdoutBuffer = lines.pop() || '';
-      for (const line of lines) {
-        if (line.trim()) handleJsonLine(line.trim());
-      }
-    });
-
-    proc.stderr.on('data', (data) => {
-      stderrBuffer += data.toString();
+      stdio: 'inherit',
     });
 
     // Timeout handling
@@ -1582,26 +1551,8 @@ Process all ${count} entries.`;
 
     proc.on('close', (code) => {
       clearTimeout(timeoutId);
-      
-      // Process remaining buffer
-      if (stdoutBuffer.trim()) handleJsonLine(stdoutBuffer.trim());
-      
-      console.log(`\n\n   ✓ Reprocess complete - ${filesCreated} files created`);
-      
-      if (trackTokens && (tokenUsage.input > 0 || tokenUsage.output > 0)) {
-        console.log(`\n   📊 Token Usage:`);
-        console.log(`      Input:  ${tokenUsage.input.toLocaleString()}`);
-        console.log(`      Output: ${tokenUsage.output.toLocaleString()}`);
-        if (tokenUsage.cacheRead > 0) {
-          console.log(`      Cache Read: ${tokenUsage.cacheRead.toLocaleString()}`);
-        }
-      }
-      
-      resolve({ 
-        success: code === 0 || filesCreated > 0,
-        filesCreated,
-        tokenUsage
-      });
+      console.log(`\n   ✓ Reprocess complete`);
+      resolve({ success: code === 0 });
     });
 
     proc.on('error', (err) => {
