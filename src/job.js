@@ -1082,13 +1082,17 @@ async function invokeOpenCode(config, bookmarkCount, options = {}) {
   await showDragonReveal(bookmarkCount);
 
   return new Promise((resolve) => {
+    const prompt = `Process the ${bookmarkCount} bookmark(s) in ./.state/pending-bookmarks.json following the instructions in ./.opencode/commands/process-bookmarks.md. Read that file first, then process each bookmark.`;
+    
     const args = [
       'run',
       '--format', 'json',
       '--model', ocConfig.model,
-      '--',
-      `Process the ${bookmarkCount} bookmark(s) in ./.state/pending-bookmarks.json following the instructions in ./.opencode/commands/process-bookmarks.md. Read that file first, then process each bookmark.`
+      prompt
     ];
+
+    // Log the command for debugging
+    console.log(`\n  🔧 Running: ${opencodePath} ${args.slice(0, 4).join(' ')} "<prompt>"\n`);
 
     // Ensure PATH includes common node locations
     const nodePaths = [
@@ -1097,7 +1101,7 @@ async function invokeOpenCode(config, bookmarkCount, options = {}) {
       process.env.NVM_BIN,
       path.join(process.env.HOME || '', '.local/bin'),
       path.join(process.env.HOME || '', '.bun/bin'),
-    ];
+    ].filter(Boolean);
     const enhancedPath = [...nodePaths, process.env.PATH || ''].join(':');
 
     // Clean environment
@@ -1412,12 +1416,16 @@ ${tokenDisplay}
     proc.stderr.on('data', (data) => {
       const text = data.toString();
       stderr += text;
-      process.stderr.write(text);
+      // Show stderr in real-time for debugging
+      if (text.trim()) {
+        process.stderr.write(`  [stderr] ${text}`);
+      }
     });
 
     const timeoutId = setTimeout(() => {
       stopSpinner();
       proc.kill('SIGTERM');
+      console.error(`\n  ❌ OpenCode timed out after ${timeout / 1000}s`);
       resolve({
         success: false,
         error: `Timeout after ${timeout}ms`,
@@ -1434,6 +1442,13 @@ ${tokenDisplay}
       if (code === 0) {
         resolve({ success: true, output: stdout, tokenUsage });
       } else {
+        console.error(`\n  ❌ OpenCode exited with code ${code}`);
+        if (stderr.trim()) {
+          console.error(`  📋 stderr:\n${stderr.split('\n').map(l => '     ' + l).join('\n')}`);
+        }
+        if (stdout.trim() && stdout.length < 2000) {
+          console.error(`  📋 stdout (last 2000 chars):\n${stdout.slice(-2000).split('\n').map(l => '     ' + l).join('\n')}`);
+        }
         resolve({
           success: false,
           error: `Exit code ${code}`,
@@ -1448,6 +1463,7 @@ ${tokenDisplay}
     proc.on('error', (err) => {
       stopSpinner();
       clearTimeout(timeoutId);
+      console.error(`\n  ❌ Failed to spawn OpenCode: ${err.message}`);
       resolve({
         success: false,
         error: err.message,
