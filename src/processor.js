@@ -434,16 +434,15 @@ export async function fetchAndPrepareBookmarks(options = {}) {
     return { bookmarks: [], count: 0 };
   }
 
-  console.log(`Preparing ${toProcess.length} tweets...`);
+  console.log(`Preparing ${toProcess.length} tweets with parallel processing...`);
 
   const prepared = [];
+  const MAX_CONCURRENT = 5;
 
-  for (const bookmark of toProcess) {
+  async function processBookmark(bookmark) {
     try {
-      console.log(`\nProcessing bookmark ${bookmark.id}...`);
       const text = bookmark.text || bookmark.full_text || '';
 
-      // Format date from tweet's createdAt, falling back to current date
       let date;
       if (bookmark.createdAt) {
         const tweetDate = dayjs(bookmark.createdAt).tz(config.timezone || 'America/New_York');
@@ -453,15 +452,11 @@ export async function fetchAndPrepareBookmarks(options = {}) {
       }
       const author = bookmark.author?.username || bookmark.user?.screen_name || 'unknown';
 
-      // Find and expand t.co links
       const tcoLinks = text.match(/https?:\/\/t\.co\/\w+/g) || [];
-      const links = [];
 
-      for (const link of tcoLinks) {
+      const linkPromises = tcoLinks.map(async (link) => {
         const expanded = await expandTcoLink(link);
-        console.log(`  Expanded: ${link} -> ${expanded}`);
 
-        // Categorize the link
         let type = 'unknown';
         let content = null;
 
@@ -474,11 +469,9 @@ export async function fetchAndPrepareBookmarks(options = {}) {
             type = 'media';
           } else {
             type = 'tweet';
-            // Quote tweet - fetch the quoted tweet for context
             const tweetIdMatch = expanded.match(/status\/(\d+)/);
             if (tweetIdMatch) {
               const quotedTweetId = tweetIdMatch[1];
-              console.log(`  Quote tweet detected, fetching ${quotedTweetId}...`);
               const quotedTweet = fetchTweet(config, quotedTweetId);
               if (quotedTweet) {
                 content = {
@@ -498,7 +491,6 @@ export async function fetchAndPrepareBookmarks(options = {}) {
           type = 'article';
         }
 
-        // Fetch content for articles and GitHub repos
         if (type === 'article' || type === 'github') {
           try {
             const fetchResult = await fetchContent(expanded, type, config);
@@ -515,7 +507,6 @@ export async function fetchAndPrepareBookmarks(options = {}) {
                 url: fetchResult.url,
                 source: 'github-api'
               };
-              console.log(`  GitHub repo: ${fetchResult.fullName} (${fetchResult.stars} stars)`);
             } else {
               content = {
                 text: fetchResult.text?.slice(0, 10000),
@@ -524,23 +515,17 @@ export async function fetchAndPrepareBookmarks(options = {}) {
               };
             }
           } catch (error) {
-            console.log(`  Could not fetch content: ${error.message}`);
             content = { error: error.message };
           }
         }
 
-        links.push({
-          original: link,
-          expanded,
-          type,
-          content
-        });
-      }
+        return { original: link, expanded, type, content };
+      });
 
-      // If this is a reply, fetch the parent tweet for context
+      const links = await Promise.all(linkPromises);
+
       let replyContext = null;
       if (bookmark.inReplyToStatusId) {
-        console.log(`  This is a reply to ${bookmark.inReplyToStatusId}, fetching parent...`);
         const parentTweet = fetchTweet(config, bookmark.inReplyToStatusId);
         if (parentTweet) {
           replyContext = {
@@ -553,7 +538,6 @@ export async function fetchAndPrepareBookmarks(options = {}) {
         }
       }
 
-      // Check for native quote tweet
       let quoteContext = null;
       if (bookmark.quotedTweet) {
         const qt = bookmark.quotedTweet;
@@ -567,17 +551,10 @@ export async function fetchAndPrepareBookmarks(options = {}) {
         };
       }
 
-      // Capture media attachments (photos, videos, GIFs) - EXPERIMENTAL
-      // Only included if includeMedia is true (--media flag)
       const media = configWithOptions.includeMedia ? (bookmark.media || []) : [];
+      const tags = bookmark._folderTag ? [bookmark._folderTag] : [];
 
-      // Build tags array from folder tag (if present)
-      const tags = [];
-      if (bookmark._folderTag) {
-        tags.push(bookmark._folderTag);
-      }
-
-      prepared.push({
+      return {
         id: bookmark.id,
         author,
         authorName: bookmark.author?.name || bookmark.user?.name || author,
@@ -592,14 +569,25 @@ export async function fetchAndPrepareBookmarks(options = {}) {
         replyContext,
         isQuote: !!quoteContext,
         quoteContext
-      });
-
-      const mediaInfo = media.length > 0 ? ` (${media.length} media)` : '';
-      const tagInfo = tags.length > 0 ? ` [${tags.join(', ')}]` : '';
-      console.log(`  Prepared: @${author} with ${links.length} links${mediaInfo}${tagInfo}${replyContext ? ' (reply)' : ''}${quoteContext ? ' (quote)' : ''}`);
+      };
 
     } catch (error) {
       console.error(`  Error processing bookmark ${bookmark.id}: ${error.message}`);
+      return null;
+    }
+  }
+
+  for (let i = 0; i < toProcess.length; i += MAX_CONCURRENT) {
+    const batch = toProcess.slice(i, i + MAX_CONCURRENT);
+    console.log(`  Processing batch ${Math.floor(i / MAX_CONCURRENT) + 1}/${Math.ceil(toProcess.length / MAX_CONCURRENT)}...`);
+    const results = await Promise.all(batch.map(processBookmark));
+    for (const result of results) {
+      if (result) {
+        prepared.push(result);
+        const mediaInfo = result.media.length > 0 ? ` (${result.media.length} media)` : '';
+        const tagInfo = result.tags.length > 0 ? ` [${result.tags.join(', ')}]` : '';
+        console.log(`  ✓ @${result.author}: ${result.links.length} links${mediaInfo}${tagInfo}`);
+      }
     }
   }
 
